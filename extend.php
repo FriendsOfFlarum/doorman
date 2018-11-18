@@ -13,6 +13,8 @@
 namespace Reflar\Doorman;
 
 use Flarum\Extend;
+use Reflar\Doorman\Api\Controllers;
+use Illuminate\Contracts\Bus\Dispatcher;
 
 return [
     (new Extend\Frontend('forum'))
@@ -21,5 +23,11 @@ return [
     (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/resources/less/admin.less'),
-    new Extend\Locales(__DIR__ . '/resources/locale')
+    (new Extend\Routes('api'))
+        ->post('/reflar/doorkeys', 'reflar.doorkey.create', Controllers\CreateDoorkeyController::class)
+        ->get('/reflar/doorkeys', 'reflar.doorkeys.index', Controllers\ListDoorkeysController::class),
+    new Extend\Locales(__DIR__ . '/resources/locale'),
+    function (Dispatcher $dispatcher) {
+        $dispatcher->pipeThrough(['Reflar\Doorman\Verify']);
+    },
 ];

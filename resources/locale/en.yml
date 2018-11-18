@@ -1,0 +1,8 @@
+reflar-doorman:
+  forum:
+    sign_up:
+      doorman_placeholder: Code
+
+  admin:
+    page:
+      title: Doorman

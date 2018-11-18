@@ -25,9 +25,9 @@
     "flarum-extension": {
       "title": "ReFlar Doorman",
       "icon": {
-        "name": "",
-        "backgroundColor": "",
-        "color": ""
+        "name": "fas fa-door-closed",
+        "backgroundColor": "#263238",
+        "color": "#FFF"
       }
     },
     "flagrow": {
