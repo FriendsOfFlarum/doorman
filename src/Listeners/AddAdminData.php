@@ -59,14 +59,13 @@ class AddAdminData
         }
     }
 
-/**
- * @param WillGetData $event
- */
-public
-function includeReactions(WillGetData $event)
-{
-    if ($event->isController(ShowForumController::class)) {
-        $event->addInclude('doorkeys');
+    /**
+     * @param WillGetData $event
+     */
+    public function includeReactions(WillGetData $event)
+    {
+        if ($event->isController(ShowForumController::class)) {
+            $event->addInclude('doorkeys');
+        }
     }
-}
 }
