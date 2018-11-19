@@ -4,11 +4,10 @@ import mixin from 'flarum/utils/mixin';
 export default class Doorkey extends mixin(Model, {
     id: Model.attribute('id'),
     key: Model.attribute('key'),
-    group: Model.hasOne('group'),
-    maxUses: Model.attribute('max_uses', Boolean),
-    uses: Model.attribute('uses', Boolean),
+    groupId: Model.attribute('groupId'),
+    maxUses: Model.attribute('maxUses'),
+    activates: Model.attribute('activates'),
 
-    isValid: Model.attribute('activates', Boolean),
 }) {
     apiEndpoint() {
         return `/reflar/doorkeys${this.exists ? `/${this.data.id}` : ''}`;

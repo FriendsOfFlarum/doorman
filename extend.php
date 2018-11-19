@@ -14,7 +14,7 @@ namespace Reflar\Doorman;
 
 use Flarum\Extend;
 use Reflar\Doorman\Api\Controllers;
-use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Contracts\Events\Dispatcher;
 
 return [
     (new Extend\Frontend('forum'))
@@ -28,6 +28,8 @@ return [
         ->get('/reflar/doorkeys', 'reflar.doorkeys.index', Controllers\ListDoorkeysController::class),
     new Extend\Locales(__DIR__ . '/resources/locale'),
     function (Dispatcher $dispatcher) {
-        $dispatcher->pipeThrough(['Reflar\Doorman\Verify']);
+        $dispatcher->subscribe(Listeners\AddValidatorRule::class);
+        $dispatcher->subscribe(Listeners\ValidateDoorKey::class);
+        $dispatcher->subscribe(Listeners\AddAdminData::class);
     },
 ];

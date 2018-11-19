@@ -25,7 +25,7 @@ class DoorkeyLoginValidator extends AbstractValidator
     protected $rules = [
         'reflar-doorkey' => [
             'required',
-            'reflar-doorkey',
+            'doorkey',
         ],
     ];
 
@@ -34,8 +34,10 @@ class DoorkeyLoginValidator extends AbstractValidator
      */
     protected function getMessages()
     {
+        $translator = app('translator');
         return [
-            'reflar-doorkey' => app('translator')->trans('reflar-doorkey.admin.invalid_doorkey')
+            'doorkey' => $translator->trans('reflar-doorkey.admin.invalid_doorkey'),
+            'required' => $translator->trans('reflar-doorkey.admin.doorkey_required')
         ];
     }
 }

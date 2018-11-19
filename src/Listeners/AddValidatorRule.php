@@ -1,5 +1,4 @@
 <?php
-
 /**
  *  This file is part of reflar/doorman.
  *
@@ -7,18 +6,14 @@
  *
  *  https://reflar.redevs.org
  *
- *  For the full copyright and license information, please view the LICENSE.md
- *  file that was distributed with this source code.
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  */
 
 namespace Reflar\Doorman\Listeners;
 
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Bus\Dispatcher as BusDispatcher;
-use Flarum\User\Command\RegisterUser;
-use Flarum\User\UserValidator;
 use Flarum\Foundation\Event\Validating;
-use Flarum\Settings\SettingsRepositoryInterface;
 use Reflar\Doorman\Doorkey;
 use Reflar\Doorman\Validators\DoorkeyLoginValidator;
 
@@ -35,14 +30,13 @@ class AddValidatorRule
     }
 
     /**
-     * @param ConfigureValidator $event
-     * @return void
+     * @param Validating $event
      */
-    public function addRule(ConfigureValidator $event)
+    public function addRule(Validating $event)
     {
         if ($event->type instanceof DoorkeyLoginValidator) {
             $event->validator->addExtension(
-                'reflar-doorkey',
+                'doorkey',
                 function ($attribute, $value, $parameters) {
                     $doorkey = Doorkey::where('key', $value)->first();
                     if ($doorkey !== null && ($doorkey->max_uses === null || $doorkey->uses < $doorkey->max_uses)) {

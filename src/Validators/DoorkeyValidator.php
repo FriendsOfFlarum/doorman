@@ -14,7 +14,7 @@ namespace Reflar\Doorman\Validators;
 
 use Flarum\Foundation\AbstractValidator;
 
-class DoorkeyLoginValidator extends AbstractValidator
+class DoorkeyValidator extends AbstractValidator
 {
     protected $translator;
 

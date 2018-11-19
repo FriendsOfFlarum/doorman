@@ -1,8 +1,10 @@
 reflar-doorman:
   forum:
     sign_up:
-      doorman_placeholder: Code
+      doorman_placeholder: Invite Code
 
   admin:
+    invalid_doorkey: The invite code you provided is invalid.
+    doorkey_required: You must provide an Invite Code
     page:
       title: Doorman

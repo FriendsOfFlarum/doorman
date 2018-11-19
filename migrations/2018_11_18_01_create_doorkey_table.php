@@ -9,7 +9,7 @@ return [
             $schema->create('doorkeys', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('key');
-                $table->integer('group_id')->nullable();
+                $table->integer('group_id')->unsigned()->nullable();
                 $table->integer('max_uses')->unsigned()->nullable();
                 $table->integer('uses')->unsigned();
                 $table->boolean('activates');
