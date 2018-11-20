@@ -31,7 +31,7 @@ return [
     new Extend\Locales(__DIR__.'/resources/locale'),
     function (Dispatcher $dispatcher) {
         $dispatcher->subscribe(Listeners\AddValidatorRule::class);
-        $dispatcher->subscribe(Listeners\ValidateDoorKey::class);
+        $dispatcher->subscribe(Listeners\ValidateDoorkey::class);
         $dispatcher->subscribe(Listeners\PostRegisterOperations::class);
         $dispatcher->subscribe(Listeners\AddAdminData::class);
     },

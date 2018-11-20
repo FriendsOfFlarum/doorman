@@ -15,7 +15,7 @@ reflar-doorman:
         help:
           key: "Key: Code the user will type in when registering."
           group: "Group: The group the user will be added to when the register."
-          max: "Max Uses: The max number of times the code can be used."
+          max: "Max Uses: The max number of times the code can be used, set to 0 for unlimited uses"
           activates: "Activates User: Automatically activates the user when they register."
         warning: This invite code has been used its max number of times.
         key: Key
