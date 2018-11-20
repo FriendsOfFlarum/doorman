@@ -28,6 +28,7 @@ class EditDoorkeyHandler
 
     /**
      * EditDoorkeyHandler constructor.
+     *
      * @param DoorkeyValidator $validator
      */
     public function __construct(DoorkeyValidator $validator)

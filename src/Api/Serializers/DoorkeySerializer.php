@@ -37,10 +37,10 @@ class DoorkeySerializer extends AbstractSerializer
         }
 
         return [
-            'key' => $doorkey->key,
-            'uses'   => $doorkey->uses,
-            'groupId'  => $doorkey->group_id, // 🤯
-            'maxUses'  => $doorkey->max_uses,
+            'key'       => $doorkey->key,
+            'uses'      => $doorkey->uses,
+            'groupId'   => $doorkey->group_id, // 🤯
+            'maxUses'   => $doorkey->max_uses,
             'activates' => $doorkey->activates,
         ];
     }

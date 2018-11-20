@@ -13,15 +13,15 @@
 
 namespace Reflar\Doorman\Listeners;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Flarum\User\Event\Registered;
+use Illuminate\Contracts\Events\Dispatcher;
 use Reflar\Doorman\Doorkey;
 
 class PostRegisterOperations
 {
-
     /**
      * @param Dispatcher $events
+     *
      * @return void
      */
     public function subscribe(Dispatcher $events)

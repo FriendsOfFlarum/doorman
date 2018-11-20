@@ -29,6 +29,7 @@ class Doorkey extends AbstractModel
         $doorkey->group_id = $groupId;
         $doorkey->max_uses = $maxUses;
         $doorkey->activates = $activates;
+
         return $doorkey;
     }
 

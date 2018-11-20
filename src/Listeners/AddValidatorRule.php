@@ -12,16 +12,16 @@
 
 namespace Reflar\Doorman\Listeners;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Flarum\Foundation\Event\Validating;
+use Illuminate\Contracts\Events\Dispatcher;
 use Reflar\Doorman\Doorkey;
 use Reflar\Doorman\Validators\DoorkeyLoginValidator;
 
 class AddValidatorRule
 {
-
     /**
      * @param Dispatcher $events
+     *
      * @return void
      */
     public function subscribe(Dispatcher $events)
