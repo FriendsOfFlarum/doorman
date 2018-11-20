@@ -56,8 +56,8 @@ class EditDoorkeyHandler
         $doorkey = Doorkey::where('id', $command->doorkeyId)->firstOrFail();
 
         if (isset($attributes['key']) && '' !== $attributes['key']) {
-            $validate['key'] = $attributes['key'];
-            $doorkey->key = $attributes['key'];
+            $validate['key'] = strtoupper($attributes['key']);
+            $doorkey->key = strtoupper($attributes['key']);
         }
 
         if (isset($attributes['groupId']) && '' !== $attributes['groupId']) {

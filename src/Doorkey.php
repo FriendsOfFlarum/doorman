@@ -25,7 +25,7 @@ class Doorkey extends AbstractModel
     public static function build($key, $groupId, $maxUses, $activates)
     {
         $doorkey = new static();
-        $doorkey->key = $key;
+        $doorkey->key = strtoupper($key);
         $doorkey->group_id = $groupId;
         $doorkey->max_uses = $maxUses;
         $doorkey->activates = $activates;

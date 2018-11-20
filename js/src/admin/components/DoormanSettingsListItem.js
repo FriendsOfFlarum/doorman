@@ -92,8 +92,6 @@ export default class DoormanSettingsListItem extends Component {
     deleteDoorkey(doorkeyToDelete) {
         doorkeyToDelete.delete();
         this.doorkeys.some((doorkey, i) => {
-            console.log(doorkey)
-            console.log(doorkeyToDelete)
             if (doorkey.data.id === doorkeyToDelete.data.id) {
                 this.doorkeys.splice(i, 1);
                 return true;

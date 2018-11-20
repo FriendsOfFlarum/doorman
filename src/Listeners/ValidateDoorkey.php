@@ -44,7 +44,7 @@ class ValidateDoorkey
     public function validateKey(Saving $event)
     {
         if (!$event->user->exists) {
-            $key = array_get($event->data, 'attributes.reflar-doorkey');
+            $key = strtoupper(array_get($event->data, 'attributes.reflar-doorkey'));
             $this->validator->assertValid([
                 'reflar-doorkey' => $key,
             ]);
