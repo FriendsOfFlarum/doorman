@@ -27,7 +27,7 @@ export default class DoormanSettingsListItem extends Component {
                 })}
                 <input
                     className='FormControl Doorkey-maxUses'
-                    value={this.doorkey.maxUses()}
+                    value={this.doorkey.maxUses() || '0'}
                     type='number'
                     placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.max_uses')}
                     onchange={m.withAttr('value', this.updateMaxUses.bind(this, this.doorkey))}
