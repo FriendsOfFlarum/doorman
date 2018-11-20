@@ -16,7 +16,7 @@ namespace Reflar\Doorman\Commands;
 use Flarum\User\AssertPermissionTrait;
 use Flarum\User\Exception\PermissionDeniedException;
 use Reflar\Doorman\Doorkey;
-use Reflar\Doorkey\Validator\DoorkeyValidator;
+use Reflar\Doorman\Validators\DoorkeyValidator;
 
 class CreateDoorkeyHandler
 {
@@ -30,19 +30,18 @@ class CreateDoorkeyHandler
     /**
      * @param DoorkeyValidator $validator
      */
-    public function __construct(RankValidator $validator)
+    public function __construct(DoorkeyValidator $validator)
     {
         $this->validator = $validator;
     }
 
     /**
      * @param CreateDoorkey $command
-     *
-     * @throws PermissionDeniedException
-     *
      * @return Doorkey
+     * @throws PermissionDeniedException
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function handle(CreateRank $command)
+    public function handle(CreateDoorkey $command)
     {
         $actor = $command->actor;
         $data = $command->data;

@@ -30,7 +30,7 @@ class AddAdminData
     {
         $events->listen(WillSerializeData::class, [$this, 'loadDoorkeysRelationship']);
         $events->listen(GetApiRelationship::class, [$this, 'getApiAttributes']);
-        $events->listen(WillGetData::class, [$this, 'includeReactions']);
+        $events->listen(WillGetData::class, [$this, 'includeDoorkeys']);
     }
 
     /**
@@ -40,7 +40,7 @@ class AddAdminData
      */
     public function getApiAttributes(GetApiRelationship $event)
     {
-        if ($event->isRelationship(ForumSerializer::class, 'reactions')) {
+        if ($event->isRelationship(ForumSerializer::class, 'doorkeys')) {
             return $event->serializer->hasMany($event->model, DoorkeySerializer::class, 'doorkeys');
         }
     }
@@ -62,7 +62,7 @@ class AddAdminData
     /**
      * @param WillGetData $event
      */
-    public function includeReactions(WillGetData $event)
+    public function includeDoorkeys(WillGetData $event)
     {
         if ($event->isController(ShowForumController::class)) {
             $event->addInclude('doorkeys');

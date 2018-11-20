@@ -13,9 +13,8 @@
 
 namespace Reflar\Doorman\Listeners;
 
-use Illuminate\Contracts\Events\Dispatcher;
 use Flarum\User\Event\Saving;
-use Reflar\Doorman\Doorkey;
+use Illuminate\Contracts\Events\Dispatcher;
 use Reflar\Doorman\Validators\DoorkeyLoginValidator;
 
 class ValidateDoorkey
@@ -43,9 +42,11 @@ class ValidateDoorkey
     public function validateKey(Saving $event)
     {
         if (!$event->user->exists) {
-             $this->validator->assertValid([
-                'reflar-doorkey' => array_get($event->data, 'attributes.reflar-doorkey')
+            $key = array_get($event->data, 'attributes.reflar-doorkey');
+            $this->validator->assertValid([
+                'reflar-doorkey' => $key
             ]);
+            $event->user->invite_code = $key;
         }
     }
 }

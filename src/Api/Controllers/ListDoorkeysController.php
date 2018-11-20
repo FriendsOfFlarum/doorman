@@ -29,11 +29,11 @@ class ListDoorkeysController extends AbstractListController
      */
     public $serializer = DoorkeySerializer::class;
 
-     /**
+    /**
      * @param ServerRequestInterface $request
-     * @param Document               $document
-     *
-     * @return mixed
+     * @param Document $document
+     * @return \Illuminate\Database\Eloquent\Collection|mixed|Doorkey[]
+     * @throws \Flarum\User\Exception\PermissionDeniedException
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {

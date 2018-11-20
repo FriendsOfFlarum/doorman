@@ -39,7 +39,7 @@ class AddValidatorRule
                 'doorkey',
                 function ($attribute, $value, $parameters) {
                     $doorkey = Doorkey::where('key', $value)->first();
-                    if ($doorkey !== null && ($doorkey->max_uses === null || $doorkey->uses < $doorkey->max_uses)) {
+                    if ($doorkey !== null && ($doorkey->max_uses === 0 || $doorkey->uses < $doorkey->max_uses)) {
                         return true;
                     } else {
                         return false;
