@@ -56,7 +56,7 @@ export default class DoormanSettingsPage extends Page {
                     {Select.component({
                         options: this.getGroupsForInput(),
                         className: 'Doorkey-select',
-                        onchange: m.withAttr('value', this.doorkey.groupId),
+                        onchange: this.doorkey.groupId,
                         value: this.doorkey.groupId()
                     })}
                     <input
