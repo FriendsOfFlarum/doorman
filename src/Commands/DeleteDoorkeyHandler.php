@@ -22,8 +22,10 @@ class DeleteDoorkeyHandler
 
     /**
      * @param DeleteDoorkey $command
-     * @return mixed
+     *
      * @throws PermissionDeniedException
+     *
+     * @return mixed
      */
     public function handle(DeleteDoorkey $command)
     {

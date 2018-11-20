@@ -13,8 +13,8 @@
 namespace Reflar\Doorman;
 
 use Flarum\Extend;
-use Reflar\Doorman\Api\Controllers;
 use Illuminate\Contracts\Events\Dispatcher;
+use Reflar\Doorman\Api\Controllers;
 
 return [
     (new Extend\Frontend('forum'))
@@ -28,7 +28,7 @@ return [
         ->delete('/reflar/doorkeys/{id}', 'reflar.doorkey.delete', Controllers\DeleteDoorkeyController::class)
         ->patch('/reflar/doorkeys/{id}', 'reflar.doorkey.update', Controllers\UpdateDoorkeyController::class)
         ->get('/reflar/doorkeys', 'reflar.doorkeys.index', Controllers\ListDoorkeysController::class),
-    new Extend\Locales(__DIR__ . '/resources/locale'),
+    new Extend\Locales(__DIR__.'/resources/locale'),
     function (Dispatcher $dispatcher) {
         $dispatcher->subscribe(Listeners\AddValidatorRule::class);
         $dispatcher->subscribe(Listeners\ValidateDoorKey::class);

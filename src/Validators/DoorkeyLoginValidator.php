@@ -13,7 +13,6 @@
 namespace Reflar\Doorman\Validators;
 
 use Flarum\Foundation\AbstractValidator;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class DoorkeyLoginValidator extends AbstractValidator
 {
@@ -30,14 +29,15 @@ class DoorkeyLoginValidator extends AbstractValidator
     ];
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function getMessages()
     {
         $translator = app('translator');
+
         return [
-            'doorkey' => $translator->trans('reflar-doorman.forum.sign_up.invalid_doorkey'),
-            'required' => $translator->trans('reflar-doorman.forum.sign_up.doorkey_required')
+            'doorkey'  => $translator->trans('reflar-doorman.forum.sign_up.invalid_doorkey'),
+            'required' => $translator->trans('reflar-doorman.forum.sign_up.doorkey_required'),
         ];
     }
 }

@@ -26,7 +26,7 @@ class CreateDoorkey
      * @var array
      */
     public $data;
-    
+
     /**
      * @param User  $actor
      * @param array $data

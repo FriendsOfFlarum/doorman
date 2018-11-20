@@ -15,9 +15,9 @@ namespace Reflar\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractListController;
 use Flarum\User\AssertPermissionTrait;
+use Psr\Http\Message\ServerRequestInterface;
 use Reflar\Doorman\Api\Serializers\DoorkeySerializer;
 use Reflar\Doorman\Doorkey;
-use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
 
 class ListDoorkeysController extends AbstractListController
@@ -31,9 +31,11 @@ class ListDoorkeysController extends AbstractListController
 
     /**
      * @param ServerRequestInterface $request
-     * @param Document $document
-     * @return \Illuminate\Database\Eloquent\Collection|mixed|Doorkey[]
+     * @param Document               $document
+     *
      * @throws \Flarum\User\Exception\PermissionDeniedException
+     *
+     * @return \Illuminate\Database\Eloquent\Collection|mixed|Doorkey[]
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {

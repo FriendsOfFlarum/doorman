@@ -28,6 +28,7 @@ class ValidateDoorkey
 
     /**
      * @param Dispatcher $events
+     *
      * @return void
      */
     public function subscribe(Dispatcher $events)
@@ -37,6 +38,7 @@ class ValidateDoorkey
 
     /**
      * @param Saving $event
+     *
      * @throws \Illuminate\Validation\ValidationException
      */
     public function validateKey(Saving $event)
@@ -44,7 +46,7 @@ class ValidateDoorkey
         if (!$event->user->exists) {
             $key = array_get($event->data, 'attributes.reflar-doorkey');
             $this->validator->assertValid([
-                'reflar-doorkey' => $key
+                'reflar-doorkey' => $key,
             ]);
             $event->user->invite_code = $key;
         }

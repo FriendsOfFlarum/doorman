@@ -28,6 +28,7 @@ class DeleteDoorkey
 
     /**
      * DeleteDoorkey constructor.
+     *
      * @param $doorkeyId
      * @param User $actor
      */

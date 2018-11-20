@@ -25,18 +25,18 @@ class DoorkeyValidator extends AbstractValidator
         'key' => [
             'required',
             'string',
-            'unique:doorkeys,key'
+            'unique:doorkeys,key',
         ],
         'group_id' => [
             'required',
-            'exists:groups,id'
+            'exists:groups,id',
         ],
         'max_uses' => [
             'numeric',
-            'min:0'
+            'min:0',
         ],
         'activates' => [
-            'boolean'
+            'boolean',
         ],
     ];
 }

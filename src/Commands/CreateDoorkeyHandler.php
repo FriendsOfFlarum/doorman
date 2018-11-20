@@ -37,9 +37,11 @@ class CreateDoorkeyHandler
 
     /**
      * @param CreateDoorkey $command
-     * @return Doorkey
+     *
      * @throws PermissionDeniedException
      * @throws \Illuminate\Validation\ValidationException
+     *
+     * @return Doorkey
      */
     public function handle(CreateDoorkey $command)
     {
