@@ -1,24 +1,36 @@
-# ReFlar Doorman
+# Doorman by ReFlar
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/reflar/doorman.svg)](https://packagist.org/packages/reflar/doorman)
+[![GitLab license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ReFlar/Doorman/blob/master/LICENSE) [![Latest Stable Version](https://img.shields.io/packagist/v/reflar/doorman.svg)](https://github.com/ReFlar/doorman)
 
-A [Flarum](http://flarum.org) extension. Create invite codes for users to sign up and be assigned to a group
+A [Flarum](http://flarum.org) extension that restricts sign-ups to user's who have a code created in the admin panel.
+
+Each code can be set to have a maximum number of uses, what group the user should be automatically added to on sign up, and whether or not the user should be automatically activated.
+
+### Usage
+
+- Setup sign-up codes on the admin panel
 
 ### Installation
 
-Use [Bazaar](https://discuss.flarum.org/d/5151-flagrow-bazaar-the-extension-marketplace) or install manually with composer:
+**beta 8 only**
 
-```sh
+Use Bazaar or install it with composer:
+
+```bash
 composer require reflar/doorman
 ```
 
-### Updating
+Then login and enable the extension.
 
-```sh
-composer update reflar/doorman
-php flarum cache:clear
-```
+### To Do
+
+- Allow already signed up users to create codes for others to use (referrals)
+
+### Issues
+
+- [Open an issue on Github](https://github.com/ReFlar/doorman/issues) 
 
 ### Links
 
-- [Packagist](https://packagist.org/packages/reflar/doorman)
+- [On Github](https://github.com/ReFlar/doorman)
+- [On Packagist](https://packagist.org/packages/ReFlar/doorman)
