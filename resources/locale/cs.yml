@@ -1,27 +1,27 @@
 reflar-doorman:
   forum:
     sign_up:
-      invalid_doorkey: Zadanı kód pozvánky je neplatnı.
-      doorkey_required: Zadejte rposím kód pozvánky.
-      doorman_placeholder: Kód pozvánky
+      invalid_doorkey: ZadanÃ½ kÃ³d pozvÃ¡nky je neplatnÃ½.
+      doorkey_required: Zadejte prosÃ­m kÃ³d pozvÃ¡nky.
+      doorman_placeholder: KÃ³d pozvÃ¡nky
 
   admin:
-    invalid_doorkey: Poskytnutı kód pozvánky je neplatnı.
-    doorkey_required: Je nutné zadat kód pozvánky
+    invalid_doorkey: PoskytnutÃ½ kÃ³d pozvÃ¡nky je neplatnÃ½.
+    doorkey_required: Je nutnÃ© zadat kÃ³d pozvÃ¡nky
     page:
       title: Doorman
       doorkey:
-        title: Kódy pozvánek
+        title: KÃ³dy pozvÃ¡nek
         help:
-          key: "Klíè: Kód, kterı uivatel zadává pøi registraci."
-          group: "Skupina: Skupina do které bude uivatel pøiøazen pøi registraci."
-          max: "Omezení: Maximální poèet pouití kódu pro registraci. Nastavte 0 pro neomezenı poèet pouití."
-          activates: "Aktivace uivatele: Automaticky aktivovat uivatele pøi registraci."
-        warning: U tohoto kódu pozvánky byl pøekroèen maximální poèet pouití.
-        key: Klíè
-        max_uses: Omezení
+          key: "KlÃ­Ä: KÃ³d, kterÃ½ uÅ¾ivatel zadÃ¡vÃ¡ pÅ™i registraci."
+          group: "Skupina: Skupina do kterÃ© bude uÅ¾ivatel pÅ™iÅ™azen pÅ™i registraci."
+          max: "OmezenÃ­: MaximÃ¡lnÃ­ poÄet pouÅ¾itÃ­ kÃ³du pro registraci. Nastavte 0 pro neomezenÃ½ poÄet pouÅ¾itÃ­."
+          activates: "Aktivace uÅ¾ivatele: Automaticky aktivovat uÅ¾ivatele pÅ™i registraci."
+        warning: U tohoto kÃ³du pozvÃ¡nky byl pÅ™ekroÄen maximÃ¡lnÃ­ poÄet pouÅ¾itÃ­.
+        key: KlÃ­Ä
+        max_uses: OmezenÃ­
         heading:
-          key: Klíè
+          key: KlÃ­Ä
           group: Skupina
-          activate: Aktivace uivatele
-          max_uses: Omezení
+          activate: Aktivace uÅ¾ivatele
+          max_uses: OmezenÃ­
