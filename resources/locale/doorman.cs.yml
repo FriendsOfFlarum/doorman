@@ -1,0 +1,27 @@
+reflar-doorman:
+  forum:
+    sign_up:
+      invalid_doorkey: Zadaný kód pozvánky je neplatný.
+      doorkey_required: Zadejte rposím kód pozvánky.
+      doorman_placeholder: Kód pozvánky
+
+  admin:
+    invalid_doorkey: Poskytnutý kód pozvánky je neplatný.
+    doorkey_required: Je nutné zadat kód pozvánky
+    page:
+      title: Doorman
+      doorkey:
+        title: Kódy pozvánek
+        help:
+          key: "Klíč: Kód, který uživatel zadává při registraci."
+          group: "Skupina: Skupina do které bude uživatel přiřazen při registraci."
+          max: "Omezení: Maximální počet použití kódu pro registraci. Nastavte 0 pro neomezený počet použití."
+          activates: "Aktivace uživatele: Automaticky aktivovat uživatele při registraci."
+        warning: U tohoto kódu pozvánky byl překročen maximální počet použití.
+        key: Klíč
+        max_uses: Omezení
+        heading:
+          key: Klíč
+          group: Skupina
+          activate: Aktivace uživatele
+          max_uses: Omezení
