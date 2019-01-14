@@ -1,0 +1,27 @@
+reflar-doorman:
+  forum:
+    sign_up:
+      invalid_doorkey: Kod pelawaan yang dimasukkan tidak sah.
+      doorkey_required: Kod pelawaan diperlukan! Sila masukkan.
+      doorman_placeholder: Kod Pelawaan
+
+  admin:
+    invalid_doorkey: Kod pelawaan yang dimasukkan tidak sah.
+    doorkey_required: Kod pelawaan diperlukan! Sila masukkan.
+    page:
+      title: Doorman
+      doorkey:
+        title: Kod Pelawaan
+        help:
+          key: "Kunci: Kod yang perlu dimasukkan semasa mendaftar."
+          group: "Grup: Grup di mana ahli akan dimasukkan selepas mendaftar."
+          max: "Had Gunaan: Jumlah had penggunaan kod, 0 untuk tanpa had."
+          activates: "Pengaktifan: Pengaktifan automatik setelah mendaftar."
+        warning: Kod pelawaan ini sudah sampai ke had maksima pengunaanna.
+        key: Kunci
+        max_uses: Had Gunaan
+        heading:
+          key: Kunci
+          group: Grup
+          activate: Pengaktifan
+          max_uses: Had Gunaan
