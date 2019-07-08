@@ -26,4 +26,7 @@ reflar-doorman:
           group: Group
           activate: Activates User
           max_uses: Max Uses
-        allow-public: Allow public Sign Up
+        allow-public:
+          title: Allow public Sign Up
+          switch-label: Make invite code optional when signing up
+        

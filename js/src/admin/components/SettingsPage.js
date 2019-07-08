@@ -81,12 +81,12 @@ export default class DoormanSettingsPage extends Page {
                     })}
                 </div>
                 <div className="Doorkey-allowPublic">
-                    <h2>{app.translator.trans('reflar-doorman.admin.page.doorkey.allow-public')}</h2>
+                    <h2>{app.translator.trans('reflar-doorman.admin.page.doorkey.allow-public.title')}</h2>
                     {this.switcherLoading ? (
                         <LoadingIndicator />
                     ) : (
                         <Switch state={this.isOptional} onchange={this.toggleOptional.bind(this)} className="AllowPublic-switch">
-                            Make invite code optional when signing up
+                            {app.translator.trans('reflar-doorman.admin.page.doorkey.allow-public.switch-label')}
                         </Switch>
                     )}
                 </div>
