@@ -16,14 +16,17 @@ namespace Reflar\Doorman\Listeners;
 use Flarum\User\Event\Saving;
 use Illuminate\Contracts\Events\Dispatcher;
 use Reflar\Doorman\Validators\DoorkeyLoginValidator;
+use Flarum\Settings\SettingsRepositoryInterface;
 
 class ValidateDoorkey
 {
     protected $validator;
+    protected $settings;
 
-    public function __construct(DoorkeyLoginValidator $validator)
+    public function __construct(DoorkeyLoginValidator $validator, SettingsRepositoryInterface $settings)
     {
         $this->validator = $validator;
+        $this->settings = $settings;
     }
 
     /**
@@ -45,6 +48,13 @@ class ValidateDoorkey
     {
         if (!$event->user->exists) {
             $key = strtoupper(array_get($event->data, 'attributes.reflar-doorkey'));
+
+            // Allows the invitation key to be optional if the setting was enabled
+            $allow = json_decode($this->settings->get('reflar.doorman.allowPublic'));
+            if ($allow && !$key) {
+                return;
+            }
+            
             $this->validator->assertValid([
                 'reflar-doorkey' => $key,
             ]);

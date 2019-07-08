@@ -16,9 +16,16 @@ use Flarum\Foundation\Event\Validating;
 use Illuminate\Contracts\Events\Dispatcher;
 use Reflar\Doorman\Doorkey;
 use Reflar\Doorman\Validators\DoorkeyLoginValidator;
+use Flarum\Settings\SettingsRepositoryInterface;
 
 class AddValidatorRule
 {
+    protected $settings;
+
+    public function __construct(SettingsRepositoryInterface $settings)
+    {
+        $this->settings = $settings;
+    }
     /**
      * @param Dispatcher $events
      *
@@ -39,6 +46,13 @@ class AddValidatorRule
                 'doorkey',
                 function ($attribute, $value, $parameters) {
                     $doorkey = Doorkey::where('key', $value)->first();
+
+                    // Allows the invitation key to be optional if the setting was enabled
+                    $allow = json_decode($this->settings->get('reflar.doorman.allowPublic'));
+                    if ($allow && !$doorkey) {
+                        return;
+                    }
+                    
                     if ($doorkey !== null && ($doorkey->max_uses === 0 || $doorkey->uses < $doorkey->max_uses)) {
                         return true;
                     } else {

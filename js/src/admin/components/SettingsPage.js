@@ -4,13 +4,17 @@ import DoormanSettingsListItem from './DoormanSettingsListItem';
 import Button from 'flarum/components/Button';
 import Select from 'flarum/components/Select';
 import Switch from 'flarum/components/Switch';
+import app from 'flarum/app';
+import saveSettings from 'flarum/utils/saveSettings';
 
 export default class DoormanSettingsPage extends Page {
     init() {
         super.init();
 
         this.loading = false;
+        this.switcherLoading = false;
         this.doorkeys = app.store.all('doorkeys');
+        this.isOptional = JSON.parse(app.data.settings['reflar.doorman.allowPublic']);
 
         this.doorkey = {
             key: m.prop(this.generateRandomKey()),
@@ -78,6 +82,16 @@ export default class DoormanSettingsPage extends Page {
                         onclick: this.createDoorkey.bind(this)
                     })}
                 </div>
+                <div className="Doorkey-allowPublic">
+                    <h2>{app.translator.trans('reflar-doorman.admin.page.doorkey.allow-public')}</h2>
+                    {this.switcherLoading ? (
+                        <LoadingIndicator />
+                    ) : (
+                        <Switch state={this.isOptional} onchange={this.toggleOptional.bind(this)} className="AllowPublic-switch">
+                            Make invite code optional when signing up
+                        </Switch>
+                    )}
+                </div>
             </div>
         );
     }
@@ -115,5 +129,21 @@ export default class DoormanSettingsPage extends Page {
                 m.redraw();
             }
         );
+    }
+
+    toggleOptional() {
+        this.switcherLoading = true;
+        const settings = {
+            'reflar.doorman.allowPublic': JSON.stringify(!this.isOptional),
+        };
+        saveSettings(settings)
+            .then(() => {
+                this.isOptional = JSON.parse(app.data.settings['reflar.doorman.allowPublic']);
+            })
+            .catch(() => {})
+            .then(() => {
+                this.switcherLoading = false;
+                m.redraw();
+            });
     }
 }
