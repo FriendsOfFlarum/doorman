@@ -13,10 +13,10 @@
 namespace Reflar\Doorman\Listeners;
 
 use Flarum\Foundation\Event\Validating;
+use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
 use Reflar\Doorman\Doorkey;
 use Reflar\Doorman\Validators\DoorkeyLoginValidator;
-use Flarum\Settings\SettingsRepositoryInterface;
 
 class AddValidatorRule
 {
@@ -26,6 +26,7 @@ class AddValidatorRule
     {
         $this->settings = $settings;
     }
+
     /**
      * @param Dispatcher $events
      *
@@ -52,7 +53,7 @@ class AddValidatorRule
                     if ($allow && !$doorkey) {
                         return;
                     }
-                    
+
                     if ($doorkey !== null && ($doorkey->max_uses === 0 || $doorkey->uses < $doorkey->max_uses)) {
                         return true;
                     } else {

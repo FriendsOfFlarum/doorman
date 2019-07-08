@@ -13,10 +13,10 @@
 
 namespace Reflar\Doorman\Listeners;
 
+use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\Saving;
 use Illuminate\Contracts\Events\Dispatcher;
 use Reflar\Doorman\Validators\DoorkeyLoginValidator;
-use Flarum\Settings\SettingsRepositoryInterface;
 
 class ValidateDoorkey
 {
@@ -54,7 +54,7 @@ class ValidateDoorkey
             if ($allow && !$key) {
                 return;
             }
-            
+
             $this->validator->assertValid([
                 'reflar-doorkey' => $key,
             ]);

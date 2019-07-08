@@ -13,10 +13,10 @@
 
 namespace Reflar\Doorman\Listeners;
 
+use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\Registered;
 use Illuminate\Contracts\Events\Dispatcher;
 use Reflar\Doorman\Doorkey;
-use Flarum\Settings\SettingsRepositoryInterface;
 
 class PostRegisterOperations
 {
@@ -26,6 +26,7 @@ class PostRegisterOperations
     {
         $this->settings = $settings;
     }
+
     /**
      * @param Dispatcher $events
      *
