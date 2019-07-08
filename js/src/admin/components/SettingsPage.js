@@ -20,17 +20,15 @@ export default class DoormanSettingsPage extends Page {
             key: m.prop(this.generateRandomKey()),
             groupId: m.prop(3),
             maxUses: m.prop(10),
-            activates: m.prop(false)
-        }
+            activates: m.prop(false),
+        };
     }
 
     view() {
         return (
             <div className="container Doorkey-container">
                 <h1>Doorman</h1>
-                {this.loading ? (
-                    <LoadingIndicator/>
-                ) : ''}
+                {this.loading ? <LoadingIndicator /> : ''}
                 <div className="Doorkeys-title">
                     <h2>{app.translator.trans('reflar-doorman.admin.page.doorkey.title')}</h2>
                     <div className="helpText">{app.translator.trans('reflar-doorman.admin.page.doorkey.help.key')}</div>
@@ -46,13 +44,13 @@ export default class DoormanSettingsPage extends Page {
                 </div>
                 <div className="Doorkeys">
                     {this.doorkeys.map(doorkey => {
-                        return DoormanSettingsListItem.component({doorkey, doorkeys: this.doorkeys})
+                        return DoormanSettingsListItem.component({ doorkey, doorkeys: this.doorkeys });
                     })}
                 </div>
                 <div className="Doorkeys-new">
                     <input
-                        className='FormControl Doorkey-key'
-                        type='text'
+                        className="FormControl Doorkey-key"
+                        type="text"
                         value={this.doorkey.key()}
                         placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.key')}
                         oninput={m.withAttr('value', this.doorkey.key)}
@@ -61,25 +59,25 @@ export default class DoormanSettingsPage extends Page {
                         options: this.getGroupsForInput(),
                         className: 'Doorkey-select',
                         onchange: this.doorkey.groupId,
-                        value: this.doorkey.groupId()
+                        value: this.doorkey.groupId(),
                     })}
                     <input
-                        className='FormControl Doorkey-maxUses'
+                        className="FormControl Doorkey-maxUses"
                         value={this.doorkey.maxUses()}
-                        type='number'
+                        type="number"
                         placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.max_uses')}
                         oninput={m.withAttr('value', this.doorkey.maxUses)}
                     />
                     {Switch.component({
                         state: this.doorkey.activates() || false,
                         onchange: this.doorkey.activates,
-                        className: 'Doorkey-switch'
+                        className: 'Doorkey-switch',
                     })}
                     {Button.component({
                         type: 'button',
                         className: 'Button Button--warning Doorkey-button',
                         icon: 'fa fa-plus',
-                        onclick: this.createDoorkey.bind(this)
+                        onclick: this.createDoorkey.bind(this),
                     })}
                 </div>
                 <div className="Doorkey-allowPublic">
@@ -96,39 +94,42 @@ export default class DoormanSettingsPage extends Page {
         );
     }
 
-    getGroupsForInput(){
+    getGroupsForInput() {
         let options = [];
 
         app.store.all('groups').map(group => {
             if (group.nameSingular() === 'Guest') {
                 return;
             }
-            options[group.id()] = group.nameSingular()
+            options[group.id()] = group.nameSingular();
         });
 
         return options;
     }
 
     generateRandomKey() {
-        return Array(8+1).join((Math.random().toString(36)+'00000000000000000').slice(2, 18)).slice(0, 8)
+        return Array(8 + 1)
+            .join((Math.random().toString(36) + '00000000000000000').slice(2, 18))
+            .slice(0, 8);
     }
 
     createDoorkey(doorkey) {
-        app.store.createRecord('doorkeys').save({
-            key: this.doorkey.key(),
-            groupId: this.doorkey.groupId(),
-            maxUses: this.doorkey.maxUses(),
-            activates: this.doorkey.activates()
-        }).then(
-            doorkey => {
+        app.store
+            .createRecord('doorkeys')
+            .save({
+                key: this.doorkey.key(),
+                groupId: this.doorkey.groupId(),
+                maxUses: this.doorkey.maxUses(),
+                activates: this.doorkey.activates(),
+            })
+            .then(doorkey => {
                 this.doorkey.key(this.generateRandomKey());
                 this.doorkey.groupId(3);
                 this.doorkey.maxUses(10);
                 this.doorkey.activates('');
                 this.doorkeys.push(doorkey);
                 m.redraw();
-            }
-        );
+            });
     }
 
     toggleOptional() {

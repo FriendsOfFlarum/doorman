@@ -8,7 +8,6 @@ export default class Doorkey extends mixin(Model, {
     maxUses: Model.attribute('maxUses'),
     uses: Model.attribute('uses'),
     activates: Model.attribute('activates'),
-
 }) {
     apiEndpoint() {
         return `/reflar/doorkeys${this.exists ? `/${this.data.id}` : ''}`;
