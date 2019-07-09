@@ -14,7 +14,7 @@ export default class DoormanSettingsPage extends Page {
         this.loading = false;
         this.switcherLoading = false;
         this.doorkeys = app.store.all('doorkeys');
-        this.isOptional = JSON.parse(app.data.settings['reflar.doorman.allowPublic']);
+        this.isOptional = app.data.settings['reflar.doorman.allowPublic'];
 
         this.doorkey = {
             key: m.prop(this.generateRandomKey()),
@@ -113,7 +113,7 @@ export default class DoormanSettingsPage extends Page {
             .slice(0, 8);
     }
 
-    createDoorkey(doorkey) {
+    createDoorkey() {
         app.store
             .createRecord('doorkeys')
             .save({
