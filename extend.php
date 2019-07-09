@@ -34,5 +34,6 @@ return [
         $dispatcher->subscribe(Listeners\ValidateDoorkey::class);
         $dispatcher->subscribe(Listeners\PostRegisterOperations::class);
         $dispatcher->subscribe(Listeners\AddAdminData::class);
+        $dispatcher->subscribe(Listeners\InjectSettings::class);
     },
 ];

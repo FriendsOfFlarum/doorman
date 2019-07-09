@@ -5,7 +5,6 @@ import Select from 'flarum/components/Select';
 import Switch from 'flarum/components/Switch';
 
 export default class DoormanSettingsListItem extends Component {
-
     view() {
         this.doorkey = this.props.doorkey;
         this.doorkeys = this.props.doorkeys;
@@ -13,8 +12,8 @@ export default class DoormanSettingsListItem extends Component {
         return (
             <div style="float: left;">
                 <input
-                    className='FormControl Doorkey-key'
-                    type='text'
+                    className="FormControl Doorkey-key"
+                    type="text"
                     value={this.doorkey.key()}
                     placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.key')}
                     onchange={m.withAttr('value', this.updateKey.bind(this, this.doorkey))}
@@ -23,41 +22,41 @@ export default class DoormanSettingsListItem extends Component {
                     options: this.getGroupsForInput(),
                     className: 'Doorkey-select',
                     onchange: this.updateGroupId.bind(this, this.doorkey),
-                    value: this.doorkey.groupId() || 3
+                    value: this.doorkey.groupId() || 3,
                 })}
                 <input
-                    className='FormControl Doorkey-maxUses'
+                    className="FormControl Doorkey-maxUses"
                     value={this.doorkey.maxUses() || '0'}
-                    type='number'
+                    type="number"
                     placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.max_uses')}
                     onchange={m.withAttr('value', this.updateMaxUses.bind(this, this.doorkey))}
                 />
                 {Switch.component({
                     state: this.doorkey.activates() || false,
                     onchange: this.updateActivates.bind(this, this.doorkey),
-                    className: 'Doorkey-switch'
+                    className: 'Doorkey-switch',
                 })}
                 {Button.component({
                     type: 'button',
                     className: 'Button Button--warning Doorkey-button',
                     icon: 'fa fa-times',
-                    onclick: this.deleteDoorkey.bind(this, this.doorkey)
+                    onclick: this.deleteDoorkey.bind(this, this.doorkey),
                 })}
-                {this.doorkey.maxUses() === this.doorkey.uses() ?
-                    Badge.component({
-                        className: 'Doorkey-badge',
-                        icon: "fas fa-user-slash",
-                        label: app.translator.trans('reflar-doorman.admin.page.doorkey.warning')
-                    })
+                {this.doorkey.maxUses() === this.doorkey.uses()
+                    ? Badge.component({
+                          className: 'Doorkey-badge',
+                          icon: 'fas fa-user-slash',
+                          label: app.translator.trans('reflar-doorman.admin.page.doorkey.warning'),
+                      })
                     : ''}
             </div>
-        )
+        );
     }
 
     config(isInitialized) {
         if (isInitialized) return;
 
-        $('.fa-exclamation-cricle').tooltip({container: 'body'})
+        $('.fa-exclamation-cricle').tooltip({ container: 'body' });
     }
 
     getGroupsForInput() {
@@ -67,26 +66,26 @@ export default class DoormanSettingsListItem extends Component {
             if (group.nameSingular() === 'Guest') {
                 return;
             }
-            options[group.id()] = group.nameSingular()
+            options[group.id()] = group.nameSingular();
         });
 
         return options;
     }
 
     updateKey(doorkey, key) {
-        doorkey.save({key});
+        doorkey.save({ key });
     }
 
     updateGroupId(doorkey, groupId) {
-        doorkey.save({groupId});
+        doorkey.save({ groupId });
     }
 
     updateMaxUses(doorkey, maxUses) {
-        doorkey.save({maxUses})
+        doorkey.save({ maxUses });
     }
 
     updateActivates(doorkey, activates) {
-        doorkey.save({activates})
+        doorkey.save({ activates });
     }
 
     deleteDoorkey(doorkeyToDelete) {
@@ -96,6 +95,6 @@ export default class DoormanSettingsListItem extends Component {
                 this.doorkeys.splice(i, 1);
                 return true;
             }
-        })
+        });
     }
 }

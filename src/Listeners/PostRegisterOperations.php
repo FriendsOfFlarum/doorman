@@ -13,12 +13,20 @@
 
 namespace Reflar\Doorman\Listeners;
 
+use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\Registered;
 use Illuminate\Contracts\Events\Dispatcher;
 use Reflar\Doorman\Doorkey;
 
 class PostRegisterOperations
 {
+    protected $settings;
+
+    public function __construct(SettingsRepositoryInterface $settings)
+    {
+        $this->settings = $settings;
+    }
+
     /**
      * @param Dispatcher $events
      *
@@ -33,6 +41,12 @@ class PostRegisterOperations
     {
         $user = $event->user;
         $doorkey = Doorkey::where('key', $user->invite_code)->first();
+
+        // Allows the invitation key to be optional if the setting was enabled
+        $allow = json_decode($this->settings->get('reflar.doorman.allowPublic'));
+        if ($allow && !$doorkey) {
+            return;
+        }
 
         if ($doorkey->activates) {
             $user->activate();
