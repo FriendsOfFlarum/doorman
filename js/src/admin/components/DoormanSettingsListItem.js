@@ -9,8 +9,10 @@ export default class DoormanSettingsListItem extends Component {
         this.doorkey = this.props.doorkey;
         this.doorkeys = this.props.doorkeys;
 
+        var remaining = this.doorkey.maxUses() - this.doorkey.uses();
+
         return (
-            <div style="float: left;">
+            <div style="float: left; margin-bottom: 10px;">
                 <input
                     className="FormControl Doorkey-key"
                     type="text"
@@ -44,11 +46,18 @@ export default class DoormanSettingsListItem extends Component {
                 })}
                 {this.doorkey.maxUses() === this.doorkey.uses()
                     ? Badge.component({
-                          className: 'Doorkey-badge',
-                          icon: 'fas fa-user-slash',
-                          label: app.translator.trans('reflar-doorman.admin.page.doorkey.warning'),
-                      })
-                    : ''}
+                        className: 'Doorkey-badge',
+                        icon: 'fas fa-user-slash',
+                        label: app.translator.trans('reflar-doorman.admin.page.doorkey.warning'),
+                    })
+                    : this.doorkey.uses() !== 0 ? (
+                        <div>
+                            <h3>{app.translator.transChoice('reflar-doorman.admin.page.doorkey.used_times',
+                                remaining,
+                                {remaining})}
+                            </h3>
+                        </div>
+                    ) : ''}
             </div>
         );
     }
@@ -56,7 +65,7 @@ export default class DoormanSettingsListItem extends Component {
     config(isInitialized) {
         if (isInitialized) return;
 
-        $('.fa-exclamation-cricle').tooltip({ container: 'body' });
+        $('.fa-exclamation-cricle').tooltip({container: 'body'});
     }
 
     getGroupsForInput() {
@@ -73,19 +82,19 @@ export default class DoormanSettingsListItem extends Component {
     }
 
     updateKey(doorkey, key) {
-        doorkey.save({ key });
+        doorkey.save({key});
     }
 
     updateGroupId(doorkey, groupId) {
-        doorkey.save({ groupId });
+        doorkey.save({groupId});
     }
 
     updateMaxUses(doorkey, maxUses) {
-        doorkey.save({ maxUses });
+        doorkey.save({maxUses});
     }
 
     updateActivates(doorkey, activates) {
-        doorkey.save({ activates });
+        doorkey.save({activates});
     }
 
     deleteDoorkey(doorkeyToDelete) {

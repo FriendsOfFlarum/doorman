@@ -12,6 +12,7 @@ reflar-doorman:
     page:
       title: Doorman
       doorkey:
+        used_times: "1 Use left|{remaining} Uses left"
         title: Invite Codes
         help:
           key: "Key: Code the user will type in when registering."
