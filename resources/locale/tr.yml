@@ -1,0 +1,32 @@
+reflar-doorman:
+  forum:
+    sign_up:
+      invalid_doorkey: Girilen davet kodu geçersiz.
+      doorkey_required: Lütfen davet kodunu giriniz.
+      doorman_placeholder: Davet Kodu
+      doorman_placeholder_optional: Davet Kodu (opsiyonel)
+
+  admin:
+    invalid_doorkey: Girdiğiniz davet kodu geçersiz.
+    doorkey_required: Bir davet kodu oluşturmalısınız
+    page:
+      title: Doorman
+      doorkey:
+        used_times: "1 kullanım kaldı|{remaining} kullanım kaldı"
+        title: Invite Codes
+        help:
+          key: "Anahtar: Kayıt sırasında kullanıcının girmesi gereken kod."
+          group: "Grup: Kullanıcının kayıt olurken ekleneceği grup."
+          max: "Maksimum Kullanım: Bir kodun kaç defa kullanılabileceğini belirtir, "0" değeri sınırsız kullanım sağlar."
+          activates: "Kullanıcıyı Etkinleştir: Kayıt olan kullanıcıyı otomatik olarak etkinleştirir."
+        warning: Bu davet kodu maksimum sayıda kullanılmış.
+        key: Anahtar
+        max_uses: Maksimum Kullanım
+        heading:
+          key: Anahtar
+          group: Grup
+          activate: Kullanıcıyı Etkinleştir
+          max_uses: Maksimum Kullanım
+        allow-public:
+          title: Herkesin kayıt olmasına izin ver
+          switch-label: Kayıt olurken davet kodu girişini opsiyonel tut
