@@ -36,7 +36,7 @@ export default class DoormanSettingsPage extends Page {
                     <div className="helpText">{app.translator.trans('reflar-doorman.admin.page.doorkey.help.max')}</div>
                     <div className="helpText">{app.translator.trans('reflar-doorman.admin.page.doorkey.help.activates')}</div>
                 </div>
-                <div>
+                <div className="Doorkeys-fieldLabels">
                     <h3 className="key">{app.translator.trans('reflar-doorman.admin.page.doorkey.heading.key')}</h3>
                     <h3 className="group">{app.translator.trans('reflar-doorman.admin.page.doorkey.heading.group')}</h3>
                     <h3 className="maxUses">{app.translator.trans('reflar-doorman.admin.page.doorkey.heading.max_uses')}</h3>
@@ -48,31 +48,33 @@ export default class DoormanSettingsPage extends Page {
                     })}
                 </div>
                 <div className="Doorkeys-new">
-                    <input
-                        className="FormControl Doorkey-key"
-                        type="text"
-                        value={this.doorkey.key()}
-                        placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.key')}
-                        oninput={m.withAttr('value', this.doorkey.key)}
-                    />
-                    {Select.component({
-                        options: this.getGroupsForInput(),
-                        className: 'Doorkey-select',
-                        onchange: this.doorkey.groupId,
-                        value: this.doorkey.groupId(),
-                    })}
-                    <input
-                        className="FormControl Doorkey-maxUses"
-                        value={this.doorkey.maxUses()}
-                        type="number"
-                        placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.max_uses')}
-                        oninput={m.withAttr('value', this.doorkey.maxUses)}
-                    />
-                    {Switch.component({
-                        state: this.doorkey.activates() || false,
-                        onchange: this.doorkey.activates,
-                        className: 'Doorkey-switch',
-                    })}
+                    <div className="Doorkeys-newInputs">
+                        <input
+                            className="FormControl Doorkey-key"
+                            type="text"
+                            value={this.doorkey.key()}
+                            placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.key')}
+                            oninput={m.withAttr('value', this.doorkey.key)}
+                        />
+                        {Select.component({
+                            options: this.getGroupsForInput(),
+                            className: 'Doorkey-select',
+                            onchange: this.doorkey.groupId,
+                            value: this.doorkey.groupId(),
+                        })}
+                        <input
+                            className="FormControl Doorkey-maxUses"
+                            value={this.doorkey.maxUses()}
+                            type="number"
+                            placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.max_uses')}
+                            oninput={m.withAttr('value', this.doorkey.maxUses)}
+                        />
+                        {Switch.component({
+                            state: this.doorkey.activates() || false,
+                            onchange: this.doorkey.activates,
+                            className: 'Doorkey-switch',
+                        })}
+                    </div>
                     {Button.component({
                         type: 'button',
                         className: 'Button Button--warning Doorkey-button',
