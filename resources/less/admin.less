@@ -1,63 +1,57 @@
 .Doorkey-container {
 
-  max-width: 700px;
+  display: flex;
+  flex-direction: column;
 
-  .Doorkeys {
-    margin-top: 20px;
-    max-width: 658px;
-  }
-  .Doorkeys-new {
-    float: left;
-    margin-top: 15px;
-  }
-  .key {
-    margin-left: 8px;
-  }
-  .group {
-    margin-left: 187px;
-  }
-  .maxUses {
-    margin-left: 68px;
-  }
-  .activate {
-    margin-left: 43px;
-  }
-  h3 {
-    display: inline;
-  }
-  .Doorkeys-title {
-    margin: 20px 0 20px 8px;
-  }
-  .Doorkey-key {
-    width: 30%;
-    float: left;
-    margin: 5px 8px 5px;
-  }
-  .Select {
-    margin: 5px 8px 5px;
-    float: left;
-  }
-  .Doorkey-badge {
-    margin: 10px 8px 5px;
-    float: left;
-    background-color: #d83e3e;
-  }
-  .Doorkey-button {
-    margin: 5px 8px 5px;
-    float: left;
-  }
-  .Doorkey-maxUses {
-    width: 14%;
-    float: left;
-    margin: 5px 8px 5px;
-  }
-  .Doorkey-switch {
-    margin: 11px 10px 5px;
-    float: left;
-  }
+  h1,
+  .Doorkeys-title,
   .Doorkey-allowPublic {
     margin-left: 8px;
-    float: left;
+  }
+
+  .Doorkeys-new,
+  .Doorkeys-fieldLabels,
+  .Doorkey-allowPublic  {
+    margin-top: 20px;
+  }
+
+  .DoormanSettingsListItem {
+    margin-top:8px;
+  }
+
+  .Doorkeys-fieldLabels,
+  .DoormanSettingsListItem-inputs,
+  .Doorkeys-newInputs {
+    display: flex;
+    width: 730px;
+    align-items: center;
+    & > * {
+      flex-basis: 25%;
+      margin: 0 8px;
+    }
+  }
+
+  .DoormanSettingsListItem,
+  .Doorkeys-new {
+    display: flex;
+    align-items: center;
+  }
+
+  .Doorkey-switch {
+    margin-top: 3px;
+  }
+  .Doorkey-button {
+    margin-right: 18px;
+    width: 37px;
+  }
+  .Doorkey-badge {
+    background-color: #d83e3e;
+  }
+  .Doorkey-left {
+    margin: 0;
+  }
+
+  .Doorkey-allowPublic {
     .LoadingIndicator {
       width: 25px;
     }
