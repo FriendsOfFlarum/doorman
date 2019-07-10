@@ -9,6 +9,8 @@ reflar-doorman:
   admin:
     invalid_doorkey: The invite code you provided is invalid.
     doorkey_required: You must provide an Invite Code
+    nav:
+      desc: Create invite codes for users to sign up and be assigned to a group
     page:
       title: Doorman
       doorkey:
