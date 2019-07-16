@@ -1,0 +1,34 @@
+reflar-doorman:
+  forum:
+    sign_up:
+      invalid_doorkey: Le code d'invitation saisi est invalide.
+      doorkey_required: Veuillez saisir un code d'invitation
+      doorman_placeholder: Code d'invitation
+      doorman_placeholder_optional: Code d'invitation (optionnel)
+
+  admin:
+    invalid_doorkey: Le code d'invitation saisi est invalide.
+    doorkey_required: La saisie d'un code d'invitation est obligatoire
+    nav:
+      desc: Créer un code d'invation pour les nouveaux utilisateurs, et les assigner à un groupe.
+    page:
+      title: Doorman
+      doorkey:
+        used_times: "1 Use left|{remaining} Uses left"
+        title: Codes d'invitations
+        help:
+          key: "Clé: Le code d'invitation que l'utilisateur devra saisir au moment de l'inscription."
+          group: "Groupe: Le groupe sur lequel l'utilisateur sera ajouté."
+          max: "Max Usage: Nombre d'usage maximum du code d'invitation. Mettre le nombre à 0 pour un usage illimité"
+          activates: "Activation des inscrits: Activer automatiquement les utilisateurs une fois inscrits."
+        warning: Ce code d'invitation a atteint sa limite maximum d'utilisation.
+        key: Clé
+        max_uses: Max Usages
+        heading:
+          key: Clé
+          group: Groupe
+          activate: Activer les Utilisateurs
+          max_uses: Max Usages
+        allow-public:
+          title: Autoriser l'inscription à tous les utilisateurs.
+          switch-label: Rendre le code d'invitation optionnel pour l'inscription.
