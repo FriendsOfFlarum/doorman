@@ -1,35 +1,33 @@
 reflar-doorman:
-  forum:
-    sign_up:
-      invalid_doorkey: The invite code your entered is invalid.
-      doorkey_required: Please enter an invite code.
-      doorman_placeholder: Invite Code
-      doorman_placeholder_optional: Invite Code (optional)
-
   admin:
-    invalid_doorkey: The invite code you provided is invalid.
     doorkey_required: You must provide an Invite Code
+    invalid_doorkey: The invite code you provided is invalid.
     nav:
       desc: Create invite codes for users to sign up and be assigned to a group
     page:
-      title: Doorman
       doorkey:
-        used_times: "1 Use left|{remaining} Uses left"
-        title: Invite Codes
+        allow-public:
+          switch-label: Make invite code optional when signing up
+          title: Allow public Sign Up
+        heading:
+          activate: Activates User
+          group: Group
+          key: Key
+          max_uses: Max Uses
         help:
-          key: "Key: Code the user will type in when registering."
-          group: "Group: The group the user will be added to when the register."
-          max: "Max Uses: The max number of times the code can be used, set to 0 for unlimited uses"
-          activates: "Activates User: Automatically activates the user when they register."
-        warning: This invite code has been used its max number of times.
+          activates: 'Activates User: Automatically activates the user when they register.'
+          group: 'Group: The group the user will be added to when the register.'
+          key: 'Key: Code the user will type in when registering.'
+          max: 'Max Uses: The max number of times the code can be used, set to 0 for unlimited uses'
         key: Key
         max_uses: Max Uses
-        heading:
-          key: Key
-          group: Group
-          activate: Activates User
-          max_uses: Max Uses
-        allow-public:
-          title: Allow public Sign Up
-          switch-label: Make invite code optional when signing up
-        
+        title: Invite Codes
+        used_times: '1 Use left|{remaining} Uses left'
+        warning: This invite code has been used its max number of times.
+      title: Doorman
+  forum:
+    sign_up:
+      doorkey_required: Please enter an invite code.
+      doorman_placeholder: Invite Code
+      doorman_placeholder_optional: Invite Code (optional)
+      invalid_doorkey: The invite code your entered is invalid.
