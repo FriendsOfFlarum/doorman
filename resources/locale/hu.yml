@@ -1,27 +1,26 @@
 reflar-doorman:
-  forum:
-    sign_up:
-      invalid_doorkey: A beírt meghívókód érvénytelen.
-      doorkey_required: Kérlek írd be a meghívókódodat.
-      doorman_placeholder: Meghívókód
-
   admin:
-    invalid_doorkey: A megadott meghívókód érvénytelen.
     doorkey_required: Meg kell adnod egy meghívókódot.
+    invalid_doorkey: A megadott meghívókód érvénytelen.
     page:
-      title: Doorman
       doorkey:
-        title: Meghívókódok
+        heading:
+          activate: Felhasználó aktiválása
+          group: Csoport
+          key: Kulcs
+          max_uses: Maximum használat
         help:
-          key: "Kulcs: A kód amit a felhasználó be fog írni regisztrációnál."
-          group: "Csoport: A csoport amihez hozzá lesz adva a felhasználó regisztráció után."
-          max: "Maximum használat: A kód maximális használatainak száma (állítsd 0-ra végtelen használathoz)."
-          activates: "Felhasználó aktiválása: Automatikusan aktiválja a felhasználót regisztráció után."
-        warning: Ez a meghívókód maximális alkalommal lett használva.
+          activates: 'Felhasználó aktiválása: Automatikusan aktiválja a felhasználót regisztráció után.'
+          group: 'Csoport: A csoport amihez hozzá lesz adva a felhasználó regisztráció után.'
+          key: 'Kulcs: A kód amit a felhasználó be fog írni regisztrációnál.'
+          max: 'Maximum használat: A kód maximális használatainak száma (állítsd 0-ra végtelen használathoz).'
         key: Kulcs
         max_uses: Maximum használat
-        heading:
-          key: Kulcs
-          group: Csoport
-          activate: Felhasználó aktiválása
-          max_uses: Maximum használat
+        title: Meghívókódok
+        warning: Ez a meghívókód maximális alkalommal lett használva.
+      title: Doorman
+  forum:
+    sign_up:
+      doorkey_required: Kérlek írd be a meghívókódodat.
+      doorman_placeholder: Meghívókód
+      invalid_doorkey: A beírt meghívókód érvénytelen.
