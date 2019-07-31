@@ -1,34 +1,33 @@
 reflar-doorman:
+  admin:
+    doorkey_required: Sie müssen einen Einladungscode eingeben
+    invalid_doorkey: Der angegebene Einladungscode ist ungültig.
+    nav:
+      desc: 'Einladungscodes für Benutzer erstellen, um sie beim anmelden einer Gruppe zu zuwiesen'
+    page:
+      doorkey:
+        allow-public:
+          switch-label: Den Einladungscode bei der Anmeldung optional machen
+          title: Öffentliche Anmeldung zulassen
+        heading:
+          activate: Benutzer aktivieren
+          group: Gruppe
+          key: Code
+          max_uses: Max. Verwendungen
+        help:
+          activates: 'Benutzer aktivieren: Aktiviert den Benutzer automatisch, wenn er sich registriert.'
+          group: 'Gruppe: Die Gruppe, zu der der Benutzer bei der Registrierung hinzugefügt wird.'
+          key: 'Code: Code, den der Benutzer bei der Registrierung angibt.'
+          max: 'Max. Verwendungen: Wie oft der Code verwendet werden kann, für unbegrenzt auf 0 setzen'
+        key: Code
+        max_uses: Max. Verwendungen
+        title: Einladungscodes
+        used_times: '1 Verwendung übrig|{remaining} Verwendungen übrig'
+        warning: Dieser Einladungscode hat die maximale Anzahl Verwendungen erreicht.
+      title: Doorman
   forum:
     sign_up:
-      invalid_doorkey: Der eingegebene Einladungscode ist ungültig.
       doorkey_required: Bitte geben Sie einen Einladungscode ein.
       doorman_placeholder: Einladungscode
       doorman_placeholder_optional: Einladungscode (optional)
-
-  admin:
-    invalid_doorkey: Der angegebene Einladungscode ist ungültig.
-    doorkey_required: Sie müssen einen Einladungscode eingeben
-    nav:
-      desc: Einladungscodes für Benutzer erstellen, um sie beim anmelden einer Gruppe zu zuwiesen
-    page:
-      title: Doorman
-      doorkey:
-        used_times: "1 Verwendung übrig|{remaining} Verwendungen übrig"
-        title: Einladungscodes
-        help:
-          key: "Code: Code, den der Benutzer bei der Registrierung angibt."
-          group: "Gruppe: Die Gruppe, zu der der Benutzer bei der Registrierung hinzugefügt wird."
-          max: "Max. Verwendungen: Wie oft der Code verwendet werden kann, für unbegrenzt auf 0 setzen"
-          activates: "Benutzer aktivieren: Aktiviert den Benutzer automatisch, wenn er sich registriert."
-        warning: Dieser Einladungscode hat die maximale Anzahl Verwendungen erreicht.
-        key: Code
-        max_uses: Max. Verwendungen
-        heading:
-          key: Code
-          group: Gruppe
-          activate: Benutzer aktivieren
-          max_uses: Max. Verwendungen
-        allow-public:
-          title: Öffentliche Anmeldung zulassen
-          switch-label: Den Einladungscode bei der Anmeldung optional machen
+      invalid_doorkey: Der eingegebene Einladungscode ist ungültig.
