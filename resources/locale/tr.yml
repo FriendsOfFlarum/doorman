@@ -17,7 +17,7 @@ reflar-doorman:
         help:
           key: "Anahtar: Kayıt sırasında kullanıcının girmesi gereken kod."
           group: "Grup: Kullanıcının kayıt olurken ekleneceği grup."
-          max: "Maksimum Kullanım: Bir kodun kaç defa kullanılabileceğini belirtir, "0" değeri sınırsız kullanım sağlar."
+          max: "Maksimum Kullanım: Bir kodun kaç defa kullanılabileceğini belirtir, '0' değeri sınırsız kullanım sağlar."
           activates: "Kullanıcıyı Etkinleştir: Kayıt olan kullanıcıyı otomatik olarak etkinleştirir."
         warning: Bu davet kodu maksimum sayıda kullanılmış.
         key: Anahtar
