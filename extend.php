@@ -25,6 +25,7 @@ return [
         ->css(__DIR__.'/resources/less/admin.less'),
     (new Extend\Routes('api'))
         ->post('/reflar/doorkeys', 'reflar.doorkey.create', Controllers\CreateDoorkeyController::class)
+        ->post('/reflar/doorkeys/invites', 'reflar.doorkey.invite', Controllers\SendInvitesController::class)
         ->delete('/reflar/doorkeys/{id}', 'reflar.doorkey.delete', Controllers\DeleteDoorkeyController::class)
         ->patch('/reflar/doorkeys/{id}', 'reflar.doorkey.update', Controllers\UpdateDoorkeyController::class)
         ->get('/reflar/doorkeys', 'reflar.doorkeys.index', Controllers\ListDoorkeysController::class),

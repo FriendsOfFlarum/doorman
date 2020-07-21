@@ -4,6 +4,8 @@ import Badge from 'flarum/components/Badge';
 import Select from 'flarum/components/Select';
 import Switch from 'flarum/components/Switch';
 
+import InviteCodeModal from './InviteCodeModal'
+
 export default class DoormanSettingsListItem extends Component {
     view() {
         this.doorkey = this.props.doorkey;
@@ -41,6 +43,13 @@ export default class DoormanSettingsListItem extends Component {
                         className: 'Doorkey-switch',
                     })}
                 </div>
+
+              {Button.component({
+                type: 'button',
+                className: 'Button Button--warning Doorkey-button',
+                icon: 'fa fa-envelope',
+                onclick: this.showModal.bind(this),
+              })}
                 
                 {Button.component({
                     type: 'button',
@@ -65,6 +74,10 @@ export default class DoormanSettingsListItem extends Component {
                     ) : ''}
             </div>
         );
+    }
+
+    showModal() {
+      app.modal.show(new InviteCodeModal({doorkey: this.doorkey}))
     }
 
     config(isInitialized) {

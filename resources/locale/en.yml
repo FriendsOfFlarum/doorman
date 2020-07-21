@@ -1,5 +1,18 @@
 reflar-doorman:
   forum:
+    email:
+      subject: Invite to Join
+      body: |
+        Hello,
+
+        You have been invited to sign up for {forum}.
+
+        When you are ready to create your account, simply click the following link and enter the code when signing up:
+
+        Url: {url}
+        Invite code: {code}
+
+        If you received this in error, please ignore this email.
     sign_up:
       invalid_doorkey: The invite code your entered is invalid.
       doorkey_required: Please enter an invite code.
@@ -7,6 +20,15 @@ reflar-doorman:
       doorman_placeholder_optional: Invite Code (optional)
 
   admin:
+    modal:
+      title: Send Invite Codes
+      group: Sending invites for {group} group
+      help: Accepts a comma, space, or comma-space seperated list. Type an individual email or paste a list then press space to add it/them.
+      placeholder: Enter emails here
+      invalid_emails: "The following email(s) are invalid: {emails}"
+      max_use_conflict: The number of emails exceeds the max number of uses for this code.
+      send: Send Emails
+      success: Emails successfully sent
     invalid_doorkey: The invite code you provided is invalid.
     doorkey_required: You must provide an Invite Code
     nav:
