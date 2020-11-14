@@ -1,12 +1,13 @@
 import app from 'flarum/app';
 import { extend } from 'flarum/extend';
 import SignUpModal from 'flarum/components/SignUpModal';
+import Stream from 'flarum/utils/Stream';
 
 app.initializers.add('reflar-doorman', () => {
-    extend(SignUpModal.prototype, 'init', function() {
-        this.doorkey = m.prop('');
+    extend(SignUpModal.prototype, 'init', function () {
+        this.doorkey = Stream('');
     });
-    extend(SignUpModal.prototype, 'fields', function(fields) {
+    extend(SignUpModal.prototype, 'fields', function (fields) {
         const isOptional = JSON.parse(app.forum.data.attributes['reflar.doorman.allowPublic']);
         let placeholder = app.translator.trans('reflar-doorman.forum.sign_up.doorman_placeholder');
         if (isOptional) {
@@ -27,7 +28,7 @@ app.initializers.add('reflar-doorman', () => {
         );
     });
 
-    extend(SignUpModal.prototype, 'submitData', function(data) {
+    extend(SignUpModal.prototype, 'submitData', function (data) {
         const newData = data;
         newData['reflar-doorkey'] = this.doorkey;
         return newData;

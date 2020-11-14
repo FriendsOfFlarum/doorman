@@ -47,6 +47,7 @@ class SendInvitesController extends AbstractCreateController
         $this->bus = $bus;
         $this->mailer = $mailer;
         $this->translator = $translator;
+        $this->url = $url;
     }
 
     /**

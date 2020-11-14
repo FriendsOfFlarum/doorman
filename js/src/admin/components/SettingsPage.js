@@ -6,10 +6,12 @@ import Select from 'flarum/components/Select';
 import Switch from 'flarum/components/Switch';
 import app from 'flarum/app';
 import saveSettings from 'flarum/utils/saveSettings';
+import Stream from 'flarum/utils/Stream';
+import withAttr from 'flarum/utils/withAttr';
 
 export default class DoormanSettingsPage extends Page {
-    init() {
-        super.init();
+    oninit(vnode) {
+        super.oninit(vnode);
 
         this.loading = false;
         this.switcherLoading = false;
@@ -17,10 +19,10 @@ export default class DoormanSettingsPage extends Page {
         this.isOptional = app.data.settings['reflar.doorman.allowPublic'];
 
         this.doorkey = {
-            key: m.prop(this.generateRandomKey()),
-            groupId: m.prop(3),
-            maxUses: m.prop(10),
-            activates: m.prop(false),
+            key: Stream(this.generateRandomKey()),
+            groupId: Stream(3),
+            maxUses: Stream(10),
+            activates: Stream(false),
         };
     }
 
@@ -43,7 +45,7 @@ export default class DoormanSettingsPage extends Page {
                     <h3 className="activate">{app.translator.trans('reflar-doorman.admin.page.doorkey.heading.activate')}</h3>
                 </div>
                 <div className="Doorkeys">
-                    {this.doorkeys.map(doorkey => {
+                    {this.doorkeys.map((doorkey) => {
                         return DoormanSettingsListItem.component({ doorkey, doorkeys: this.doorkeys });
                     })}
                 </div>
@@ -54,7 +56,7 @@ export default class DoormanSettingsPage extends Page {
                             type="text"
                             value={this.doorkey.key()}
                             placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.key')}
-                            oninput={m.withAttr('value', this.doorkey.key)}
+                            oninput={withAttr('value', this.doorkey.key)}
                         />
                         {Select.component({
                             options: this.getGroupsForInput(),
@@ -67,7 +69,7 @@ export default class DoormanSettingsPage extends Page {
                             value={this.doorkey.maxUses()}
                             type="number"
                             placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.max_uses')}
-                            oninput={m.withAttr('value', this.doorkey.maxUses)}
+                            oninput={withAttr('value', this.doorkey.maxUses)}
                         />
                         {Switch.component({
                             state: this.doorkey.activates() || false,
@@ -99,7 +101,7 @@ export default class DoormanSettingsPage extends Page {
     getGroupsForInput() {
         let options = [];
 
-        app.store.all('groups').map(group => {
+        app.store.all('groups').map((group) => {
             if (group.nameSingular() === 'Guest') {
                 return;
             }
@@ -124,7 +126,7 @@ export default class DoormanSettingsPage extends Page {
                 maxUses: this.doorkey.maxUses(),
                 activates: this.doorkey.activates(),
             })
-            .then(doorkey => {
+            .then((doorkey) => {
                 this.doorkey.key(this.generateRandomKey());
                 this.doorkey.groupId(3);
                 this.doorkey.maxUses(10);

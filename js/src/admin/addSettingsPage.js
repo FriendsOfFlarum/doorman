@@ -3,23 +3,25 @@ import AdminNav from 'flarum/components/AdminNav';
 import AdminLinkButton from 'flarum/components/AdminLinkButton';
 import SettingsPage from './components/SettingsPage';
 
-export default function() {
+export default function () {
     app.routes['reflar-doorman'] = {
         path: '/reflar/doorman',
-        component: SettingsPage.component(),
+        component: SettingsPage,
     };
 
-    app.extensionSettings['reflar-doorman'] = () => m.route(app.route('reflar-doorman'));
+    app.extensionSettings['reflar-doorman'] = () => m.route.get(app.route('reflar-doorman'));
 
-    extend(AdminNav.prototype, 'items', items => {
+    extend(AdminNav.prototype, 'items', (items) => {
         items.add(
             'reflar-doorman',
-            AdminLinkButton.component({
-                href: app.route('reflar-doorman'),
-                icon: 'fa fa-door-closed',
-                children: 'Doorman',
-                description: app.translator.trans('reflar-doorman.admin.nav.desc'),
-            })
+            AdminLinkButton.component(
+                {
+                    href: app.route('reflar-doorman'),
+                    icon: 'fa fa-door-closed',
+                    description: app.translator.trans('reflar-doorman.admin.nav.desc'),
+                },
+                'Doorman'
+            )
         );
     });
 }
