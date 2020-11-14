@@ -15,9 +15,9 @@ namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractListController;
 use Flarum\User\User;
-use Psr\Http\Message\ServerRequestInterface;
 use FoF\Doorman\Api\Serializers\DoorkeySerializer;
 use FoF\Doorman\Doorkey;
+use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
 
 class ListDoorkeysController extends AbstractListController

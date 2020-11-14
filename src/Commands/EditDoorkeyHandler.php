@@ -14,9 +14,9 @@
 namespace FoF\Doorman\Commands;
 
 use Flarum\User\Exception\PermissionDeniedException;
-use Illuminate\Support\Arr;
 use FoF\Doorman\Doorkey;
 use FoF\Doorman\Validators\DoorkeyValidator;
+use Illuminate\Support\Arr;
 
 class EditDoorkeyHandler
 {

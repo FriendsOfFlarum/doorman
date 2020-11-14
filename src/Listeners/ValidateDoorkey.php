@@ -15,9 +15,9 @@ namespace FoF\Doorman\Listeners;
 
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\Saving;
+use FoF\Doorman\Validators\DoorkeyLoginValidator;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
-use FoF\Doorman\Validators\DoorkeyLoginValidator;
 
 class ValidateDoorkey
 {

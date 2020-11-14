@@ -14,8 +14,8 @@
 namespace FoF\Doorman;
 
 use Flarum\Extend;
-use Illuminate\Contracts\Events\Dispatcher;
 use FoF\Doorman\Api\Controllers;
+use Illuminate\Contracts\Events\Dispatcher;
 
 return [
     (new Extend\Frontend('forum'))

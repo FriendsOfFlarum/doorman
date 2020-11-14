@@ -14,11 +14,11 @@
 namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractCreateController;
+use FoF\Doorman\Api\Serializers\DoorkeySerializer;
+use FoF\Doorman\Commands\CreateDoorkey;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
-use FoF\Doorman\Api\Serializers\DoorkeySerializer;
-use FoF\Doorman\Commands\CreateDoorkey;
 use Tobscure\JsonApi\Document;
 
 class CreateDoorkeyController extends AbstractCreateController

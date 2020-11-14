@@ -18,9 +18,9 @@ use Flarum\Api\Event\WillGetData;
 use Flarum\Api\Event\WillSerializeData;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Event\GetApiRelationship;
-use Illuminate\Contracts\Events\Dispatcher;
 use FoF\Doorman\Api\Serializers\DoorkeySerializer;
 use FoF\Doorman\Doorkey;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class AddAdminData
 {

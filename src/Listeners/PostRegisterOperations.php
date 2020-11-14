@@ -15,8 +15,8 @@ namespace FoF\Doorman\Listeners;
 
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\Registered;
-use Illuminate\Contracts\Events\Dispatcher;
 use FoF\Doorman\Doorkey;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class PostRegisterOperations
 {

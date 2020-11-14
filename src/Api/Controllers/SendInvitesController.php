@@ -17,12 +17,12 @@ use Flarum\Api\Controller\AbstractCreateController;
 use Flarum\Http\UrlGenerator;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\User;
+use FoF\Doorman\Api\Serializers\DoorkeySerializer;
+use FoF\Doorman\Doorkey;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 use Psr\Http\Message\ServerRequestInterface;
-use FoF\Doorman\Api\Serializers\DoorkeySerializer;
-use FoF\Doorman\Doorkey;
 use Symfony\Component\Translation\TranslatorInterface;
 use Tobscure\JsonApi\Document;
 
