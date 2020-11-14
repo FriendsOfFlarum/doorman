@@ -123,7 +123,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('reflar-doorman', function () {
-  Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_SignUpModal__WEBPACK_IMPORTED_MODULE_2___default.a.prototype, 'init', function () {
+  Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_SignUpModal__WEBPACK_IMPORTED_MODULE_2___default.a.prototype, 'oninit', function () {
     this.doorkey = flarum_utils_Stream__WEBPACK_IMPORTED_MODULE_3___default()('');
   });
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_SignUpModal__WEBPACK_IMPORTED_MODULE_2___default.a.prototype, 'fields', function (fields) {

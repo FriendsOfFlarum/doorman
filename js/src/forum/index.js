@@ -4,7 +4,7 @@ import SignUpModal from 'flarum/components/SignUpModal';
 import Stream from 'flarum/utils/Stream';
 
 app.initializers.add('reflar-doorman', () => {
-    extend(SignUpModal.prototype, 'init', function () {
+    extend(SignUpModal.prototype, 'oninit', function () {
         this.doorkey = Stream('');
     });
     extend(SignUpModal.prototype, 'fields', function (fields) {
