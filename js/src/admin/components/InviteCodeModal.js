@@ -133,7 +133,7 @@ export default class InviteCodeModal extends Modal {
 
         app.request({
             method: 'POST',
-            url: app.forum.attribute('apiUrl') + '/reflar/doorkeys/invites',
+            url: app.forum.attribute('apiUrl') + '/fof/doorkeys/invites',
             body: {
                 emails: this.emails,
                 doorkeyId: this.doorkey.data.id,

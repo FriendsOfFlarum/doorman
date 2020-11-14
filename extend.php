@@ -25,11 +25,11 @@ return [
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/resources/less/admin.less'),
     (new Extend\Routes('api'))
-        ->post('/reflar/doorkeys', 'reflar.doorkey.create', Controllers\CreateDoorkeyController::class)
-        ->post('/reflar/doorkeys/invites', 'reflar.doorkey.invite', Controllers\SendInvitesController::class)
-        ->delete('/reflar/doorkeys/{id}', 'reflar.doorkey.delete', Controllers\DeleteDoorkeyController::class)
-        ->patch('/reflar/doorkeys/{id}', 'reflar.doorkey.update', Controllers\UpdateDoorkeyController::class)
-        ->get('/reflar/doorkeys', 'reflar.doorkeys.index', Controllers\ListDoorkeysController::class),
+        ->post('/fof/doorkeys', 'fof.doorkey.create', Controllers\CreateDoorkeyController::class)
+        ->post('/fof/doorkeys/invites', 'fof.doorkey.invite', Controllers\SendInvitesController::class)
+        ->delete('/fof/doorkeys/{id}', 'fof.doorkey.delete', Controllers\DeleteDoorkeyController::class)
+        ->patch('/fof/doorkeys/{id}', 'fof.doorkey.update', Controllers\UpdateDoorkeyController::class)
+        ->get('/fof/doorkeys', 'fof.doorkeys.index', Controllers\ListDoorkeysController::class),
     new Extend\Locales(__DIR__.'/resources/locale'),
     function (Dispatcher $dispatcher) {
         $dispatcher->subscribe(Listeners\AddValidatorRule::class);

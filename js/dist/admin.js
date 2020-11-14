@@ -140,18 +140,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
-  app.routes['reflar-doorman'] = {
-    path: '/reflar/doorman',
+  app.routes['fof-doorman'] = {
+    path: '/fof/doorman',
     component: _components_SettingsPage__WEBPACK_IMPORTED_MODULE_3__["default"]
   };
 
-  app.extensionSettings['reflar-doorman'] = function () {
-    return m.route.get(app.route('reflar-doorman'));
+  app.extensionSettings['fof-doorman'] = function () {
+    return m.route.get(app.route('fof-doorman'));
   };
 
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_0__["extend"])(flarum_components_AdminNav__WEBPACK_IMPORTED_MODULE_1___default.a.prototype, 'items', function (items) {
     items.add('reflar-doorman', flarum_components_AdminLinkButton__WEBPACK_IMPORTED_MODULE_2___default.a.component({
-      href: app.route('reflar-doorman'),
+      href: app.route('fof-doorman'),
       icon: 'fa fa-door-closed',
       description: app.translator.trans('fof-doorman.admin.nav.desc')
     }, 'Doorman'));
@@ -477,7 +477,7 @@ function (_Modal) {
     this.loading = true;
     app.request({
       method: 'POST',
-      url: app.forum.attribute('apiUrl') + '/reflar/doorkeys/invites',
+      url: app.forum.attribute('apiUrl') + '/fof/doorkeys/invites',
       body: {
         emails: this.emails,
         doorkeyId: this.doorkey.data.id
@@ -751,7 +751,7 @@ function (_mixin) {
   var _proto = Doorkey.prototype;
 
   _proto.apiEndpoint = function apiEndpoint() {
-    return "/reflar/doorkeys" + (this.exists ? "/" + this.data.id : '');
+    return "/fof/doorkeys" + (this.exists ? "/" + this.data.id : '');
   };
 
   return Doorkey;
