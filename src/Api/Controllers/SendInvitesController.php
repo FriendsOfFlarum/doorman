@@ -1,5 +1,16 @@
 <?php
 
+/*
+ * This file is part of fof/doorman.
+ *
+ * Copyright (c) 2018-2020 Reflar.
+ * Copyright (c) 2020 FriendsOfFlarum
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ *
+ */
+
 namespace Reflar\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractCreateController;
@@ -7,10 +18,10 @@ use Flarum\Http\UrlGenerator;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\User;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 use Psr\Http\Message\ServerRequestInterface;
 use Reflar\Doorman\Api\Serializers\DoorkeySerializer;
-use Illuminate\Contracts\Mail\Mailer;
 use Reflar\Doorman\Doorkey;
 use Symfony\Component\Translation\TranslatorInterface;
 use Tobscure\JsonApi\Document;
@@ -52,9 +63,11 @@ class SendInvitesController extends AbstractCreateController
 
     /**
      * @param ServerRequestInterface $request
-     * @param Document $document
-     * @return mixed
+     * @param Document               $document
+     *
      * @throws \Flarum\User\Exception\PermissionDeniedException
+     *
+     * @return mixed
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {
@@ -74,8 +87,8 @@ class SendInvitesController extends AbstractCreateController
 
         $body = $this->translator->trans('reflar-doorman.forum.email.body', [
             '{forum}' => $title,
-            '{url}' => $this->url->to('forum')->base(),
-            '{code}' => $doorkey->key
+            '{url}'   => $this->url->to('forum')->base(),
+            '{code}'  => $doorkey->key,
         ]);
 
         foreach ($data['emails'] as $email) {
