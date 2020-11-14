@@ -13,15 +13,13 @@
 
 namespace Reflar\Doorman\Commands;
 
-use Flarum\User\AssertPermissionTrait;
 use Flarum\User\Exception\PermissionDeniedException;
+use Illuminate\Support\Arr;
 use Reflar\Doorman\Doorkey;
 use Reflar\Doorman\Validators\DoorkeyValidator;
 
 class CreateDoorkeyHandler
 {
-    use AssertPermissionTrait;
-
     /**
      * @var DoorkeyValidator
      */
@@ -48,13 +46,13 @@ class CreateDoorkeyHandler
         $actor = $command->actor;
         $data = $command->data;
 
-        $this->assertAdmin($actor);
+        $actor->assertAdmin();
 
         $doorkey = Doorkey::build(
-            array_get($data, 'attributes.key'),
-            array_get($data, 'attributes.groupId'),
-            array_get($data, 'attributes.maxUses'),
-            array_get($data, 'attributes.activates')
+            Arr::get($data, 'attributes.key'),
+            Arr::get($data, 'attributes.groupId'),
+            Arr::get($data, 'attributes.maxUses'),
+            Arr::get($data, 'attributes.activates')
         );
 
         $this->validator->assertValid($doorkey->getAttributes());

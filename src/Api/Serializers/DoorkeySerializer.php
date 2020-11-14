@@ -14,6 +14,7 @@
 namespace Reflar\Doorman\Api\Serializers;
 
 use Flarum\Api\Serializer\AbstractSerializer;
+use InvalidArgumentException;
 use Reflar\Doorman\Doorkey;
 
 class DoorkeySerializer extends AbstractSerializer

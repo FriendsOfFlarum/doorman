@@ -14,6 +14,7 @@ namespace Reflar\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractDeleteController;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
 use Reflar\Doorman\Commands\DeleteDoorkey;
 
@@ -38,7 +39,7 @@ class DeleteDoorkeyController extends AbstractDeleteController
     protected function delete(ServerRequestInterface $request)
     {
         $this->bus->dispatch(
-            new DeleteDoorkey(array_get($request->getQueryParams(), 'id'), $request->getAttribute('actor'))
+            new DeleteDoorkey(Arr::get($request->getQueryParams(), 'id'), $request->getAttribute('actor'))
         );
     }
 }

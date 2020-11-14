@@ -14,7 +14,7 @@
 namespace Reflar\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractListController;
-use Flarum\User\AssertPermissionTrait;
+use Flarum\User\User;
 use Psr\Http\Message\ServerRequestInterface;
 use Reflar\Doorman\Api\Serializers\DoorkeySerializer;
 use Reflar\Doorman\Doorkey;
@@ -22,8 +22,6 @@ use Tobscure\JsonApi\Document;
 
 class ListDoorkeysController extends AbstractListController
 {
-    use AssertPermissionTrait;
-
     /**
      * @var DoorkeySerializer
      */
@@ -39,7 +37,11 @@ class ListDoorkeysController extends AbstractListController
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {
-        $this->assertAdmin($request->getAttribute('actor'));
+        /**
+         * @var User
+         */
+        $actor = $request->getAttribute('actor');
+        $actor->assertAdmin();
 
         return Doorkey::all();
     }

@@ -12,15 +12,13 @@
 
 namespace Reflar\Doorman\Commands;
 
-use Flarum\User\AssertPermissionTrait;
 use Flarum\User\Exception\PermissionDeniedException;
+use Illuminate\Support\Arr;
 use Reflar\Doorman\Doorkey;
 use Reflar\Doorman\Validators\DoorkeyValidator;
 
 class EditDoorkeyHandler
 {
-    use AssertPermissionTrait;
-
     /**
      * @var DoorkeyValidator
      */
@@ -47,11 +45,11 @@ class EditDoorkeyHandler
     {
         $actor = $command->actor;
         $data = $command->data;
-        $attributes = array_get($data, 'attributes', []);
+        $attributes = Arr::get($data, 'attributes', []);
 
         $validate = [];
 
-        $this->assertAdmin($actor);
+        $actor->assertAdmin();
 
         $doorkey = Doorkey::where('id', $command->doorkeyId)->firstOrFail();
 

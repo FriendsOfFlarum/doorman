@@ -12,14 +12,11 @@
 
 namespace Reflar\Doorman\Commands;
 
-use Flarum\User\AssertPermissionTrait;
 use Flarum\User\Exception\PermissionDeniedException;
 use Reflar\Doorman\Doorkey;
 
 class DeleteDoorkeyHandler
 {
-    use AssertPermissionTrait;
-
     /**
      * @param DeleteDoorkey $command
      *
@@ -31,7 +28,7 @@ class DeleteDoorkeyHandler
     {
         $actor = $command->actor;
 
-        $this->assertAdmin($actor);
+        $actor->assertAdmin();
 
         $doorkey = Doorkey::where('id', $command->doorkeyId)->firstOrFail();
 

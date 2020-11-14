@@ -15,6 +15,7 @@ namespace Reflar\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractCreateController;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
 use Reflar\Doorman\Api\Serializers\DoorkeySerializer;
 use Reflar\Doorman\Commands\CreateDoorkey;
@@ -46,7 +47,7 @@ class CreateDoorkeyController extends AbstractCreateController
     protected function data(ServerRequestInterface $request, Document $document)
     {
         return $this->bus->dispatch(
-            new CreateDoorkey($request->getAttribute('actor'), array_get($request->getParsedBody(), 'data', []))
+            new CreateDoorkey($request->getAttribute('actor'), Arr::get($request->getParsedBody(), 'data', []))
         );
     }
 }

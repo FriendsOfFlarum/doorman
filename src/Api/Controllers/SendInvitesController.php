@@ -3,8 +3,9 @@
 namespace Reflar\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractCreateController;
+use Flarum\Http\UrlGenerator;
 use Flarum\Settings\SettingsRepositoryInterface;
-use Flarum\User\AssertPermissionTrait;
+use Flarum\User\User;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Mail\Message;
 use Psr\Http\Message\ServerRequestInterface;
@@ -16,8 +17,6 @@ use Tobscure\JsonApi\Document;
 
 class SendInvitesController extends AbstractCreateController
 {
-    use AssertPermissionTrait;
-
     /**
      * @var Dispatcher
      */
@@ -33,12 +32,17 @@ class SendInvitesController extends AbstractCreateController
      */
     protected $translator;
 
+    /**
+     * @var UrlGenerator
+     */
+    protected $url;
+
     public $serializer = DoorkeySerializer::class;
 
     /**
      * @param Dispatcher $bus
      */
-    public function __construct(Dispatcher $bus, Mailer $mailer, TranslatorInterface $translator)
+    public function __construct(Dispatcher $bus, Mailer $mailer, TranslatorInterface $translator, UrlGenerator $url)
     {
         $this->bus = $bus;
         $this->mailer = $mailer;
@@ -53,7 +57,11 @@ class SendInvitesController extends AbstractCreateController
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {
-        $this->assertAdmin($request->getAttribute('actor'));
+        /**
+         * @var User
+         */
+        $actor = $request->getAttribute('actor');
+        $actor->assertAdmin();
 
         $data = $request->getParsedBody();
 
@@ -65,7 +73,7 @@ class SendInvitesController extends AbstractCreateController
 
         $body = $this->translator->trans('reflar-doorman.forum.email.body', [
             '{forum}' => $title,
-            '{url}' => app()->url(),
+            '{url}' => $this->url->to('forum')->base(),
             '{code}' => $doorkey->key
         ]);
 
