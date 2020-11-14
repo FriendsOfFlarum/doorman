@@ -18,7 +18,7 @@ export default class InviteCodeModal extends Modal {
     }
 
     title() {
-        return app.translator.trans('reflar-doorman.admin.modal.title');
+        return app.translator.trans('fof-doorman.admin.modal.title');
     }
 
     oncreate(vnode) {
@@ -37,11 +37,11 @@ export default class InviteCodeModal extends Modal {
         return (
             <div className="Modal-body">
                 <h3>
-                    {app.translator.trans('reflar-doorman.admin.modal.group', {
+                    {app.translator.trans('fof-doorman.admin.modal.group', {
                         group: app.store.getById('groups', this.doorkey.groupId()).nameSingular(),
                     })}
                 </h3>
-                <div className="helpText">{app.translator.trans('reflar-doorman.admin.modal.help')}</div>
+                <div className="helpText">{app.translator.trans('fof-doorman.admin.modal.help')}</div>
                 <div className="Form Form--centered">
                     <div className="Form-group">
                         <input
@@ -49,7 +49,7 @@ export default class InviteCodeModal extends Modal {
                             name="text"
                             id="EmailInput"
                             className="FormControl"
-                            placeholder={app.translator.trans('reflar-doorman.admin.modal.placeholder')}
+                            placeholder={app.translator.trans('fof-doorman.admin.modal.placeholder')}
                             disabled={this.loading}
                         />
                     </div>
@@ -78,7 +78,7 @@ export default class InviteCodeModal extends Modal {
                                 onclick: this.send.bind(this),
                                 disabled: this.emails.length === 0,
                             },
-                            app.translator.trans('reflar-doorman.admin.modal.send')
+                            app.translator.trans('fof-doorman.admin.modal.send')
                         )}
                     </div>
                 </div>
@@ -96,7 +96,7 @@ export default class InviteCodeModal extends Modal {
         value.split(/[ ,]+/).map((email) => {
             if (!this.emails.includes(email)) {
                 if (this.emails.length + 1 > this.doorkey.data.attributes.maxUses) {
-                    this.alert = ({ type: 'error' }, app.translator.trans('reflar-doorman.admin.modal.max_use_conflict'));
+                    this.alert = ({ type: 'error' }, app.translator.trans('fof-doorman.admin.modal.max_use_conflict'));
                     m.redraw();
                 } else {
                     if (this.validateEmail(email)) {
@@ -107,7 +107,7 @@ export default class InviteCodeModal extends Modal {
                         this.badEmails.push(email);
                         this.alert =
                             ({ type: 'error' },
-                            app.translator.trans('reflar-doorman.admin.modal.invalid_emails', { emails: this.badEmails.join(', ') }));
+                            app.translator.trans('fof-doorman.admin.modal.invalid_emails', { emails: this.badEmails.join(', ') }));
                         m.redraw();
                     }
                 }
@@ -140,7 +140,7 @@ export default class InviteCodeModal extends Modal {
             },
         }).then(() => {
             app.modal.close();
-            app.alerts.show({ type: 'success' }, app.translator.trans('reflar-doorman.admin.modal.success'));
+            app.alerts.show({ type: 'success' }, app.translator.trans('fof-doorman.admin.modal.success'));
         });
     }
 }

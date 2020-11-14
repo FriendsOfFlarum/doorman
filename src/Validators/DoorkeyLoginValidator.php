@@ -37,8 +37,8 @@ class DoorkeyLoginValidator extends AbstractValidator
         $translator = app('translator');
 
         return [
-            'doorkey'  => $translator->trans('reflar-doorman.forum.sign_up.invalid_doorkey'),
-            'required' => $translator->trans('reflar-doorman.forum.sign_up.doorkey_required'),
+            'doorkey'  => $translator->trans('fof-doorman.forum.sign_up.invalid_doorkey'),
+            'required' => $translator->trans('fof-doorman.forum.sign_up.doorkey_required'),
         ];
     }
 }

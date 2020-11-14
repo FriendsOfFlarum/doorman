@@ -18,7 +18,7 @@ export default function () {
                 {
                     href: app.route('reflar-doorman'),
                     icon: 'fa fa-door-closed',
-                    description: app.translator.trans('reflar-doorman.admin.nav.desc'),
+                    description: app.translator.trans('fof-doorman.admin.nav.desc'),
                 },
                 'Doorman'
             )

@@ -21,7 +21,7 @@ export default class DoormanSettingsListItem extends Component {
                         type="text"
                         disabled
                         value={this.doorkey.key()}
-                        placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.key')}
+                        placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.key')}
                         onchange={withAttr('value', this.updateKey.bind(this, this.doorkey))}
                     />
                     {Select.component({
@@ -34,7 +34,7 @@ export default class DoormanSettingsListItem extends Component {
                         className="FormControl Doorkey-maxUses"
                         value={this.doorkey.maxUses() || '0'}
                         type="number"
-                        placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.max_uses')}
+                        placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.max_uses')}
                         onchange={withAttr('value', this.updateMaxUses.bind(this, this.doorkey))}
                     />
                     {Switch.component({
@@ -62,12 +62,12 @@ export default class DoormanSettingsListItem extends Component {
                     Badge.component({
                         className: 'Doorkey-badge',
                         icon: 'fas fa-user-slash',
-                        label: app.translator.trans('reflar-doorman.admin.page.doorkey.warning'),
+                        label: app.translator.trans('fof-doorman.admin.page.doorkey.warning'),
                     })
                 ) : this.doorkey.uses() !== 0 ? (
                     <div>
                         <h3 className="Doorkey-left">
-                            {app.translator.transChoice('reflar-doorman.admin.page.doorkey.used_times', remaining, { remaining }).join('')}
+                            {app.translator.transChoice('fof-doorman.admin.page.doorkey.used_times', remaining, { remaining }).join('')}
                         </h3>
                     </div>
                 ) : (

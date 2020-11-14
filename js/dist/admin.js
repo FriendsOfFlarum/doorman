@@ -153,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
     items.add('reflar-doorman', flarum_components_AdminLinkButton__WEBPACK_IMPORTED_MODULE_2___default.a.component({
       href: app.route('reflar-doorman'),
       icon: 'fa fa-door-closed',
-      description: app.translator.trans('reflar-doorman.admin.nav.desc')
+      description: app.translator.trans('fof-doorman.admin.nav.desc')
     }, 'Doorman'));
   });
 });
@@ -217,7 +217,7 @@ function (_Component) {
       type: "text",
       disabled: true,
       value: this.doorkey.key(),
-      placeholder: app.translator.trans('reflar-doorman.admin.page.doorkey.key'),
+      placeholder: app.translator.trans('fof-doorman.admin.page.doorkey.key'),
       onchange: flarum_utils_withAttr__WEBPACK_IMPORTED_MODULE_7___default()('value', this.updateKey.bind(this, this.doorkey))
     }), flarum_components_Select__WEBPACK_IMPORTED_MODULE_4___default.a.component({
       options: this.getGroupsForInput(),
@@ -228,7 +228,7 @@ function (_Component) {
       className: "FormControl Doorkey-maxUses",
       value: this.doorkey.maxUses() || '0',
       type: "number",
-      placeholder: app.translator.trans('reflar-doorman.admin.page.doorkey.max_uses'),
+      placeholder: app.translator.trans('fof-doorman.admin.page.doorkey.max_uses'),
       onchange: flarum_utils_withAttr__WEBPACK_IMPORTED_MODULE_7___default()('value', this.updateMaxUses.bind(this, this.doorkey))
     }), flarum_components_Switch__WEBPACK_IMPORTED_MODULE_5___default.a.component({
       state: this.doorkey.activates() || false,
@@ -247,10 +247,10 @@ function (_Component) {
     }), this.doorkey.maxUses() === this.doorkey.uses() ? flarum_components_Badge__WEBPACK_IMPORTED_MODULE_3___default.a.component({
       className: 'Doorkey-badge',
       icon: 'fas fa-user-slash',
-      label: app.translator.trans('reflar-doorman.admin.page.doorkey.warning')
+      label: app.translator.trans('fof-doorman.admin.page.doorkey.warning')
     }) : this.doorkey.uses() !== 0 ? m("div", null, m("h3", {
       className: "Doorkey-left"
-    }, app.translator.transChoice('reflar-doorman.admin.page.doorkey.used_times', remaining, {
+    }, app.translator.transChoice('fof-doorman.admin.page.doorkey.used_times', remaining, {
       remaining: remaining
     }).join(''))) : '');
   };
@@ -369,7 +369,7 @@ function (_Modal) {
   };
 
   _proto.title = function title() {
-    return app.translator.trans('reflar-doorman.admin.modal.title');
+    return app.translator.trans('fof-doorman.admin.modal.title');
   };
 
   _proto.oncreate = function oncreate(vnode) {
@@ -391,11 +391,11 @@ function (_Modal) {
 
     return m("div", {
       className: "Modal-body"
-    }, m("h3", null, app.translator.trans('reflar-doorman.admin.modal.group', {
+    }, m("h3", null, app.translator.trans('fof-doorman.admin.modal.group', {
       group: app.store.getById('groups', this.doorkey.groupId()).nameSingular()
     })), m("div", {
       className: "helpText"
-    }, app.translator.trans('reflar-doorman.admin.modal.help')), m("div", {
+    }, app.translator.trans('fof-doorman.admin.modal.help')), m("div", {
       className: "Form Form--centered"
     }, m("div", {
       className: "Form-group"
@@ -404,7 +404,7 @@ function (_Modal) {
       name: "text",
       id: "EmailInput",
       className: "FormControl",
-      placeholder: app.translator.trans('reflar-doorman.admin.modal.placeholder'),
+      placeholder: app.translator.trans('fof-doorman.admin.modal.placeholder'),
       disabled: this.loading
     })), m("div", {
       className: "Form-group"
@@ -424,7 +424,7 @@ function (_Modal) {
       loading: this.loading,
       onclick: this.send.bind(this),
       disabled: this.emails.length === 0
-    }, app.translator.trans('reflar-doorman.admin.modal.send')))));
+    }, app.translator.trans('fof-doorman.admin.modal.send')))));
   };
 
   _proto.addEmails = function addEmails() {
@@ -439,7 +439,7 @@ function (_Modal) {
         if (_this3.emails.length + 1 > _this3.doorkey.data.attributes.maxUses) {
           _this3.alert = ({
             type: 'error'
-          }, app.translator.trans('reflar-doorman.admin.modal.max_use_conflict'));
+          }, app.translator.trans('fof-doorman.admin.modal.max_use_conflict'));
           m.redraw();
         } else {
           if (_this3.validateEmail(email)) {
@@ -452,7 +452,7 @@ function (_Modal) {
 
             _this3.alert = ({
               type: 'error'
-            }, app.translator.trans('reflar-doorman.admin.modal.invalid_emails', {
+            }, app.translator.trans('fof-doorman.admin.modal.invalid_emails', {
               emails: _this3.badEmails.join(', ')
             }));
             m.redraw();
@@ -486,7 +486,7 @@ function (_Modal) {
       app.modal.close();
       app.alerts.show({
         type: 'success'
-      }, app.translator.trans('reflar-doorman.admin.modal.success'));
+      }, app.translator.trans('fof-doorman.admin.modal.success'));
     });
   };
 
@@ -572,25 +572,25 @@ function (_Page) {
       className: "container Doorkey-container"
     }, m("h1", null, "Doorman"), this.loading ? m(flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_2___default.a, null) : '', m("div", {
       className: "Doorkeys-title"
-    }, m("h2", null, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.title')), m("div", {
+    }, m("h2", null, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.title')), m("div", {
       className: "helpText"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.help.key')), m("div", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.help.key')), m("div", {
       className: "helpText"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.help.group')), m("div", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.help.group')), m("div", {
       className: "helpText"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.help.max')), m("div", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.help.max')), m("div", {
       className: "helpText"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.help.activates'))), m("div", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.help.activates'))), m("div", {
       className: "Doorkeys-fieldLabels"
     }, m("h3", {
       className: "key"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.heading.key')), m("h3", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.heading.key')), m("h3", {
       className: "group"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.heading.group')), m("h3", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.heading.group')), m("h3", {
       className: "maxUses"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.heading.max_uses')), m("h3", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.heading.max_uses')), m("h3", {
       className: "activate"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.heading.activate'))), m("div", {
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.heading.activate'))), m("div", {
       className: "Doorkeys"
     }, this.doorkeys.map(function (doorkey) {
       return _DoormanSettingsListItem__WEBPACK_IMPORTED_MODULE_3__["default"].component({
@@ -605,7 +605,7 @@ function (_Page) {
       className: "FormControl Doorkey-key",
       type: "text",
       value: this.doorkey.key(),
-      placeholder: flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.key'),
+      placeholder: flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.key'),
       oninput: flarum_utils_withAttr__WEBPACK_IMPORTED_MODULE_10___default()('value', this.doorkey.key)
     }), flarum_components_Select__WEBPACK_IMPORTED_MODULE_5___default.a.component({
       options: this.getGroupsForInput(),
@@ -616,7 +616,7 @@ function (_Page) {
       className: "FormControl Doorkey-maxUses",
       value: this.doorkey.maxUses(),
       type: "number",
-      placeholder: flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.max_uses'),
+      placeholder: flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.max_uses'),
       oninput: flarum_utils_withAttr__WEBPACK_IMPORTED_MODULE_10___default()('value', this.doorkey.maxUses)
     }), flarum_components_Switch__WEBPACK_IMPORTED_MODULE_6___default.a.component({
       state: this.doorkey.activates() || false,
@@ -629,11 +629,11 @@ function (_Page) {
       onclick: this.createDoorkey.bind(this)
     })), m("div", {
       className: "Doorkey-allowPublic"
-    }, m("h2", null, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.allow-public.title')), this.switcherLoading ? m(flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_2___default.a, null) : m(flarum_components_Switch__WEBPACK_IMPORTED_MODULE_6___default.a, {
+    }, m("h2", null, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.allow-public.title')), this.switcherLoading ? m(flarum_components_LoadingIndicator__WEBPACK_IMPORTED_MODULE_2___default.a, null) : m(flarum_components_Switch__WEBPACK_IMPORTED_MODULE_6___default.a, {
       state: this.isOptional,
       onchange: this.toggleOptional.bind(this),
       className: "AllowPublic-switch"
-    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('reflar-doorman.admin.page.doorkey.allow-public.switch-label'))));
+    }, flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.translator.trans('fof-doorman.admin.page.doorkey.allow-public.switch-label'))));
   };
 
   _proto.getGroupsForInput = function getGroupsForInput() {

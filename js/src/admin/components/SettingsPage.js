@@ -32,17 +32,17 @@ export default class DoormanSettingsPage extends Page {
                 <h1>Doorman</h1>
                 {this.loading ? <LoadingIndicator /> : ''}
                 <div className="Doorkeys-title">
-                    <h2>{app.translator.trans('reflar-doorman.admin.page.doorkey.title')}</h2>
-                    <div className="helpText">{app.translator.trans('reflar-doorman.admin.page.doorkey.help.key')}</div>
-                    <div className="helpText">{app.translator.trans('reflar-doorman.admin.page.doorkey.help.group')}</div>
-                    <div className="helpText">{app.translator.trans('reflar-doorman.admin.page.doorkey.help.max')}</div>
-                    <div className="helpText">{app.translator.trans('reflar-doorman.admin.page.doorkey.help.activates')}</div>
+                    <h2>{app.translator.trans('fof-doorman.admin.page.doorkey.title')}</h2>
+                    <div className="helpText">{app.translator.trans('fof-doorman.admin.page.doorkey.help.key')}</div>
+                    <div className="helpText">{app.translator.trans('fof-doorman.admin.page.doorkey.help.group')}</div>
+                    <div className="helpText">{app.translator.trans('fof-doorman.admin.page.doorkey.help.max')}</div>
+                    <div className="helpText">{app.translator.trans('fof-doorman.admin.page.doorkey.help.activates')}</div>
                 </div>
                 <div className="Doorkeys-fieldLabels">
-                    <h3 className="key">{app.translator.trans('reflar-doorman.admin.page.doorkey.heading.key')}</h3>
-                    <h3 className="group">{app.translator.trans('reflar-doorman.admin.page.doorkey.heading.group')}</h3>
-                    <h3 className="maxUses">{app.translator.trans('reflar-doorman.admin.page.doorkey.heading.max_uses')}</h3>
-                    <h3 className="activate">{app.translator.trans('reflar-doorman.admin.page.doorkey.heading.activate')}</h3>
+                    <h3 className="key">{app.translator.trans('fof-doorman.admin.page.doorkey.heading.key')}</h3>
+                    <h3 className="group">{app.translator.trans('fof-doorman.admin.page.doorkey.heading.group')}</h3>
+                    <h3 className="maxUses">{app.translator.trans('fof-doorman.admin.page.doorkey.heading.max_uses')}</h3>
+                    <h3 className="activate">{app.translator.trans('fof-doorman.admin.page.doorkey.heading.activate')}</h3>
                 </div>
                 <div className="Doorkeys">
                     {this.doorkeys.map((doorkey) => {
@@ -55,7 +55,7 @@ export default class DoormanSettingsPage extends Page {
                             className="FormControl Doorkey-key"
                             type="text"
                             value={this.doorkey.key()}
-                            placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.key')}
+                            placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.key')}
                             oninput={withAttr('value', this.doorkey.key)}
                         />
                         {Select.component({
@@ -68,7 +68,7 @@ export default class DoormanSettingsPage extends Page {
                             className="FormControl Doorkey-maxUses"
                             value={this.doorkey.maxUses()}
                             type="number"
-                            placeholder={app.translator.trans('reflar-doorman.admin.page.doorkey.max_uses')}
+                            placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.max_uses')}
                             oninput={withAttr('value', this.doorkey.maxUses)}
                         />
                         {Switch.component({
@@ -85,12 +85,12 @@ export default class DoormanSettingsPage extends Page {
                     })}
                 </div>
                 <div className="Doorkey-allowPublic">
-                    <h2>{app.translator.trans('reflar-doorman.admin.page.doorkey.allow-public.title')}</h2>
+                    <h2>{app.translator.trans('fof-doorman.admin.page.doorkey.allow-public.title')}</h2>
                     {this.switcherLoading ? (
                         <LoadingIndicator />
                     ) : (
                         <Switch state={this.isOptional} onchange={this.toggleOptional.bind(this)} className="AllowPublic-switch">
-                            {app.translator.trans('reflar-doorman.admin.page.doorkey.allow-public.switch-label')}
+                            {app.translator.trans('fof-doorman.admin.page.doorkey.allow-public.switch-label')}
                         </Switch>
                     )}
                 </div>

@@ -83,9 +83,9 @@ class SendInvitesController extends AbstractCreateController
 
         $title = app(SettingsRepositoryInterface::class)->get('forum_title');
 
-        $subject = app(SettingsRepositoryInterface::class)->get('forum_title').' - '.$this->translator->trans('reflar-doorman.forum.email.subject');
+        $subject = app(SettingsRepositoryInterface::class)->get('forum_title').' - '.$this->translator->trans('fof-doorman.forum.email.subject');
 
-        $body = $this->translator->trans('reflar-doorman.forum.email.body', [
+        $body = $this->translator->trans('fof-doorman.forum.email.body', [
             '{forum}' => $title,
             '{url}'   => $this->url->to('forum')->base(),
             '{code}'  => $doorkey->key,
