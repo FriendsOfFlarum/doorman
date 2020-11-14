@@ -122,23 +122,23 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('reflar-doorman', function () {
+flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('fof-doorman', function () {
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_SignUpModal__WEBPACK_IMPORTED_MODULE_2___default.a.prototype, 'oninit', function () {
     this.doorkey = flarum_utils_Stream__WEBPACK_IMPORTED_MODULE_3___default()('');
   });
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_SignUpModal__WEBPACK_IMPORTED_MODULE_2___default.a.prototype, 'fields', function (fields) {
-    var isOptional = JSON.parse(flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.forum.data.attributes['reflar.doorman.allowPublic']);
-    var placeholder = flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('reflar-doorman.forum.sign_up.doorman_placeholder');
+    var isOptional = JSON.parse(flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.forum.data.attributes['fof-doorman.allowPublic']);
+    var placeholder = flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('fof-doorman.forum.sign_up.doorman_placeholder');
 
     if (isOptional) {
-      placeholder = flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('reflar-doorman.forum.sign_up.doorman_placeholder_optional');
+      placeholder = flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.translator.trans('fof-doorman.forum.sign_up.doorman_placeholder_optional');
     }
 
     fields.add('doorkey', m("div", {
       className: "Form-group"
     }, m("input", {
       className: "FormControl",
-      name: "reflar-doorkey",
+      name: "fof-doorkey",
       type: "text",
       placeholder: placeholder,
       bidi: this.doorkey,
@@ -147,7 +147,7 @@ flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('reflar-doorm
   });
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_1__["extend"])(flarum_components_SignUpModal__WEBPACK_IMPORTED_MODULE_2___default.a.prototype, 'submitData', function (data) {
     var newData = data;
-    newData['reflar-doorkey'] = this.doorkey;
+    newData['fof-doorkey'] = this.doorkey;
     return newData;
   });
 });

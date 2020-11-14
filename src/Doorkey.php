@@ -11,7 +11,7 @@
  *
  */
 
-namespace Reflar\Doorman;
+namespace FoF\Doorman;
 
 use Flarum\Database\AbstractModel;
 use Flarum\Group\Group;

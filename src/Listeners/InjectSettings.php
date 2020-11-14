@@ -11,7 +11,7 @@
  *
  */
 
-namespace Reflar\Doorman\Listeners;
+namespace FoF\Doorman\Listeners;
 
 use Flarum\Api\Event\Serializing;
 use Flarum\Api\Serializer\ForumSerializer;
@@ -38,7 +38,7 @@ class InjectSettings
     public function inject(Serializing $event)
     {
         if ($event->isSerializer(ForumSerializer::class)) {
-            $event->attributes['reflar.doorman.allowPublic'] = $this->settings->get('reflar.doorman.allowPublic', 'false');
+            $event->attributes['fof-doorman.allowPublic'] = $this->settings->get('fof-doorman.allowPublic', 'false');
         }
     }
 }

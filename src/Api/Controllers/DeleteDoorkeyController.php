@@ -11,13 +11,13 @@
  *
  */
 
-namespace Reflar\Doorman\Api\Controllers;
+namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractDeleteController;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
-use Reflar\Doorman\Commands\DeleteDoorkey;
+use FoF\Doorman\Commands\DeleteDoorkey;
 
 class DeleteDoorkeyController extends AbstractDeleteController
 {

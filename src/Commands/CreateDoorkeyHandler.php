@@ -11,12 +11,12 @@
  *
  */
 
-namespace Reflar\Doorman\Commands;
+namespace FoF\Doorman\Commands;
 
 use Flarum\User\Exception\PermissionDeniedException;
 use Illuminate\Support\Arr;
-use Reflar\Doorman\Doorkey;
-use Reflar\Doorman\Validators\DoorkeyValidator;
+use FoF\Doorman\Doorkey;
+use FoF\Doorman\Validators\DoorkeyValidator;
 
 class CreateDoorkeyHandler
 {

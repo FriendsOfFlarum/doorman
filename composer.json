@@ -1,5 +1,5 @@
 {
-    "name": "reflar/doorman",
+    "name": "fof/doorman",
     "description": "Create invite codes for users to sign up and be assigned to a group",
     "keywords": [
         "flarum"
@@ -8,6 +8,9 @@
     "license": "MIT",
     "require": {
         "flarum/core": "^0.1.0-beta-14"
+    },
+    "replace": {
+        "reflar/doorman": "*"
     },
     "authors": [
         {
@@ -23,12 +26,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "Reflar\\Doorman\\": "src/"
+            "FoF\\Doorman\\": "src/"
         }
     },
     "extra": {
         "flarum-extension": {
-            "title": "ReFlar Doorman",
+            "title": "FoF Doorman",
             "icon": {
                 "name": "fas fa-door-closed",
                 "backgroundColor": "#e74c3c",

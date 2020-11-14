@@ -11,7 +11,7 @@
  *
  */
 
-namespace Reflar\Doorman\Api\Controllers;
+namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractCreateController;
 use Flarum\Http\UrlGenerator;
@@ -21,8 +21,8 @@ use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 use Psr\Http\Message\ServerRequestInterface;
-use Reflar\Doorman\Api\Serializers\DoorkeySerializer;
-use Reflar\Doorman\Doorkey;
+use FoF\Doorman\Api\Serializers\DoorkeySerializer;
+use FoF\Doorman\Doorkey;
 use Symfony\Component\Translation\TranslatorInterface;
 use Tobscure\JsonApi\Document;
 

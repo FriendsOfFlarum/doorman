@@ -11,8 +11,23 @@
  *
  */
 
-use Flarum\Database\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Builder;
 
-return Migration::addColumns('users', [
-    'invite_code' => ['string', 'length' => 128, 'nullable' => true],
-]);
+return [
+    'up' => function (Builder $schema) {
+        if ($schema->hasColumns('users', ['invite_code'])) {
+            return;
+        }
+
+        $schema->table('users', function (Blueprint $table) {
+            $table->string('invite_code', 128)->nullable();
+        });
+    },
+
+    'down' => function (Builder $schema) {
+        $schema->table('users', function (Blueprint $table) {
+            $table->dropColumn('invite_code');
+        });
+    },
+];

@@ -11,13 +11,13 @@
  *
  */
 
-namespace Reflar\Doorman\Listeners;
+namespace FoF\Doorman\Listeners;
 
 use Flarum\Foundation\Event\Validating;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Illuminate\Contracts\Events\Dispatcher;
-use Reflar\Doorman\Doorkey;
-use Reflar\Doorman\Validators\DoorkeyLoginValidator;
+use FoF\Doorman\Doorkey;
+use FoF\Doorman\Validators\DoorkeyLoginValidator;
 
 class AddValidatorRule
 {
@@ -50,7 +50,7 @@ class AddValidatorRule
                     $doorkey = Doorkey::where('key', $value)->first();
 
                     // Allows the invitation key to be optional if the setting was enabled
-                    $allow = json_decode($this->settings->get('reflar.doorman.allowPublic'));
+                    $allow = json_decode($this->settings->get('fof-doorman.allowPublic'));
                     if ($allow && !$doorkey) {
                         return;
                     }

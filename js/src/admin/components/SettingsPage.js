@@ -16,7 +16,7 @@ export default class DoormanSettingsPage extends Page {
         this.loading = false;
         this.switcherLoading = false;
         this.doorkeys = app.store.all('doorkeys');
-        this.isOptional = app.data.settings['reflar.doorman.allowPublic'];
+        this.isOptional = app.data.settings['fof-doorman.allowPublic'];
 
         this.doorkey = {
             key: Stream(this.generateRandomKey()),
@@ -139,11 +139,11 @@ export default class DoormanSettingsPage extends Page {
     toggleOptional() {
         this.switcherLoading = true;
         const settings = {
-            'reflar.doorman.allowPublic': JSON.stringify(!this.isOptional),
+            'fof-doorman.allowPublic': JSON.stringify(!this.isOptional),
         };
         saveSettings(settings)
             .then(() => {
-                this.isOptional = JSON.parse(app.data.settings['reflar.doorman.allowPublic']);
+                this.isOptional = JSON.parse(app.data.settings['fof-doorman.allowPublic']);
             })
             .catch(() => {})
             .then(() => {

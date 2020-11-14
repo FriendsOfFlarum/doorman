@@ -11,7 +11,7 @@
  *
  */
 
-namespace Reflar\Doorman\Validators;
+namespace FoF\Doorman\Validators;
 
 use Flarum\Foundation\AbstractValidator;
 

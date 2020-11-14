@@ -11,7 +11,7 @@
  *
  */
 
-namespace Reflar\Doorman\Commands;
+namespace FoF\Doorman\Commands;
 
 use Flarum\User\User;
 

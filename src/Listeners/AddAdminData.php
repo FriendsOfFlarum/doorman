@@ -11,7 +11,7 @@
  *
  */
 
-namespace Reflar\Doorman\Listeners;
+namespace FoF\Doorman\Listeners;
 
 use Flarum\Api\Controller\ShowForumController;
 use Flarum\Api\Event\WillGetData;
@@ -19,8 +19,8 @@ use Flarum\Api\Event\WillSerializeData;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Event\GetApiRelationship;
 use Illuminate\Contracts\Events\Dispatcher;
-use Reflar\Doorman\Api\Serializers\DoorkeySerializer;
-use Reflar\Doorman\Doorkey;
+use FoF\Doorman\Api\Serializers\DoorkeySerializer;
+use FoF\Doorman\Doorkey;
 
 class AddAdminData
 {

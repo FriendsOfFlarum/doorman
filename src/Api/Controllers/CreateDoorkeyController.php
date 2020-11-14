@@ -11,14 +11,14 @@
  *
  */
 
-namespace Reflar\Doorman\Api\Controllers;
+namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractCreateController;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
-use Reflar\Doorman\Api\Serializers\DoorkeySerializer;
-use Reflar\Doorman\Commands\CreateDoorkey;
+use FoF\Doorman\Api\Serializers\DoorkeySerializer;
+use FoF\Doorman\Commands\CreateDoorkey;
 use Tobscure\JsonApi\Document;
 
 class CreateDoorkeyController extends AbstractCreateController

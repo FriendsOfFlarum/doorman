@@ -150,7 +150,7 @@ __webpack_require__.r(__webpack_exports__);
   };
 
   Object(flarum_extend__WEBPACK_IMPORTED_MODULE_0__["extend"])(flarum_components_AdminNav__WEBPACK_IMPORTED_MODULE_1___default.a.prototype, 'items', function (items) {
-    items.add('reflar-doorman', flarum_components_AdminLinkButton__WEBPACK_IMPORTED_MODULE_2___default.a.component({
+    items.add('fof-doorman', flarum_components_AdminLinkButton__WEBPACK_IMPORTED_MODULE_2___default.a.component({
       href: app.route('fof-doorman'),
       icon: 'fa fa-door-closed',
       description: app.translator.trans('fof-doorman.admin.nav.desc')
@@ -556,7 +556,7 @@ function (_Page) {
     this.loading = false;
     this.switcherLoading = false;
     this.doorkeys = flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.store.all('doorkeys');
-    this.isOptional = flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.data.settings['reflar.doorman.allowPublic'];
+    this.isOptional = flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.data.settings['fof-doorman.allowPublic'];
     this.doorkey = {
       key: flarum_utils_Stream__WEBPACK_IMPORTED_MODULE_9___default()(this.generateRandomKey()),
       groupId: flarum_utils_Stream__WEBPACK_IMPORTED_MODULE_9___default()(3),
@@ -680,10 +680,10 @@ function (_Page) {
 
     this.switcherLoading = true;
     var settings = {
-      'reflar.doorman.allowPublic': JSON.stringify(!this.isOptional)
+      'fof-doorman.allowPublic': JSON.stringify(!this.isOptional)
     };
     flarum_utils_saveSettings__WEBPACK_IMPORTED_MODULE_8___default()(settings).then(function () {
-      _this3.isOptional = JSON.parse(flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.data.settings['reflar.doorman.allowPublic']);
+      _this3.isOptional = JSON.parse(flarum_app__WEBPACK_IMPORTED_MODULE_7___default.a.data.settings['fof-doorman.allowPublic']);
     }).catch(function () {}).then(function () {
       _this3.switcherLoading = false;
       m.redraw();
@@ -713,7 +713,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('reflar-doorman', function () {
+flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.initializers.add('fof-doorman', function () {
   flarum_app__WEBPACK_IMPORTED_MODULE_0___default.a.store.models.doorkeys = _models_Doorkey__WEBPACK_IMPORTED_MODULE_2__["default"];
   Object(_addSettingsPage__WEBPACK_IMPORTED_MODULE_1__["default"])();
 });

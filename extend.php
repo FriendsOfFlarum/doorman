@@ -11,11 +11,11 @@
  *
  */
 
-namespace Reflar\Doorman;
+namespace FoF\Doorman;
 
 use Flarum\Extend;
 use Illuminate\Contracts\Events\Dispatcher;
-use Reflar\Doorman\Api\Controllers;
+use FoF\Doorman\Api\Controllers;
 
 return [
     (new Extend\Frontend('forum'))

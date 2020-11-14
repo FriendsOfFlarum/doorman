@@ -13,7 +13,7 @@ export default function () {
 
     extend(AdminNav.prototype, 'items', (items) => {
         items.add(
-            'reflar-doorman',
+            'fof-doorman',
             AdminLinkButton.component(
                 {
                     href: app.route('fof-doorman'),

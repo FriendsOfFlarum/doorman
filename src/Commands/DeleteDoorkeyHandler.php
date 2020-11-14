@@ -11,10 +11,10 @@
  *
  */
 
-namespace Reflar\Doorman\Commands;
+namespace FoF\Doorman\Commands;
 
 use Flarum\User\Exception\PermissionDeniedException;
-use Reflar\Doorman\Doorkey;
+use FoF\Doorman\Doorkey;
 
 class DeleteDoorkeyHandler
 {
