@@ -70,6 +70,7 @@ export default class DoormanSettingsPage extends Page {
                             type="number"
                             placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.max_uses')}
                             oninput={withAttr('value', this.doorkey.maxUses)}
+                            min="0"
                         />
                         {Switch.component({
                             state: this.doorkey.activates() || false,
