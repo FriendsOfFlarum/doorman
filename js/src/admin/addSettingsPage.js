@@ -9,7 +9,7 @@ export default function () {
         component: SettingsPage,
     };
 
-    app.extensionSettings['fof-doorman'] = () => m.route.get(app.route('fof-doorman'));
+    app.extensionSettings['fof-doorman'] = () => m.route.set(app.route('fof-doorman'));
 
     extend(AdminNav.prototype, 'items', (items) => {
         items.add(
