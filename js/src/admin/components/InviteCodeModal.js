@@ -87,7 +87,7 @@ export default class InviteCodeModal extends Modal {
     }
 
     addEmails() {
-        this.alert = null;
+        this.alertAttrs = null;
         m.redraw();
         this.badEmails = [];
 
@@ -96,7 +96,7 @@ export default class InviteCodeModal extends Modal {
         value.split(/[ ,]+/).map((email) => {
             if (!this.emails.includes(email)) {
                 if (this.emails.length + 1 > this.doorkey.data.attributes.maxUses) {
-                    this.alert = ({ type: 'error' }, app.translator.trans('fof-doorman.admin.modal.max_use_conflict'));
+                    this.alertAttrs = ({ type: 'error' }, app.translator.trans('fof-doorman.admin.modal.max_use_conflict'));
                     m.redraw();
                 } else {
                     if (this.validateEmail(email)) {
@@ -105,7 +105,7 @@ export default class InviteCodeModal extends Modal {
                         m.redraw();
                     } else {
                         this.badEmails.push(email);
-                        this.alert =
+                        this.alertAttrs =
                             ({ type: 'error' },
                             app.translator.trans('fof-doorman.admin.modal.invalid_emails', { emails: this.badEmails.join(', ') }));
                         m.redraw();
@@ -127,7 +127,7 @@ export default class InviteCodeModal extends Modal {
     send(e) {
         e.preventDefault();
 
-        this.alert = null;
+        this.alertAttrs = null;
 
         this.loading = true;
 
