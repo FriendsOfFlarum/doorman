@@ -1,6 +1,6 @@
-# Doorman by ReFlar
+# Doorman by FriendsOfFlarum
 
-[![GitLab license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ReFlar/Doorman/blob/master/LICENSE) [![Latest Stable Version](https://img.shields.io/packagist/v/reflar/doorman.svg)](https://github.com/ReFlar/doorman)
+[![GitLab license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/FriendsOfFlarum/doorman/blob/master/LICENSE.md) [![Latest Stable Version](https://img.shields.io/packagist/v/fof/doorman.svg)](https://github.com/FriendsOfFlarum/doorman) [![OpenCollective](https://img.shields.io/badge/opencollective-fof-blue.svg)](https://opencollective.com/fof/donate) 
 
 A [Flarum](http://flarum.org) extension that restricts sign-ups to user's who have a code created in the admin panel.
 
@@ -12,12 +12,12 @@ Each code can be set to have a maximum number of uses, what group the user shoul
 
 ### Installation
 
-**beta 8 only**
+**beta 14 and above**
 
-Use Bazaar or install it with composer:
+Install with composer:
 
 ```bash
-composer require reflar/doorman
+composer require fof/doorman
 ```
 
 Then login and enable the extension.
@@ -28,9 +28,9 @@ Then login and enable the extension.
 
 ### Issues
 
-- [Open an issue on Github](https://github.com/ReFlar/doorman/issues) 
+- [Open an issue on Github](https://github.com/FriendsOfFlarum/doorman/issues) 
 
 ### Links
 
-- [On Github](https://github.com/ReFlar/doorman)
-- [On Packagist](https://packagist.org/packages/ReFlar/doorman)
+- [On Github](https://github.com/FriendsOfFlarum/doorman)
+- [On Packagist](https://packagist.org/packages/fof/doorman)
