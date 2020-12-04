@@ -1,25 +1,23 @@
 <?php
-/**
- *  This file is part of reflar/doorman.
+
+/*
+ * This file is part of fof/doorman.
  *
- *  Copyright (c) 2018 ReFlar.
- *
- *  https://reflar.redevs.org
+ * Copyright (c) 2018-2020 Reflar.
+ * Copyright (c) 2020 FriendsOfFlarum
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
+ *
  */
 
-namespace Reflar\Doorman\Commands;
+namespace FoF\Doorman\Commands;
 
-use Flarum\User\AssertPermissionTrait;
 use Flarum\User\Exception\PermissionDeniedException;
-use Reflar\Doorman\Doorkey;
+use FoF\Doorman\Doorkey;
 
 class DeleteDoorkeyHandler
 {
-    use AssertPermissionTrait;
-
     /**
      * @param DeleteDoorkey $command
      *
@@ -31,7 +29,7 @@ class DeleteDoorkeyHandler
     {
         $actor = $command->actor;
 
-        $this->assertAdmin($actor);
+        $actor->assertAdmin();
 
         $doorkey = Doorkey::where('id', $command->doorkeyId)->firstOrFail();
 

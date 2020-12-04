@@ -1,22 +1,24 @@
 <?php
-/**
- *  This file is part of reflar/doorman.
+
+/*
+ * This file is part of fof/doorman.
  *
- *  Copyright (c) 2018 ReFlar.
- *
- *  https://reflar.redevs.org
+ * Copyright (c) 2018-2020 Reflar.
+ * Copyright (c) 2020 FriendsOfFlarum
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
+ *
  */
 
-namespace Reflar\Doorman\Api\Controllers;
+namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractShowController;
+use FoF\Doorman\Api\Serializers\DoorkeySerializer;
+use FoF\Doorman\Commands\EditDoorkey;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
-use Reflar\Doorman\Api\Serializers\DoorkeySerializer;
-use Reflar\Doorman\Commands\EditDoorkey;
 use Tobscure\JsonApi\Document;
 
 class UpdateDoorkeyController extends AbstractShowController
@@ -45,7 +47,7 @@ class UpdateDoorkeyController extends AbstractShowController
     protected function data(ServerRequestInterface $request, Document $document)
     {
         return $this->bus->dispatch(
-            new EditDoorkey(array_get($request->getQueryParams(), 'id'), $request->getAttribute('actor'), array_get($request->getParsedBody(), 'data', []))
+            new EditDoorkey(Arr::get($request->getQueryParams(), 'id'), $request->getAttribute('actor'), Arr::get($request->getParsedBody(), 'data', []))
         );
     }
 }

@@ -1,25 +1,26 @@
 <?php
-/**
- *  This file is part of reflar/doorman.
+
+/*
+ * This file is part of fof/doorman.
  *
- *  Copyright (c) 2018 ReFlar.
- *
- *  https://reflar.redevs.org
+ * Copyright (c) 2018-2020 Reflar.
+ * Copyright (c) 2020 FriendsOfFlarum
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
+ *
  */
 
-namespace Reflar\Doorman\Listeners;
+namespace FoF\Doorman\Listeners;
 
 use Flarum\Api\Controller\ShowForumController;
 use Flarum\Api\Event\WillGetData;
 use Flarum\Api\Event\WillSerializeData;
 use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Event\GetApiRelationship;
+use FoF\Doorman\Api\Serializers\DoorkeySerializer;
+use FoF\Doorman\Doorkey;
 use Illuminate\Contracts\Events\Dispatcher;
-use Reflar\Doorman\Api\Serializers\DoorkeySerializer;
-use Reflar\Doorman\Doorkey;
 
 class AddAdminData
 {

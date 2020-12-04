@@ -1,16 +1,17 @@
 <?php
-/**
- *  This file is part of reflar/doorman.
+
+/*
+ * This file is part of fof/doorman.
  *
- *  Copyright (c) 2018 ReFlar.
- *
- *  https://reflar.redevs.org
+ * Copyright (c) 2018-2020 Reflar.
+ * Copyright (c) 2020 FriendsOfFlarum
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
+ *
  */
 
-namespace Reflar\Doorman\Commands;
+namespace FoF\Doorman\Commands;
 
 use Flarum\User\User;
 

@@ -1,23 +1,24 @@
 <?php
 
-/**
- *  This file is part of reflar/doorman.
+/*
+ * This file is part of fof/doorman.
  *
- *  Copyright (c) 2018 ReFlar.
+ * Copyright (c) 2018-2020 Reflar.
+ * Copyright (c) 2020 FriendsOfFlarum
  *
- *  https://reflar.redevs.org
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  *
- *  For the full copyright and license information, please view the LICENSE.md
- *  file that was distributed with this source code.
  */
 
-namespace Reflar\Doorman\Api\Controllers;
+namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractCreateController;
+use FoF\Doorman\Api\Serializers\DoorkeySerializer;
+use FoF\Doorman\Commands\CreateDoorkey;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
-use Reflar\Doorman\Api\Serializers\DoorkeySerializer;
-use Reflar\Doorman\Commands\CreateDoorkey;
 use Tobscure\JsonApi\Document;
 
 class CreateDoorkeyController extends AbstractCreateController
@@ -46,7 +47,7 @@ class CreateDoorkeyController extends AbstractCreateController
     protected function data(ServerRequestInterface $request, Document $document)
     {
         return $this->bus->dispatch(
-            new CreateDoorkey($request->getAttribute('actor'), array_get($request->getParsedBody(), 'data', []))
+            new CreateDoorkey($request->getAttribute('actor'), Arr::get($request->getParsedBody(), 'data', []))
         );
     }
 }

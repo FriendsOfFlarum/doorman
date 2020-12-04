@@ -1,27 +1,25 @@
 <?php
 
-/**
- *  This file is part of reflar/doorman.
+/*
+ * This file is part of fof/doorman.
  *
- *  Copyright (c) 2018 ReFlar.
+ * Copyright (c) 2018-2020 Reflar.
+ * Copyright (c) 2020 FriendsOfFlarum
  *
- *  https://reflar.redevs.org
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  *
- *  For the full copyright and license information, please view the LICENSE.md
- *  file that was distributed with this source code.
  */
 
-namespace Reflar\Doorman\Commands;
+namespace FoF\Doorman\Commands;
 
-use Flarum\User\AssertPermissionTrait;
 use Flarum\User\Exception\PermissionDeniedException;
-use Reflar\Doorman\Doorkey;
-use Reflar\Doorman\Validators\DoorkeyValidator;
+use FoF\Doorman\Doorkey;
+use FoF\Doorman\Validators\DoorkeyValidator;
+use Illuminate\Support\Arr;
 
 class CreateDoorkeyHandler
 {
-    use AssertPermissionTrait;
-
     /**
      * @var DoorkeyValidator
      */
@@ -48,13 +46,13 @@ class CreateDoorkeyHandler
         $actor = $command->actor;
         $data = $command->data;
 
-        $this->assertAdmin($actor);
+        $actor->assertAdmin();
 
         $doorkey = Doorkey::build(
-            array_get($data, 'attributes.key'),
-            array_get($data, 'attributes.groupId'),
-            array_get($data, 'attributes.maxUses'),
-            array_get($data, 'attributes.activates')
+            Arr::get($data, 'attributes.key'),
+            Arr::get($data, 'attributes.groupId'),
+            Arr::get($data, 'attributes.maxUses'),
+            Arr::get($data, 'attributes.activates')
         );
 
         $this->validator->assertValid($doorkey->getAttributes());

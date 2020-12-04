@@ -1,20 +1,21 @@
 <?php
 
-/**
- *  This file is part of reflar/doorman.
+/*
+ * This file is part of fof/doorman.
  *
- *  Copyright (c) 2018 ReFlar.
+ * Copyright (c) 2018-2020 Reflar.
+ * Copyright (c) 2020 FriendsOfFlarum
  *
- *  https://reflar.redevs.org
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  *
- *  For the full copyright and license information, please view the LICENSE.md
- *  file that was distributed with this source code.
  */
 
-namespace Reflar\Doorman\Api\Serializers;
+namespace FoF\Doorman\Api\Serializers;
 
 use Flarum\Api\Serializer\AbstractSerializer;
-use Reflar\Doorman\Doorkey;
+use FoF\Doorman\Doorkey;
+use InvalidArgumentException;
 
 class DoorkeySerializer extends AbstractSerializer
 {

@@ -1,26 +1,25 @@
 <?php
-/**
- *  This file is part of reflar/doorman.
+
+/*
+ * This file is part of fof/doorman.
  *
- *  Copyright (c) 2018 ReFlar.
- *
- *  https://reflar.redevs.org
+ * Copyright (c) 2018-2020 Reflar.
+ * Copyright (c) 2020 FriendsOfFlarum
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
+ *
  */
 
-namespace Reflar\Doorman\Commands;
+namespace FoF\Doorman\Commands;
 
-use Flarum\User\AssertPermissionTrait;
 use Flarum\User\Exception\PermissionDeniedException;
-use Reflar\Doorman\Doorkey;
-use Reflar\Doorman\Validators\DoorkeyValidator;
+use FoF\Doorman\Doorkey;
+use FoF\Doorman\Validators\DoorkeyValidator;
+use Illuminate\Support\Arr;
 
 class EditDoorkeyHandler
 {
-    use AssertPermissionTrait;
-
     /**
      * @var DoorkeyValidator
      */
@@ -47,11 +46,11 @@ class EditDoorkeyHandler
     {
         $actor = $command->actor;
         $data = $command->data;
-        $attributes = array_get($data, 'attributes', []);
+        $attributes = Arr::get($data, 'attributes', []);
 
         $validate = [];
 
-        $this->assertAdmin($actor);
+        $actor->assertAdmin();
 
         $doorkey = Doorkey::where('id', $command->doorkeyId)->firstOrFail();
 

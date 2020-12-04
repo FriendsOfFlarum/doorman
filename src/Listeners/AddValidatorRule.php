@@ -1,22 +1,23 @@
 <?php
-/**
- *  This file is part of reflar/doorman.
+
+/*
+ * This file is part of fof/doorman.
  *
- *  Copyright (c) 2018 ReFlar.
- *
- *  https://reflar.redevs.org
+ * Copyright (c) 2018-2020 Reflar.
+ * Copyright (c) 2020 FriendsOfFlarum
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
+ *
  */
 
-namespace Reflar\Doorman\Listeners;
+namespace FoF\Doorman\Listeners;
 
 use Flarum\Foundation\Event\Validating;
 use Flarum\Settings\SettingsRepositoryInterface;
+use FoF\Doorman\Doorkey;
+use FoF\Doorman\Validators\DoorkeyLoginValidator;
 use Illuminate\Contracts\Events\Dispatcher;
-use Reflar\Doorman\Doorkey;
-use Reflar\Doorman\Validators\DoorkeyLoginValidator;
 
 class AddValidatorRule
 {
@@ -49,7 +50,7 @@ class AddValidatorRule
                     $doorkey = Doorkey::where('key', $value)->first();
 
                     // Allows the invitation key to be optional if the setting was enabled
-                    $allow = json_decode($this->settings->get('reflar.doorman.allowPublic'));
+                    $allow = json_decode($this->settings->get('fof-doorman.allowPublic'));
                     if ($allow && !$doorkey) {
                         return;
                     }

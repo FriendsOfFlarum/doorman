@@ -1,16 +1,17 @@
 <?php
 
-/**
- *  This file is part of reflar/doorman.
+/*
+ * This file is part of fof/doorman.
  *
- *  Copyright (c) 2018 .
+ * Copyright (c) 2018-2020 Reflar.
+ * Copyright (c) 2020 FriendsOfFlarum
  *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
  *
- *  For the full copyright and license information, please view the LICENSE.md
- *  file that was distributed with this source code.
  */
 
-namespace Reflar\Doorman\Validators;
+namespace FoF\Doorman\Validators;
 
 use Flarum\Foundation\AbstractValidator;
 
@@ -22,7 +23,7 @@ class DoorkeyLoginValidator extends AbstractValidator
      * {@inheritdoc}
      */
     protected $rules = [
-        'reflar-doorkey' => [
+        'fof-doorkey' => [
             'required',
             'doorkey',
         ],
@@ -36,8 +37,8 @@ class DoorkeyLoginValidator extends AbstractValidator
         $translator = app('translator');
 
         return [
-            'doorkey'  => $translator->trans('reflar-doorman.forum.sign_up.invalid_doorkey'),
-            'required' => $translator->trans('reflar-doorman.forum.sign_up.doorkey_required'),
+            'doorkey'  => $translator->trans('fof-doorman.forum.sign_up.invalid_doorkey'),
+            'required' => $translator->trans('fof-doorman.forum.sign_up.doorkey_required'),
         ];
     }
 }

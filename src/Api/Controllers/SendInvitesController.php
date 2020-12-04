@@ -1,23 +1,32 @@
 <?php
 
-namespace Reflar\Doorman\Api\Controllers;
+/*
+ * This file is part of fof/doorman.
+ *
+ * Copyright (c) 2018-2020 Reflar.
+ * Copyright (c) 2020 FriendsOfFlarum
+ *
+ * For the full copyright and license information, please view the LICENSE.md
+ * file that was distributed with this source code.
+ *
+ */
+
+namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractCreateController;
+use Flarum\Http\UrlGenerator;
 use Flarum\Settings\SettingsRepositoryInterface;
-use Flarum\User\AssertPermissionTrait;
+use FoF\Doorman\Api\Serializers\DoorkeySerializer;
+use FoF\Doorman\Doorkey;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 use Psr\Http\Message\ServerRequestInterface;
-use Reflar\Doorman\Api\Serializers\DoorkeySerializer;
-use Illuminate\Contracts\Mail\Mailer;
-use Reflar\Doorman\Doorkey;
 use Symfony\Component\Translation\TranslatorInterface;
 use Tobscure\JsonApi\Document;
 
 class SendInvitesController extends AbstractCreateController
 {
-    use AssertPermissionTrait;
-
     /**
      * @var Dispatcher
      */
@@ -33,27 +42,35 @@ class SendInvitesController extends AbstractCreateController
      */
     protected $translator;
 
+    /**
+     * @var UrlGenerator
+     */
+    protected $url;
+
     public $serializer = DoorkeySerializer::class;
 
     /**
      * @param Dispatcher $bus
      */
-    public function __construct(Dispatcher $bus, Mailer $mailer, TranslatorInterface $translator)
+    public function __construct(Dispatcher $bus, Mailer $mailer, TranslatorInterface $translator, UrlGenerator $url)
     {
         $this->bus = $bus;
         $this->mailer = $mailer;
         $this->translator = $translator;
+        $this->url = $url;
     }
 
     /**
      * @param ServerRequestInterface $request
-     * @param Document $document
-     * @return mixed
+     * @param Document               $document
+     *
      * @throws \Flarum\User\Exception\PermissionDeniedException
+     *
+     * @return mixed
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {
-        $this->assertAdmin($request->getAttribute('actor'));
+        $request->getAttribute('actor')->assertAdmin();
 
         $data = $request->getParsedBody();
 
@@ -61,12 +78,12 @@ class SendInvitesController extends AbstractCreateController
 
         $title = app(SettingsRepositoryInterface::class)->get('forum_title');
 
-        $subject = app(SettingsRepositoryInterface::class)->get('forum_title').' - '.$this->translator->trans('reflar-doorman.forum.email.subject');
+        $subject = app(SettingsRepositoryInterface::class)->get('forum_title').' - '.$this->translator->trans('fof-doorman.forum.email.subject');
 
-        $body = $this->translator->trans('reflar-doorman.forum.email.body', [
+        $body = $this->translator->trans('fof-doorman.forum.email.body', [
             '{forum}' => $title,
-            '{url}' => app()->url(),
-            '{code}' => $doorkey->key
+            '{url}'   => $this->url->to('forum')->base(),
+            '{code}'  => $doorkey->key,
         ]);
 
         foreach ($data['emails'] as $email) {
