@@ -16,14 +16,7 @@ app.initializers.add('fof-doorman', () => {
         fields.add(
             'doorkey',
             <div className="Form-group">
-                <input
-                    className="FormControl"
-                    name="fof-doorkey"
-                    type="text"
-                    placeholder={placeholder}
-                    bidi={this.doorkey}
-                    disabled={this.loading}
-                />
+                <input className="FormControl" name="fof-doorkey" type="text" placeholder={placeholder} bidi={this.doorkey} disabled={this.loading} />
             </div>
         );
     });
