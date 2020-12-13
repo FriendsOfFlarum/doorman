@@ -16,7 +16,6 @@ namespace FoF\Doorman\Listeners;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\Saving;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 
 class ValidateDoorkey
@@ -31,21 +30,11 @@ class ValidateDoorkey
     }
 
     /**
-     * @param Dispatcher $events
-     *
-     * @return void
-     */
-    public function subscribe(Dispatcher $events)
-    {
-        $events->listen(Saving::class, [$this, 'validateKey']);
-    }
-
-    /**
      * @param Saving $event
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function validateKey(Saving $event)
+    public function handle(Saving $event)
     {
         if (!$event->user->exists) {
             $key = strtoupper(Arr::get($event->data, 'attributes.fof-doorkey'));

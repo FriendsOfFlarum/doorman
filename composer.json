@@ -6,8 +6,20 @@
     ],
     "type": "flarum-extension",
     "license": "MIT",
+    "support": {
+        "issues": "https://github.com/FriendsOfFlarum/doorman/issues",
+        "source": "https://github.com/FriendsOfFlarum/doorman",
+        "forum": "https://discuss.flarum.org/d/17845"
+    },
+    "homepage": "https://friendsofflarum.org",
+    "funding": [
+        {
+            "type": "website",
+            "url": "https://opencollective.com/fof/donate"
+        }
+    ],
     "require": {
-        "flarum/core": ">=0.1.0-beta-14 <0.1.0-beta.15"
+        "flarum/core": "^0.1.0-beta-15"
     },
     "replace": {
         "reflar/doorman": "*"
@@ -32,6 +44,7 @@
     "extra": {
         "flarum-extension": {
             "title": "FoF Doorman",
+            "category": "moderation",
             "icon": {
                 "name": "fas fa-door-closed",
                 "backgroundColor": "#e74c3c",

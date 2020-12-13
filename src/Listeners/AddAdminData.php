@@ -14,59 +14,16 @@
 namespace FoF\Doorman\Listeners;
 
 use Flarum\Api\Controller\ShowForumController;
-use Flarum\Api\Event\WillGetData;
-use Flarum\Api\Event\WillSerializeData;
-use Flarum\Api\Serializer\ForumSerializer;
-use Flarum\Event\GetApiRelationship;
-use FoF\Doorman\Api\Serializers\DoorkeySerializer;
 use FoF\Doorman\Doorkey;
-use Illuminate\Contracts\Events\Dispatcher;
+use Psr\Http\Message\ServerRequestInterface;
 
 class AddAdminData
 {
-    /**
-     * @param Dispatcher $events
-     */
-    public function subscribe(Dispatcher $events)
+    public function __invoke(ShowForumController $controller, &$data, ServerRequestInterface $request)
     {
-        $events->listen(WillSerializeData::class, [$this, 'loadDoorkeysRelationship']);
-        $events->listen(GetApiRelationship::class, [$this, 'getApiAttributes']);
-        $events->listen(WillGetData::class, [$this, 'includeDoorkeys']);
-    }
-
-    /**
-     * @param GetApiRelationship $event
-     *
-     * @return \Tobscure\JsonApi\Relationship|null
-     */
-    public function getApiAttributes(GetApiRelationship $event)
-    {
-        if ($event->isRelationship(ForumSerializer::class, 'doorkeys')) {
-            return $event->serializer->hasMany($event->model, DoorkeySerializer::class, 'doorkeys');
-        }
-    }
-
-    /**
-     * @param WillSerializeData $event
-     */
-    public function loadDoorkeysRelationship(WillSerializeData $event)
-    {
-        if ($event->isController(ShowForumController::class)) {
-            if ($event->actor->isAdmin()) {
-                $event->data['doorkeys'] = Doorkey::all();
-            } else {
-                $event->data['doorkeys'] = [];
-            }
-        }
-    }
-
-    /**
-     * @param WillGetData $event
-     */
-    public function includeDoorkeys(WillGetData $event)
-    {
-        if ($event->isController(ShowForumController::class)) {
-            $event->addInclude('doorkeys');
+        $data['doorkeys'] = [];
+        if ($request->getAttribute('actor')->isAdmin()) {
+            $data['doorkeys'] = Doorkey::all();
         }
     }
 }

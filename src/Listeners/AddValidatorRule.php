@@ -13,11 +13,10 @@
 
 namespace FoF\Doorman\Listeners;
 
-use Flarum\Foundation\Event\Validating;
+use Flarum\Foundation\AbstractValidator;
 use Flarum\Settings\SettingsRepositoryInterface;
 use FoF\Doorman\Doorkey;
-use FoF\Doorman\Validators\DoorkeyLoginValidator;
-use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Validation\Validator;
 
 class AddValidatorRule
 {
@@ -28,40 +27,25 @@ class AddValidatorRule
         $this->settings = $settings;
     }
 
-    /**
-     * @param Dispatcher $events
-     *
-     * @return void
-     */
-    public function subscribe(Dispatcher $events)
+    public function __invoke(AbstractValidator $flarumValidator, Validator $validator)
     {
-        $events->listen(Validating::class, [$this, 'addRule']);
-    }
+        $validator->addExtension(
+            'doorkey',
+            function ($attribute, $value, $parameters) {
+                $doorkey = Doorkey::where('key', $value)->first();
 
-    /**
-     * @param Validating $event
-     */
-    public function addRule(Validating $event)
-    {
-        if ($event->type instanceof DoorkeyLoginValidator) {
-            $event->validator->addExtension(
-                'doorkey',
-                function ($attribute, $value, $parameters) {
-                    $doorkey = Doorkey::where('key', $value)->first();
-
-                    // Allows the invitation key to be optional if the setting was enabled
-                    $allow = json_decode($this->settings->get('fof-doorman.allowPublic'));
-                    if ($allow && !$doorkey) {
-                        return;
-                    }
-
-                    if ($doorkey !== null && ($doorkey->max_uses === 0 || $doorkey->uses < $doorkey->max_uses)) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                // Allows the invitation key to be optional if the setting was enabled
+                $allow = json_decode($this->settings->get('fof-doorman.allowPublic'));
+                if ($allow && !$doorkey) {
+                    return;
                 }
-            );
-        }
+
+                if ($doorkey !== null && ($doorkey->max_uses === 0 || $doorkey->uses < $doorkey->max_uses)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        );
     }
 }

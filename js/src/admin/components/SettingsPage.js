@@ -1,4 +1,4 @@
-import Page from 'flarum/components/Page';
+import ExtensionPage from 'flarum/components/ExtensionPage';
 import LoadingIndicator from 'flarum/components/LoadingIndicator';
 import DoormanSettingsListItem from './DoormanSettingsListItem';
 import Button from 'flarum/components/Button';
@@ -9,7 +9,7 @@ import saveSettings from 'flarum/utils/saveSettings';
 import Stream from 'flarum/utils/Stream';
 import withAttr from 'flarum/utils/withAttr';
 
-export default class DoormanSettingsPage extends Page {
+export default class DoormanSettingsPage extends ExtensionPage {
     oninit(vnode) {
         super.oninit(vnode);
 
@@ -26,10 +26,9 @@ export default class DoormanSettingsPage extends Page {
         };
     }
 
-    view() {
+    content() {
         return (
             <div className="container Doorkey-container">
-                <h1>Doorman</h1>
                 {this.loading ? <LoadingIndicator /> : ''}
                 <div className="Doorkeys-title">
                     <h2>{app.translator.trans('fof-doorman.admin.page.doorkey.title')}</h2>
