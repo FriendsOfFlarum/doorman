@@ -16,7 +16,6 @@ namespace FoF\Doorman\Listeners;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\Registered;
 use FoF\Doorman\Doorkey;
-use Illuminate\Contracts\Events\Dispatcher;
 
 class PostRegisterOperations
 {
@@ -27,17 +26,7 @@ class PostRegisterOperations
         $this->settings = $settings;
     }
 
-    /**
-     * @param Dispatcher $events
-     *
-     * @return void
-     */
-    public function subscribe(Dispatcher $events)
-    {
-        $events->listen(Registered::class, [$this, 'useDoorkey']);
-    }
-
-    public function useDoorkey(Registered $event)
+    public function handle(Registered $event)
     {
         $user = $event->user;
         $doorkey = Doorkey::where('key', $user->invite_code)->first();

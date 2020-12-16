@@ -1,9 +1,9 @@
 import app from 'flarum/app';
-import addSettingsPage from './addSettingsPage';
 import Doorkey from './models/Doorkey';
+import SettingsPage from './components/SettingsPage';
 
 app.initializers.add('fof-doorman', () => {
     app.store.models.doorkeys = Doorkey;
 
-    addSettingsPage();
+    app.extensionData.for('fof-doorman').registerPage(SettingsPage);
 });
