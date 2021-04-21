@@ -51,7 +51,7 @@ return [
         ->configure(Listeners\AddValidatorRule::class),
 
     (new Extend\Settings())
-        ->serializeToForum('fof-doorman.allowPublic', 'fof-doorman.allowPublic'),
+        ->serializeToForum('fof-doorman.allowPublic', 'fof-doorman.allowPublic', 'boolVal', false),
 
     (new Extend\Event())
         ->listen(Registered::class, Listeners\PostRegisterOperations::class)

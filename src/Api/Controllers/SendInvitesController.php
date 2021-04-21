@@ -22,7 +22,7 @@ use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Mail\Message;
 use Psr\Http\Message\ServerRequestInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Tobscure\JsonApi\Document;
 
 class SendInvitesController extends AbstractCreateController
@@ -76,9 +76,9 @@ class SendInvitesController extends AbstractCreateController
 
         $doorkey = Doorkey::findOrFail($data['doorkeyId']);
 
-        $title = app(SettingsRepositoryInterface::class)->get('forum_title');
+        $title = resolve(SettingsRepositoryInterface::class)->get('forum_title');
 
-        $subject = app(SettingsRepositoryInterface::class)->get('forum_title').' - '.$this->translator->trans('fof-doorman.forum.email.subject');
+        $subject = resolve(SettingsRepositoryInterface::class)->get('forum_title').' - '.$this->translator->trans('fof-doorman.forum.email.subject');
 
         $body = $this->translator->trans('fof-doorman.forum.email.body', [
             '{forum}' => $title,

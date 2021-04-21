@@ -18,7 +18,7 @@ return [
         /**
          * @var \Flarum\Settings\SettingsRepositoryInterface
          */
-        $settings = app('flarum.settings');
+        $settings = resolve('flarum.settings');
 
         foreach (['allowPublic'] as $setting) {
             if ($value = $settings->get($key = "reflar.doorman.$setting")) {
@@ -31,7 +31,7 @@ return [
         /**
          * @var \Flarum\Settings\SettingsRepositoryInterface
          */
-        $settings = app('flarum.settings');
+        $settings = resolve('flarum.settings');
 
         foreach (['allowPublic'] as $setting) {
             if ($value = $settings->get($key = "fof-doorman.$setting")) {

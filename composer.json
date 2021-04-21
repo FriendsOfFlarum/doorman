@@ -19,7 +19,7 @@
         }
     ],
     "require": {
-        "flarum/core": "^0.1.0-beta.15"
+        "flarum/core": "^0.1.0-beta.16"
     },
     "replace": {
         "reflar/doorman": "*"
@@ -44,7 +44,7 @@
     "extra": {
         "flarum-extension": {
             "title": "FoF Doorman",
-            "category": "moderation",
+            "category": "feature",
             "icon": {
                 "name": "fas fa-door-closed",
                 "backgroundColor": "#e74c3c",

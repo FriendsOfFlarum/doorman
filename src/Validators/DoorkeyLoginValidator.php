@@ -34,7 +34,7 @@ class DoorkeyLoginValidator extends AbstractValidator
      */
     protected function getMessages()
     {
-        $translator = app('translator');
+        $translator = resolve('translator');
 
         return [
             'doorkey'  => $translator->trans('fof-doorman.forum.sign_up.invalid_doorkey'),
