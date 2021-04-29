@@ -139,7 +139,7 @@ export default class DoormanSettingsPage extends ExtensionPage {
     toggleOptional() {
         this.switcherLoading = true;
         const settings = {
-            'fof-doorman.allowPublic': JSON.stringify(!this.isOptional),
+            'fof-doorman.allowPublic': !this.isOptional,
         };
         saveSettings(settings)
             .then(() => {
