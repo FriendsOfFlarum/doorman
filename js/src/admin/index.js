@@ -1,4 +1,4 @@
-import app from 'flarum/app';
+import app from 'flarum/admin/app';
 import Doorkey from './models/Doorkey';
 import SettingsPage from './components/SettingsPage';
 

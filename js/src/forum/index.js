@@ -1,7 +1,7 @@
-import app from 'flarum/app';
-import { extend } from 'flarum/extend';
-import SignUpModal from 'flarum/components/SignUpModal';
-import Stream from 'flarum/utils/Stream';
+import app from 'flarum/forum/app';
+import { extend } from 'flarum/common/extend';
+import SignUpModal from 'flarum/forum/components/SignUpModal';
+import Stream from 'flarum/common/utils/Stream';
 
 app.initializers.add('fof-doorman', () => {
     extend(SignUpModal.prototype, 'oninit', function () {

@@ -1,16 +1,20 @@
-import Component from 'flarum/Component';
-import Button from 'flarum/components/Button';
-import Badge from 'flarum/components/Badge';
-import Select from 'flarum/components/Select';
-import Switch from 'flarum/components/Switch';
+import Component from 'flarum/common/Component';
+import Button from 'flarum/common/components/Button';
+import Badge from 'flarum/common/components/Badge';
+import Select from 'flarum/common/components/Select';
+import Switch from 'flarum/common/components/Switch';
 import InviteCodeModal from './InviteCodeModal';
-import withAttr from 'flarum/utils/withAttr';
+import withAttr from 'flarum/common/utils/withAttr';
 
 export default class DoormanSettingsListItem extends Component {
-    view() {
+    oninit(vnode) {
+        super.oninit(vnode);
+
         this.doorkey = this.attrs.doorkey;
         this.doorkeys = this.attrs.doorkeys;
+    }
 
+    view() {
         var remaining = this.doorkey.maxUses() - this.doorkey.uses();
 
         return (
@@ -64,14 +68,10 @@ export default class DoormanSettingsListItem extends Component {
                         icon: 'fas fa-user-slash',
                         label: app.translator.trans('fof-doorman.admin.page.doorkey.warning'),
                     })
-                ) : this.doorkey.uses() !== 0 ? (
-                    <div>
-                        <h3 className="Doorkey-left">
-                            {app.translator.transChoice('fof-doorman.admin.page.doorkey.used_times', remaining, { remaining }).join('')}
-                        </h3>
-                    </div>
                 ) : (
-                    ''
+                    <div>
+                        <h3 className="Doorkey-left">{app.translator.trans('fof-doorman.admin.page.doorkey.used_times', { remaining })}</h3>
+                    </div>
                 )}
             </div>
         );
@@ -79,10 +79,6 @@ export default class DoormanSettingsListItem extends Component {
 
     showModal() {
         app.modal.show(InviteCodeModal, { doorkey: this.doorkey });
-    }
-
-    oncreate(vnode) {
-        $('.fa-exclamation-cricle').tooltip({ container: 'body' });
     }
 
     getGroupsForInput() {

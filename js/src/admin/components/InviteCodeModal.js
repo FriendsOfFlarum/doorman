@@ -1,6 +1,6 @@
-import Alert from 'flarum/components/Alert';
-import Modal from 'flarum/components/Modal';
-import Button from 'flarum/components/Button';
+import Alert from 'flarum/common/components/Alert';
+import Modal from 'flarum/common/components/Modal';
+import Button from 'flarum/common/components/Button';
 
 export default class InviteCodeModal extends Modal {
     oninit(vnode) {
@@ -116,7 +116,8 @@ export default class InviteCodeModal extends Modal {
     }
 
     validateEmail(email) {
-        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        const re =
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
     }
 

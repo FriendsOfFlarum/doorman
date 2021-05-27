@@ -12,12 +12,10 @@ Each code can be set to have a maximum number of uses, what group the user shoul
 
 ### Installation
 
-**beta 14 and above**
-
 Install with composer:
 
 ```bash
-composer require fof/doorman
+composer require fof/doorman:"*"
 ```
 
 Then login and enable the extension.

@@ -1,13 +1,13 @@
-import ExtensionPage from 'flarum/components/ExtensionPage';
-import LoadingIndicator from 'flarum/components/LoadingIndicator';
+import ExtensionPage from 'flarum/admin/components/ExtensionPage';
+import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 import DoormanSettingsListItem from './DoormanSettingsListItem';
-import Button from 'flarum/components/Button';
-import Select from 'flarum/components/Select';
-import Switch from 'flarum/components/Switch';
-import app from 'flarum/app';
-import saveSettings from 'flarum/utils/saveSettings';
-import Stream from 'flarum/utils/Stream';
-import withAttr from 'flarum/utils/withAttr';
+import Button from 'flarum/common/components/Button';
+import Select from 'flarum/common/components/Select';
+import Switch from 'flarum/common/components/Switch';
+import app from 'flarum/admin/app';
+import saveSettings from 'flarum/admin/utils/saveSettings';
+import Stream from 'flarum/common/utils/Stream';
+import withAttr from 'flarum/common/utils/withAttr';
 
 export default class DoormanSettingsPage extends ExtensionPage {
     oninit(vnode) {
