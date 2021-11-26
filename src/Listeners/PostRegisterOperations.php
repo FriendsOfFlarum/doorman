@@ -14,16 +14,19 @@
 namespace FoF\Doorman\Listeners;
 
 use Flarum\Settings\SettingsRepositoryInterface;
+use Flarum\User\Event\GroupsChanged;
 use Flarum\User\Event\Registered;
 use FoF\Doorman\Doorkey;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class PostRegisterOperations
 {
     protected $settings;
 
-    public function __construct(SettingsRepositoryInterface $settings)
+    public function __construct(SettingsRepositoryInterface $settings, Dispatcher $events)
     {
         $this->settings = $settings;
+        $this->events = $events;
     }
 
     public function handle(Registered $event)
@@ -42,7 +45,13 @@ class PostRegisterOperations
         }
 
         if ($doorkey->group_id !== 3) {
+            $oldGroups = $user->groups()->get()->all();
+
             $user->groups()->attach($doorkey->group_id);
+
+            $this->events->dispatch(
+                new GroupsChanged($user, $oldGroups)
+            );
         }
 
         $doorkey->increment('uses');
