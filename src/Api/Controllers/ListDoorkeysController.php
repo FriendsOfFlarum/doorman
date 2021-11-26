@@ -14,6 +14,7 @@
 namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractListController;
+use Flarum\Http\RequestUtil;
 use FoF\Doorman\Api\Serializers\DoorkeySerializer;
 use FoF\Doorman\Doorkey;
 use Psr\Http\Message\ServerRequestInterface;
@@ -36,7 +37,7 @@ class ListDoorkeysController extends AbstractListController
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {
-        $request->getAttribute('actor')->assertAdmin();
+        RequestUtil::getActor($request)->assertAdmin();
 
         return Doorkey::all();
     }

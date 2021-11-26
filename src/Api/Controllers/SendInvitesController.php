@@ -14,6 +14,7 @@
 namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractCreateController;
+use Flarum\Http\RequestUtil;
 use Flarum\Http\UrlGenerator;
 use Flarum\Settings\SettingsRepositoryInterface;
 use FoF\Doorman\Api\Serializers\DoorkeySerializer;
@@ -70,7 +71,7 @@ class SendInvitesController extends AbstractCreateController
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {
-        $request->getAttribute('actor')->assertAdmin();
+        RequestUtil::getActor($request)->assertAdmin();
 
         $data = $request->getParsedBody();
 
