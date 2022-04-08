@@ -14,6 +14,7 @@
 namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractCreateController;
+use Flarum\Extension\ExtensionManager;
 use Flarum\Http\RequestUtil;
 use Flarum\Http\UrlGenerator;
 use Flarum\Settings\SettingsRepositoryInterface;
@@ -48,17 +49,29 @@ class SendInvitesController extends AbstractCreateController
      */
     protected $url;
 
+    /**
+     * @var SettingsRepositoryInterface
+     */
+    protected $settings;
+
+    /**
+     * @var ExtensionManager
+     */
+    protected $extensions;
+
     public $serializer = DoorkeySerializer::class;
 
     /**
      * @param Dispatcher $bus
      */
-    public function __construct(Dispatcher $bus, Mailer $mailer, TranslatorInterface $translator, UrlGenerator $url)
+    public function __construct(Dispatcher $bus, Mailer $mailer, TranslatorInterface $translator, UrlGenerator $url, SettingsRepositoryInterface $settings, ExtensionManager $extensions)
     {
         $this->bus = $bus;
         $this->mailer = $mailer;
         $this->translator = $translator;
         $this->url = $url;
+        $this->settings = $settings;
+        $this->extensions = $extensions;
     }
 
     /**
@@ -77,13 +90,13 @@ class SendInvitesController extends AbstractCreateController
 
         $doorkey = Doorkey::findOrFail($data['doorkeyId']);
 
-        $title = resolve(SettingsRepositoryInterface::class)->get('forum_title');
+        $title = $this->settings->get('forum_title');
 
-        $subject = resolve(SettingsRepositoryInterface::class)->get('forum_title').' - '.$this->translator->trans('fof-doorman.forum.email.subject');
+        $subject = $this->settings->get('forum_title').' - '.$this->translator->trans('fof-doorman.forum.email.subject');
 
         $body = $this->translator->trans('fof-doorman.forum.email.body', [
             '{forum}' => $title,
-            '{url}'   => $this->url->to('forum')->base(),
+            '{url}'   => $this->extensions->isEnabled('zerosonesfun-direct-links') ? $this->url->to('forum')->route('direct-links-signup') : $this->url->to('forum')->base(),
             '{code}'  => $doorkey->key,
         ]);
 
