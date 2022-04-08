@@ -26,13 +26,8 @@
     },
     "authors": [
         {
-            "name": "Charlie K",
-            "email": "charlie.k@redevs.org",
-            "role": "Developer"
-        },
-        {
-            "name": "David Sevilla Martín",
-            "email": "david.s@redevs.org",
+            "name": "Team Fof",
+            "email": "team@friendsofflarum.org",
             "role": "Developer"
         }
     ],
@@ -53,6 +48,9 @@
         },
         "flagrow": {
             "discuss": "https://discuss.flarum.org/d/17845"
-        }
+        },
+        "optional-dependencies": [
+            "zerosonesfun/direct-links"
+        ]
     }
 }
