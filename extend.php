@@ -40,13 +40,6 @@ return [
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 
-    (new Extend\ApiSerializer(ForumSerializer::class))
-        ->hasMany('doorkeys', DoorkeySerializer::class),
-
-    (new Extend\ApiController(ShowForumController::class))
-        ->prepareDataForSerialization(Listeners\AddAdminData::class)
-        ->addInclude('doorkeys'),
-
     (new Extend\Validator(DoorkeyLoginValidator::class))
         ->configure(Listeners\AddValidatorRule::class),
 

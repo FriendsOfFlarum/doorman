@@ -4,77 +4,100 @@ import Button from 'flarum/common/components/Button';
 import Badge from 'flarum/common/components/Badge';
 import Select from 'flarum/common/components/Select';
 import Switch from 'flarum/common/components/Switch';
+import Stream from 'flarum/common/utils/Stream';
 import InviteCodeModal from './InviteCodeModal';
-import withAttr from 'flarum/common/utils/withAttr';
 
 export default class DoormanSettingsListItem extends Component {
   oninit(vnode) {
     super.oninit(vnode);
 
     this.doorkey = this.attrs.doorkey;
-    this.doorkeys = this.attrs.doorkeys;
+
+    this.key = Stream(this.doorkey.key());
+    this.groupId = Stream(this.doorkey.groupId() || 3);
+    this.maxUses = Stream(this.doorkey.maxUses() || '0');
+    this.activates = Stream(!!this.doorkey.activates());
   }
 
   view() {
     var remaining = this.doorkey.maxUses() - this.doorkey.uses();
 
     return (
-      <div className="DoormanSettingsListItem">
-        <div className="DoormanSettingsListItem-inputs">
+      <tr className="DoormanSettingsListItem">
+        <td>
           <input
             className="FormControl Doorkey-key"
             type="text"
             disabled
-            value={this.doorkey.key()}
+            value={this.key()}
             placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.key')}
-            onchange={withAttr('value', this.updateKey.bind(this, this.doorkey))}
           />
+        </td>
+        <td>
           {Select.component({
             options: this.getGroupsForInput(),
             className: 'Doorkey-select',
-            onchange: this.updateGroupId.bind(this, this.doorkey),
-            value: this.doorkey.groupId() || 3,
+            onchange: this.groupId,
+            value: this.groupId(),
           })}
+        </td>
+        <td>
           <input
             className="FormControl Doorkey-maxUses"
-            value={this.doorkey.maxUses() || '0'}
+            bidi={this.maxUses}
             type="number"
             placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.max_uses')}
-            onchange={withAttr('value', this.updateMaxUses.bind(this, this.doorkey))}
           />
+        </td>
+        <td>
           {Switch.component({
-            state: this.doorkey.activates() || false,
-            onchange: this.updateActivates.bind(this, this.doorkey),
+            state: this.activates(),
+            onchange: this.activates,
             className: 'Doorkey-switch',
           })}
-        </div>
+        </td>
 
-        {Button.component({
-          type: 'button',
-          className: 'Button Button--warning Doorkey-button',
-          icon: 'fa fa-envelope',
-          onclick: this.showModal.bind(this),
-        })}
+        <td>
+          {Button.component({
+            type: 'button',
+            className: 'Button Button--icon Doorkey-button',
+            icon: 'fa fa-envelope fa-fw',
+            onclick: this.showModal.bind(this),
+          })}
+        </td>
 
-        {Button.component({
-          type: 'button',
-          className: 'Button Button--warning Doorkey-button',
-          icon: 'fa fa-times',
-          onclick: this.deleteDoorkey.bind(this, this.doorkey),
-        })}
+        <td>
+          <div className="ButtonGroup Doorkey-button">
+            {Button.component({
+              type: 'button',
+              className: 'Button Button--icon',
+              icon: `fas ${this.loading ? 'fa-circle-notch fa-spin' : 'fa-save'} fa-fw`,
+              onclick: this.save.bind(this),
+              disabled: this.loading || this.loadingDelete,
+            })}
 
-        {this.doorkey.maxUses() === this.doorkey.uses() ? (
-          Badge.component({
-            className: 'Doorkey-badge',
-            icon: 'fas fa-user-slash',
-            label: app.translator.trans('fof-doorman.admin.page.doorkey.warning'),
-          })
-        ) : (
-          <div>
-            <h3 className="Doorkey-left">{app.translator.trans('fof-doorman.admin.page.doorkey.used_times', { remaining })}</h3>
+            {Button.component({
+              type: 'button',
+              className: 'Button Button--danger Button--icon',
+              icon: `fas ${this.loadingDelete ? 'fa-circle-notch fa-spin' : 'fa-times'} fa-fw`,
+              onclick: this.delete.bind(this),
+              disabled: this.loadingDelete,
+            })}
           </div>
-        )}
-      </div>
+        </td>
+
+        <td>
+          {this.doorkey.maxUses() === this.doorkey.uses() ? (
+            Badge.component({
+              className: 'Button--icon Doorkey-badge',
+              icon: 'fas fa-user-slash',
+              label: app.translator.trans('fof-doorman.admin.page.doorkey.warning'),
+            })
+          ) : (
+            <b>{app.translator.trans('fof-doorman.admin.page.doorkey.used_times', { remaining })}</b>
+          )}
+        </td>
+      </tr>
     );
   }
 
@@ -95,29 +118,27 @@ export default class DoormanSettingsListItem extends Component {
     return options;
   }
 
-  updateKey(doorkey, key) {
-    doorkey.save({ key });
+  save() {
+    this.loading = true;
+
+    return this.doorkey
+      .save({
+        groupId: this.groupId(),
+        maxUses: this.maxUses(),
+        activates: this.activates(),
+      })
+      .finally(() => {
+        this.loading = false;
+        m.redraw();
+      });
   }
 
-  updateGroupId(doorkey, groupId) {
-    doorkey.save({ groupId });
-  }
+  delete() {
+    this.loadingDelete = true;
 
-  updateMaxUses(doorkey, maxUses) {
-    doorkey.save({ maxUses });
-  }
-
-  updateActivates(doorkey, activates) {
-    doorkey.save({ activates });
-  }
-
-  deleteDoorkey(doorkeyToDelete) {
-    doorkeyToDelete.delete();
-    this.doorkeys.some((doorkey, i) => {
-      if (doorkey.data.id === doorkeyToDelete.data.id) {
-        this.doorkeys.splice(i, 1);
-        return true;
-      }
+    this.doorkey.delete().finally(() => {
+      this.loadingDelete = false;
+      m.redraw();
     });
   }
 }

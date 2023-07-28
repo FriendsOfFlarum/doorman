@@ -8,11 +8,11 @@ app.initializers.add('fof-doorman', () => {
     this.doorkey = Stream('');
   });
   extend(SignUpModal.prototype, 'fields', function (fields) {
-    const isOptional = JSON.parse(app.forum.data.attributes['fof-doorman.allowPublic']);
-    let placeholder = app.translator.trans('fof-doorman.forum.sign_up.doorman_placeholder');
-    if (isOptional) {
-      placeholder = app.translator.trans('fof-doorman.forum.sign_up.doorman_placeholder_optional');
-    }
+    const isOptional = app.forum.data.attributes['fof-doorman.allowPublic'];
+    const placeholder = isOptional
+      ? app.translator.trans('fof-doorman.forum.sign_up.doorman_placeholder_optional')
+      : app.translator.trans('fof-doorman.forum.sign_up.doorman_placeholder');
+
     fields.add(
       'doorkey',
       <div className="Form-group">

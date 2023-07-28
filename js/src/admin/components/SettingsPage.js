@@ -5,7 +5,6 @@ import Button from 'flarum/common/components/Button';
 import Select from 'flarum/common/components/Select';
 import Switch from 'flarum/common/components/Switch';
 import app from 'flarum/admin/app';
-import saveSettings from 'flarum/admin/utils/saveSettings';
 import Stream from 'flarum/common/utils/Stream';
 import withAttr from 'flarum/common/utils/withAttr';
 
@@ -13,9 +12,7 @@ export default class DoormanSettingsPage extends ExtensionPage {
   oninit(vnode) {
     super.oninit(vnode);
 
-    this.loading = false;
-    this.switcherLoading = false;
-    this.doorkeys = app.store.all('doorkeys');
+    this.loadingKeys = true;
     this.isOptional = app.data.settings['fof-doorman.allowPublic'];
 
     this.doorkey = {
@@ -26,73 +23,108 @@ export default class DoormanSettingsPage extends ExtensionPage {
     };
   }
 
+  oncreate(vnode) {
+    super.oncreate(vnode);
+
+    app.store.find('fof/doorkeys').then(() => {
+      this.loadingKeys = false;
+      m.redraw();
+    });
+  }
+
   content() {
+    const doorkeys = app.store.all('doorkeys');
+
     return (
       <div className="container Doorkey-container">
-        {this.loading ? <LoadingIndicator /> : ''}
         <div className="Doorkeys-title">
           <h2>{app.translator.trans('fof-doorman.admin.page.doorkey.title')}</h2>
-          <div className="helpText">{app.translator.trans('fof-doorman.admin.page.doorkey.help.key')}</div>
-          <div className="helpText">{app.translator.trans('fof-doorman.admin.page.doorkey.help.group')}</div>
-          <div className="helpText">{app.translator.trans('fof-doorman.admin.page.doorkey.help.max')}</div>
-          <div className="helpText">{app.translator.trans('fof-doorman.admin.page.doorkey.help.activates')}</div>
+          <p className="helpText">
+            {app.translator.trans('fof-doorman.admin.page.doorkey.help.key')} <br />
+            {app.translator.trans('fof-doorman.admin.page.doorkey.help.group')} <br />
+            {app.translator.trans('fof-doorman.admin.page.doorkey.help.max')} <br />
+            {app.translator.trans('fof-doorman.admin.page.doorkey.help.activates')} <br />
+          </p>
         </div>
-        <div className="Doorkeys-fieldLabels">
-          <h3 className="key">{app.translator.trans('fof-doorman.admin.page.doorkey.heading.key')}</h3>
-          <h3 className="group">{app.translator.trans('fof-doorman.admin.page.doorkey.heading.group')}</h3>
-          <h3 className="maxUses">{app.translator.trans('fof-doorman.admin.page.doorkey.heading.max_uses')}</h3>
-          <h3 className="activate">{app.translator.trans('fof-doorman.admin.page.doorkey.heading.activate')}</h3>
-        </div>
-        <div className="Doorkeys">
-          {this.doorkeys.map((doorkey) => {
-            return DoormanSettingsListItem.component({ doorkey, doorkeys: this.doorkeys });
-          })}
-        </div>
-        <div className="Doorkeys-new">
-          <div className="Doorkeys-newInputs">
-            <input
-              className="FormControl Doorkey-key"
-              type="text"
-              value={this.doorkey.key()}
-              placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.key')}
-              oninput={withAttr('value', this.doorkey.key)}
-            />
-            {Select.component({
-              options: this.getGroupsForInput(),
-              className: 'Doorkey-select',
-              onchange: this.doorkey.groupId,
-              value: this.doorkey.groupId(),
-            })}
-            <input
-              className="FormControl Doorkey-maxUses"
-              value={this.doorkey.maxUses()}
-              type="number"
-              placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.max_uses')}
-              oninput={withAttr('value', this.doorkey.maxUses)}
-              min="0"
-            />
-            {Switch.component({
-              state: this.doorkey.activates() || false,
-              onchange: this.doorkey.activates,
-              className: 'Doorkey-switch',
-            })}
-          </div>
-          {Button.component({
-            type: 'button',
-            className: 'Button Button--warning Doorkey-button',
-            icon: 'fa fa-plus',
-            onclick: this.createDoorkey.bind(this),
-          })}
-        </div>
+
+        {this.loadingKeys ? (
+          <LoadingIndicator />
+        ) : (
+          <table className="Table">
+            <thead>
+              <tr className="Doorkeys-fieldLabels">
+                <th>{app.translator.trans('fof-doorman.admin.page.doorkey.heading.key')}</th>
+                <th>{app.translator.trans('fof-doorman.admin.page.doorkey.heading.group')}</th>
+                <th>{app.translator.trans('fof-doorman.admin.page.doorkey.heading.max_uses')}</th>
+                <th>{app.translator.trans('fof-doorman.admin.page.doorkey.heading.activate')}</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {doorkeys.map((doorkey) => (
+                <DoormanSettingsListItem doorkey={doorkey} doorkeys={doorkeys} />
+              ))}
+            </tbody>
+
+            <tfoot>
+              <tr className="Doorkeys-new">
+                <td>
+                  <input
+                    className="FormControl Doorkey-key"
+                    type="text"
+                    value={this.doorkey.key()}
+                    placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.key')}
+                    oninput={withAttr('value', this.doorkey.key)}
+                  />
+                </td>
+                <td>
+                  {Select.component({
+                    options: this.getGroupsForInput(),
+                    className: 'Doorkey-select',
+                    onchange: this.doorkey.groupId,
+                    value: this.doorkey.groupId(),
+                  })}
+                </td>
+                <td>
+                  <input
+                    className="FormControl Doorkey-maxUses"
+                    value={this.doorkey.maxUses()}
+                    type="number"
+                    placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.max_uses')}
+                    oninput={withAttr('value', this.doorkey.maxUses)}
+                    min="0"
+                  />
+                </td>
+                <td>
+                  {Switch.component({
+                    state: this.doorkey.activates() || false,
+                    onchange: this.doorkey.activates,
+                    className: 'Doorkey-switch',
+                  })}
+                </td>
+                <td>
+                  {Button.component({
+                    type: 'button',
+                    className: 'Button Button--icon Doorkey-button',
+                    icon: `fa ${this.loadingCreate ? 'fa-circle-notch fa-spin' : 'fa-plus'} fa-fw`,
+                    onclick: this.createDoorkey.bind(this),
+                    disabled: this.loadingCreate,
+                  })}
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        )}
+
         <div className="Doorkey-allowPublic">
           <h2>{app.translator.trans('fof-doorman.admin.page.doorkey.allow-public.title')}</h2>
-          {this.switcherLoading ? (
-            <LoadingIndicator />
-          ) : (
-            <Switch state={this.isOptional} onchange={this.toggleOptional.bind(this)} className="AllowPublic-switch">
-              {app.translator.trans('fof-doorman.admin.page.doorkey.allow-public.switch-label')}
-            </Switch>
-          )}
+          {this.buildSettingComponent({
+            type: 'boolean',
+            setting: 'fof-doorman.allowPublic',
+            label: app.translator.trans('fof-doorman.admin.page.doorkey.allow-public.switch-label'),
+          })}
+
+          {this.submitButton()}
         </div>
       </div>
     );
@@ -118,6 +150,8 @@ export default class DoormanSettingsPage extends ExtensionPage {
   }
 
   createDoorkey() {
+    this.loadingCreate = true;
+
     app.store
       .createRecord('doorkeys')
       .save({
@@ -126,28 +160,14 @@ export default class DoormanSettingsPage extends ExtensionPage {
         maxUses: this.doorkey.maxUses(),
         activates: this.doorkey.activates(),
       })
-      .then((doorkey) => {
+      .then(() => {
         this.doorkey.key(this.generateRandomKey());
         this.doorkey.groupId(3);
         this.doorkey.maxUses(10);
         this.doorkey.activates('');
-        this.doorkeys.push(doorkey);
-        m.redraw();
-      });
-  }
-
-  toggleOptional() {
-    this.switcherLoading = true;
-    const settings = {
-      'fof-doorman.allowPublic': !this.isOptional,
-    };
-    saveSettings(settings)
-      .then(() => {
-        this.isOptional = JSON.parse(app.data.settings['fof-doorman.allowPublic']);
       })
-      .catch(() => {})
-      .then(() => {
-        this.switcherLoading = false;
+      .finally(() => {
+        this.loadingCreate = false;
         m.redraw();
       });
   }
