@@ -20,7 +20,9 @@ export default class DoormanSettingsListItem extends Component {
   }
 
   view() {
-    var remaining = this.doorkey.maxUses() - this.doorkey.uses();
+    const maxUses = this.doorkey.maxUses();
+    const totalUses = this.doorkey.uses();
+    const remaining = maxUses - totalUses;
 
     return (
       <tr className="DoormanSettingsListItem">
@@ -87,14 +89,16 @@ export default class DoormanSettingsListItem extends Component {
         </td>
 
         <td>
-          {this.doorkey.maxUses() === this.doorkey.uses() ? (
+          {maxUses > 0 && totalUses >= maxUses ? (
             Badge.component({
               className: 'Button--icon Doorkey-badge',
               icon: 'fas fa-user-slash',
               label: app.translator.trans('fof-doorman.admin.page.doorkey.warning'),
             })
           ) : (
-            <b>{app.translator.trans('fof-doorman.admin.page.doorkey.used_times', { remaining })}</b>
+            <b>{remaining < 0
+              ? app.translator.trans('fof-doorman.admin.page.doorkey.total_uses', { totalUses })
+              : app.translator.trans('fof-doorman.admin.page.doorkey.used_times', { remaining })}</b>
           )}
         </td>
       </tr>
