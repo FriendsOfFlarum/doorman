@@ -102,7 +102,7 @@ export default class InviteCodeModal extends Modal {
     value.split(/[ ,]+/).map((email) => {
       if (!this.emails.includes(email)) {
         const maxUses = this.doorkey.maxUses();
-        const uses = this.doorkey.uses()
+        const uses = this.doorkey.uses();
 
         if (maxUses > 0 && uses + this.emails.length + 1 > maxUses) {
           this.alert = app.alerts.show(Alert, { type: 'error' }, app.translator.trans('fof-doorman.admin.modal.max_use_conflict'));

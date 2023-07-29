@@ -24,6 +24,8 @@ export default class DoormanSettingsListItem extends Component {
     const totalUses = this.doorkey.uses();
     const remaining = maxUses - totalUses;
 
+    const formId = `fof-doorkey-${this.doorkey.id()}`;
+
     return (
       <tr className="DoormanSettingsListItem">
         <td>
@@ -47,7 +49,9 @@ export default class DoormanSettingsListItem extends Component {
           <input
             className="FormControl Doorkey-maxUses"
             bidi={this.maxUses}
+            min="0"
             type="number"
+            form={formId}
             placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.max_uses')}
           />
         </td>
@@ -69,23 +73,25 @@ export default class DoormanSettingsListItem extends Component {
         </td>
 
         <td>
-          <div className="ButtonGroup Doorkey-button">
-            {Button.component({
-              type: 'button',
-              className: 'Button Button--icon',
-              icon: `fas ${this.loading ? 'fa-circle-notch fa-spin' : 'fa-save'} fa-fw`,
-              onclick: this.save.bind(this),
-              disabled: this.loading || this.loadingDelete,
-            })}
+          <form id={formId}>
+            <div className="ButtonGroup Doorkey-button">
+              {Button.component({
+                type: 'submit',
+                className: 'Button Button--icon',
+                icon: `fas ${this.loading ? 'fa-circle-notch fa-spin' : 'fa-save'} fa-fw`,
+                onclick: this.save.bind(this),
+                disabled: this.loading || this.loadingDelete,
+              })}
 
-            {Button.component({
-              type: 'button',
-              className: 'Button Button--danger Button--icon',
-              icon: `fas ${this.loadingDelete ? 'fa-circle-notch fa-spin' : 'fa-times'} fa-fw`,
-              onclick: this.delete.bind(this),
-              disabled: this.loadingDelete,
-            })}
-          </div>
+              {Button.component({
+                type: 'button',
+                className: 'Button Button--danger Button--icon',
+                icon: `fas ${this.loadingDelete ? 'fa-circle-notch fa-spin' : 'fa-times'} fa-fw`,
+                onclick: this.delete.bind(this),
+                disabled: this.loadingDelete,
+              })}
+            </div>
+          </form>
         </td>
 
         <td>
@@ -96,9 +102,11 @@ export default class DoormanSettingsListItem extends Component {
               label: app.translator.trans('fof-doorman.admin.page.doorkey.warning'),
             })
           ) : (
-            <b>{remaining < 0
-              ? app.translator.trans('fof-doorman.admin.page.doorkey.total_uses', { totalUses })
-              : app.translator.trans('fof-doorman.admin.page.doorkey.used_times', { remaining })}</b>
+            <b>
+              {remaining < 0
+                ? app.translator.trans('fof-doorman.admin.page.doorkey.total_uses', { totalUses })
+                : app.translator.trans('fof-doorman.admin.page.doorkey.used_times', { remaining })}
+            </b>
           )}
         </td>
       </tr>
@@ -122,7 +130,9 @@ export default class DoormanSettingsListItem extends Component {
     return options;
   }
 
-  save() {
+  save(e) {
+    e?.preventDefault?.();
+
     this.loading = true;
 
     return this.doorkey

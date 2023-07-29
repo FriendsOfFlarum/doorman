@@ -75,6 +75,7 @@ export default class DoormanSettingsPage extends ExtensionPage {
                     value={this.doorkey.key()}
                     placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.key')}
                     oninput={withAttr('value', this.doorkey.key)}
+                    form="fof-doorkey-new"
                   />
                 </td>
                 <td>
@@ -93,6 +94,7 @@ export default class DoormanSettingsPage extends ExtensionPage {
                     placeholder={app.translator.trans('fof-doorman.admin.page.doorkey.max_uses')}
                     oninput={withAttr('value', this.doorkey.maxUses)}
                     min="0"
+                    form="fof-doorkey-new"
                   />
                 </td>
                 <td>
@@ -103,13 +105,15 @@ export default class DoormanSettingsPage extends ExtensionPage {
                   })}
                 </td>
                 <td>
-                  {Button.component({
-                    type: 'button',
-                    className: 'Button Button--icon Doorkey-button',
-                    icon: `fa ${this.loadingCreate ? 'fa-circle-notch fa-spin' : 'fa-plus'} fa-fw`,
-                    onclick: this.createDoorkey.bind(this),
-                    disabled: this.loadingCreate,
-                  })}
+                  <form id="fof-doorkey-new">
+                    {Button.component({
+                      type: 'submit',
+                      className: 'Button Button--icon Doorkey-button',
+                      icon: `fa ${this.loadingCreate ? 'fa-circle-notch fa-spin' : 'fa-plus'} fa-fw`,
+                      onclick: this.createDoorkey.bind(this),
+                      disabled: this.loadingCreate,
+                    })}
+                  </form>
                 </td>
               </tr>
             </tfoot>
@@ -149,7 +153,9 @@ export default class DoormanSettingsPage extends ExtensionPage {
       .slice(0, 8);
   }
 
-  createDoorkey() {
+  createDoorkey(e) {
+    e?.preventDefault?.();
+
     this.loadingCreate = true;
 
     app.store
