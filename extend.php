@@ -18,6 +18,7 @@ use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Extend;
 use Flarum\User\Event\Registered;
 use Flarum\User\Event\Saving as UserSaving;
+use Flarum\User\User;
 use FoF\Doorman\Api\Controllers;
 use FoF\Doorman\Api\Serializers\DoorkeySerializer;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
@@ -30,6 +31,9 @@ return [
     (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js')
         ->css(__DIR__.'/resources/less/admin.less'),
+
+    (new Extend\Model(User::class))
+        ->cast('invite_code', 'string'),
 
     (new Extend\Routes('api'))
         ->post('/fof/doorkeys', 'fof.doorkey.create', Controllers\CreateDoorkeyController::class)

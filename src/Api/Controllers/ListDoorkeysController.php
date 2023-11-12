@@ -22,9 +22,6 @@ use Tobscure\JsonApi\Document;
 
 class ListDoorkeysController extends AbstractListController
 {
-    /**
-     * @var DoorkeySerializer
-     */
     public $serializer = DoorkeySerializer::class;
 
     /**
