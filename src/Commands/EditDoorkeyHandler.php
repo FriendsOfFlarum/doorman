@@ -36,11 +36,11 @@ class EditDoorkeyHandler
     }
 
     /**
-     * @param EditRank $command
+     * @param EditDoorkey $command
      *
      * @throws PermissionDeniedException
      *
-     * @return Rank
+     * @return Doorkey
      */
     public function handle(EditDoorkey $command)
     {

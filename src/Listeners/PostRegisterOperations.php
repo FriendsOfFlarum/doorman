@@ -21,7 +21,15 @@ use Illuminate\Contracts\Events\Dispatcher;
 
 class PostRegisterOperations
 {
+    /**
+     * @var SettingsRepositoryInterface
+     */
     protected $settings;
+
+    /**
+     * @var Dispatcher
+     */
+    protected $events;
 
     public function __construct(SettingsRepositoryInterface $settings, Dispatcher $events)
     {
