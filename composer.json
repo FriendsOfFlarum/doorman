@@ -50,7 +50,7 @@
             "discuss": "https://discuss.flarum.org/d/17845"
         },
         "optional-dependencies": [
-            "zerosonesfun/direct-links"
+            "fof/direct-links"
         ],
         "flarum-cli": {
             "modules": {

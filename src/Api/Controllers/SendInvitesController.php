@@ -96,7 +96,7 @@ class SendInvitesController extends AbstractCreateController
 
         $body = $this->translator->trans('fof-doorman.forum.email.body', [
             '{forum}' => $title,
-            '{url}'   => $this->extensions->isEnabled('zerosonesfun-direct-links') ? $this->url->to('forum')->route('direct-links-signup') : $this->url->to('forum')->base(),
+            '{url}'   => $this->extensions->isEnabled('fof-direct-links') ? $this->url->to('forum')->route('direct-links-signup') : $this->url->to('forum')->base(),
             '{code}'  => $doorkey->key,
         ]);
 
