@@ -9,7 +9,7 @@ Each code can be set to have a maximum number of uses, what group the user shoul
 ### Usage
 
 - Setup sign-up codes on the admin panel
-- Includes optional support for [Direct Links](https://github.com/zerosonesfun/direct-links). When this extension is also enabled, email invites will include a link which will take the uew user directly to the signup modal, rather than the forum home page.
+- Includes optional support for [Direct Links](https://github.com/FriendsOfFlarum/direct-links). When this extension is also enabled, email invites will include a link which will take the uew user directly to the signup modal, rather than the forum home page.
 
 ### Installation
 
