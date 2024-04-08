@@ -1,6 +1,6 @@
 # Doorman by FriendsOfFlarum
 
-[![GitLab license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/FriendsOfFlarum/doorman/blob/master/LICENSE.md) [![Latest Stable Version](https://img.shields.io/packagist/v/fof/doorman.svg)](https://github.com/FriendsOfFlarum/doorman) [![OpenCollective](https://img.shields.io/badge/opencollective-fof-blue.svg)](https://opencollective.com/fof/donate) 
+[![GitLab license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/FriendsOfFlarum/doorman/blob/master/LICENSE.md) [![Latest Stable Version](https://img.shields.io/packagist/v/fof/doorman.svg)](https://github.com/FriendsOfFlarum/doorman) [![OpenCollective](https://img.shields.io/badge/opencollective-fof-blue.svg)](https://opencollective.com/fof/donate)
 
 A [Flarum](http://flarum.org) extension that restricts sign-ups to user's who have a code created in the admin panel.
 
@@ -27,7 +27,7 @@ Then login and enable the extension.
 
 ### Issues
 
-- [Open an issue on Github](https://github.com/FriendsOfFlarum/doorman/issues) 
+- [Open an issue on Github](https://github.com/FriendsOfFlarum/doorman/issues)
 
 ### Links
 
