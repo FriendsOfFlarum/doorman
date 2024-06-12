@@ -30,7 +30,7 @@ class DeleteDoorkey
     /**
      * DeleteDoorkey constructor.
      *
-     * @param $doorkeyId
+     * @param      $doorkeyId
      * @param User $actor
      */
     public function __construct($doorkeyId, User $actor)

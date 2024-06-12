@@ -13,14 +13,11 @@
 
 namespace FoF\Doorman;
 
-use Flarum\Api\Controller\ShowForumController;
-use Flarum\Api\Serializer\ForumSerializer;
 use Flarum\Extend;
 use Flarum\User\Event\Registered;
 use Flarum\User\Event\Saving as UserSaving;
 use Flarum\User\User;
 use FoF\Doorman\Api\Controllers;
-use FoF\Doorman\Api\Serializers\DoorkeySerializer;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
 
 return [

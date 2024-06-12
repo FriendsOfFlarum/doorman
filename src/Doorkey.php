@@ -18,10 +18,10 @@ use Flarum\Group\Group;
 
 /**
  * @property string $key
- * @property int $group_id
- * @property int $max_uses
- * @property int $activates
- * @property int $uses
+ * @property int    $group_id
+ * @property int    $max_uses
+ * @property int    $activates
+ * @property int    $uses
  */
 class Doorkey extends AbstractModel
 {
