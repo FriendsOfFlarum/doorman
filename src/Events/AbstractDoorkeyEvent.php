@@ -21,12 +21,12 @@ abstract class AbstractDoorkeyEvent
     /**
      * @var Doorkey
      */
-    protected $doorkey;
+    public $doorkey;
 
     /**
      * @var User
      */
-    protected $actor;
+    public $actor;
 
     /**
      * @var array
