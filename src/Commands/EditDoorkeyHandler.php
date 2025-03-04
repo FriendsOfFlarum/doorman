@@ -86,9 +86,11 @@ class EditDoorkeyHandler
 
         $doorkey->save();
 
-        $this->events->dispatch(
-            new DoorkeyUpdated($doorkey, $actor, $data)
-        );
+        $doorkey->afterSave(function ($doorkey) use ($actor, $data) {
+            $this->events->dispatch(
+                new DoorkeyUpdated($doorkey, $actor, $data)
+            );
+        });
 
         return $doorkey;
     }

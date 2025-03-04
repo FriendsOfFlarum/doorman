@@ -47,9 +47,11 @@ class DeleteDoorkeyHandler
 
         $doorkey->delete();
 
-        $this->events->dispatch(
-            new DoorkeyDeleted($doorkey, $actor, [])
-        );
+        $doorkey->afterDelete(function ($doorkey) use ($actor) {
+            $this->events->dispatch(
+                new DoorkeyDeleted($doorkey, $actor, [])
+            );
+        });
 
         return $doorkey;
     }
