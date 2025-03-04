@@ -17,8 +17,8 @@ use Flarum\User\Exception\PermissionDeniedException;
 use FoF\Doorman\Doorkey;
 use FoF\Doorman\Events\DoorkeyUpdated;
 use FoF\Doorman\Validators\DoorkeyValidator;
-use Illuminate\Support\Arr;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Arr;
 
 class EditDoorkeyHandler
 {

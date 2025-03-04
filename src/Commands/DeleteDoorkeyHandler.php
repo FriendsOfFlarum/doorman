@@ -18,10 +18,8 @@ use FoF\Doorman\Doorkey;
 use FoF\Doorman\Events\DoorkeyDeleted;
 use Illuminate\Contracts\Events\Dispatcher;
 
-
 class DeleteDoorkeyHandler
 {
-
     /**
      * @var Dispatcher
      */
