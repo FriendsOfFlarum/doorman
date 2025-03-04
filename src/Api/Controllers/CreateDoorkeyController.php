@@ -20,6 +20,7 @@ use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
+use Flarum\Http\RequestUtil;
 
 class CreateDoorkeyController extends AbstractCreateController
 {
@@ -46,8 +47,10 @@ class CreateDoorkeyController extends AbstractCreateController
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {
+        $actor = RequestUtil::getActor($request);
+
         return $this->bus->dispatch(
-            new CreateDoorkey($request->getAttribute('actor'), Arr::get($request->getParsedBody(), 'data', []))
+            new CreateDoorkey($actor, Arr::get($request->getParsedBody(), 'data', []))
         );
     }
 }

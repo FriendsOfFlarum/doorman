@@ -18,6 +18,7 @@ use FoF\Doorman\Commands\DeleteDoorkey;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
+use Flarum\Http\RequestUtil;
 
 class DeleteDoorkeyController extends AbstractDeleteController
 {
@@ -39,8 +40,10 @@ class DeleteDoorkeyController extends AbstractDeleteController
      */
     protected function delete(ServerRequestInterface $request)
     {
+        $actor = RequestUtil::getActor($request);
+
         $this->bus->dispatch(
-            new DeleteDoorkey(Arr::get($request->getQueryParams(), 'id'), $request->getAttribute('actor'))
+            new DeleteDoorkey(Arr::get($request->getQueryParams(), 'id'), $actor)
         );
     }
 }
