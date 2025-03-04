@@ -14,13 +14,13 @@
 namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractShowController;
+use Flarum\Http\RequestUtil;
 use FoF\Doorman\Api\Serializers\DoorkeySerializer;
 use FoF\Doorman\Commands\EditDoorkey;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
-use Flarum\Http\RequestUtil;
 
 class UpdateDoorkeyController extends AbstractShowController
 {

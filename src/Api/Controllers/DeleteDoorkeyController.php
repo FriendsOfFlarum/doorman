@@ -14,11 +14,11 @@
 namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractDeleteController;
+use Flarum\Http\RequestUtil;
 use FoF\Doorman\Commands\DeleteDoorkey;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Arr;
 use Psr\Http\Message\ServerRequestInterface;
-use Flarum\Http\RequestUtil;
 
 class DeleteDoorkeyController extends AbstractDeleteController
 {
