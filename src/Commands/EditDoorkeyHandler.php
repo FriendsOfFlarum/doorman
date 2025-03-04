@@ -15,8 +15,10 @@ namespace FoF\Doorman\Commands;
 
 use Flarum\User\Exception\PermissionDeniedException;
 use FoF\Doorman\Doorkey;
+use FoF\Doorman\Events\DoorkeyUpdated;
 use FoF\Doorman\Validators\DoorkeyValidator;
 use Illuminate\Support\Arr;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class EditDoorkeyHandler
 {
@@ -26,13 +28,19 @@ class EditDoorkeyHandler
     protected $validator;
 
     /**
+     * @var Dispatcher
+     */
+    protected $events;
+
+    /**
      * EditDoorkeyHandler constructor.
      *
      * @param DoorkeyValidator $validator
      */
-    public function __construct(DoorkeyValidator $validator)
+    public function __construct(DoorkeyValidator $validator, Dispatcher $events)
     {
         $this->validator = $validator;
+        $this->events = $events;
     }
 
     /**
@@ -77,6 +85,10 @@ class EditDoorkeyHandler
         $this->validator->assertValid(array_merge($doorkey->getDirty(), $validate));
 
         $doorkey->save();
+
+        $this->events->dispatch(
+            new DoorkeyUpdated($doorkey, $actor, $data)
+        );
 
         return $doorkey;
     }

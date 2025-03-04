@@ -17,6 +17,7 @@ use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\GroupsChanged;
 use Flarum\User\Event\Registered;
 use FoF\Doorman\Doorkey;
+use FoF\Doorman\Events\DoorkeyUsed;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class PostRegisterOperations
@@ -63,6 +64,10 @@ class PostRegisterOperations
         }
 
         $doorkey->increment('uses');
+
+        $this->events->dispatch(
+            new DoorkeyUsed($doorkey, $user, [])
+        );
 
         $user->save();
     }
