@@ -65,10 +65,12 @@ class PostRegisterOperations
 
         $doorkey->increment('uses');
 
-        $this->events->dispatch(
-            new DoorkeyUsed($doorkey, $user, [])
-        );
-
         $user->save();
+
+        $user->afterSave(function ($user) use ($doorkey) {
+            $this->events->dispatch(
+                new DoorkeyUsed($doorkey, $user, [])
+            );
+        });
     }
 }
