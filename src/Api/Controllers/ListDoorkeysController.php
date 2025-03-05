@@ -18,11 +18,10 @@ use Flarum\Http\RequestUtil;
 use Flarum\Http\UrlGenerator;
 use Flarum\Query\QueryCriteria;
 use FoF\Doorman\Api\Serializers\DoorkeySerializer;
+use FoF\Doorman\Filter\DoorkeyFilterer;
 use FoF\Doorman\Search\DoorkeySearcher;
-use FoF\Doorman\Doorkey;
 use Psr\Http\Message\ServerRequestInterface;
 use Tobscure\JsonApi\Document;
-use FoF\Doorman\Filter\DoorkeyFilterer;
 
 class ListDoorkeysController extends AbstractListController
 {

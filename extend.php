@@ -18,11 +18,11 @@ use Flarum\User\Event\Registered;
 use Flarum\User\Event\Saving as UserSaving;
 use Flarum\User\User;
 use FoF\Doorman\Api\Controllers;
-use FoF\Doorman\Validators\DoorkeyLoginValidator;
+use FoF\Doorman\Filter\DoorkeyFilterer;
+use FoF\Doorman\Filter\NoFilter;
 use FoF\Doorman\Search\DoorkeySearcher;
 use FoF\Doorman\Search\Gambit\KeyGambit;
-use FoF\Doorman\Filter\NoFilter;
-use FoF\Doorman\Filter\DoorkeyFilterer;
+use FoF\Doorman\Validators\DoorkeyLoginValidator;
 
 return [
     (new Extend\Frontend('forum'))
