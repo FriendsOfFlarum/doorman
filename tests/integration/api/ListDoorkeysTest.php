@@ -74,7 +74,6 @@ class ListDoorkeysTest extends TestCase
 
     /**
      * @test
-     *
      * @dataProvider permittedUsers
      */
     public function permitted_users_can_see_doorkey_index($actorId)
@@ -93,7 +92,6 @@ class ListDoorkeysTest extends TestCase
 
     /**
      * @test
-     *
      * @dataProvider unpermittedUsers
      */
     public function unpermitted_users_cannot_see_doorkey_index($actorId)
