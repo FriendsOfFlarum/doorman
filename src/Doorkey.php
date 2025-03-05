@@ -14,8 +14,8 @@
 namespace FoF\Doorman;
 
 use Flarum\Database\AbstractModel;
-use Flarum\Group\Group;
 use Flarum\Database\ScopeVisibilityTrait;
+use Flarum\Group\Group;
 
 /**
  * @property string $key
