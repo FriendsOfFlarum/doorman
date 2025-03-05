@@ -64,6 +64,7 @@ class ListDoorkeysController extends AbstractListController
 
         $limit = $this->extractLimit($request);
         $offset = $this->extractOffset($request);
+        $include = $this->extractInclude($request);
 
         $criteria = new QueryCriteria($actor, $filters, $sort, $sortIsDefault);
         if (array_key_exists('q', $filters)) {
@@ -82,7 +83,7 @@ class ListDoorkeysController extends AbstractListController
 
         $results = $results->getResults();
 
-        $this->loadRelations($results, [], $request);
+        $this->loadRelations($results, $include, $request);
 
         return $results;
     }
