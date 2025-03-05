@@ -21,7 +21,7 @@ use FoF\Doorman\Api\Controllers;
 use FoF\Doorman\Filter\DoorkeyFilterer;
 use FoF\Doorman\Filter\NoFilter;
 use FoF\Doorman\Search\DoorkeySearcher;
-use FoF\Doorman\Search\Gambit\KeyGambit;
+use FoF\Doorman\Search\Gambit\FulltextGambit;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
 
 return [
@@ -44,7 +44,7 @@ return [
         ->get('/fof/doorkeys', 'fof.doorkeys.index', Controllers\ListDoorkeysController::class),
 
     (new Extend\SimpleFlarumSearch(DoorkeySearcher::class))
-        ->setFullTextGambit(KeyGambit::class),
+        ->setFullTextGambit(FulltextGambit::class),
 
     (new Extend\Filter(DoorkeyFilterer::class))
         ->addFilter(NoFilter::class),

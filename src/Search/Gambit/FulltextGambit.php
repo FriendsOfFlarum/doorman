@@ -17,7 +17,7 @@ use Flarum\Search\GambitInterface;
 use Flarum\Search\SearchState;
 use FoF\Doorman\Repository\DoorkeyRepository;
 
-class KeyGambit implements GambitInterface
+class FulltextGambit implements GambitInterface
 {
     protected $doorkeys;
 
