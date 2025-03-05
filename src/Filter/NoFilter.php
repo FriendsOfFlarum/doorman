@@ -20,6 +20,11 @@ class NoFilter implements FilterInterface
 {
     public function getFilterKey(): string
     {
+        /**
+         * Added in temporarily, will be replaced with a proper filter in a
+         * follow up PR.
+         */
+
         return 'noDoormanFilter';
     }
 
