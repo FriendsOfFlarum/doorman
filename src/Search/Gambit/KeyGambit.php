@@ -28,8 +28,20 @@ class KeyGambit implements GambitInterface
 
     public function apply(SearchState $search, $searchValue)
     {
-        $search->getQuery()->where('key', $searchValue);
+        $search->getQuery()
+            ->whereIn(
+                'id',
+                $this->getUserSearchSubQuery($searchValue)
+            );
 
         return true;
+    }
+
+    private function getUserSearchSubQuery($searchValue)
+    {
+        return $this->doorkeys
+            ->query()
+            ->select('id')
+            ->where('key', 'like', "%{$searchValue}%");
     }
 }
