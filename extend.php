@@ -19,6 +19,10 @@ use Flarum\User\Event\Saving as UserSaving;
 use Flarum\User\User;
 use FoF\Doorman\Api\Controllers;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
+use FoF\Doorman\Search\DoorkeySearcher;
+use FoF\Doorman\Search\Gambit\KeyGambit;
+use FoF\Doorman\Filter\NoFilter;
+use FoF\Doorman\Filter\DoorkeyFilterer;
 
 return [
     (new Extend\Frontend('forum'))
@@ -38,6 +42,12 @@ return [
         ->delete('/fof/doorkeys/{id}', 'fof.doorkey.delete', Controllers\DeleteDoorkeyController::class)
         ->patch('/fof/doorkeys/{id}', 'fof.doorkey.update', Controllers\UpdateDoorkeyController::class)
         ->get('/fof/doorkeys', 'fof.doorkeys.index', Controllers\ListDoorkeysController::class),
+
+    (new Extend\SimpleFlarumSearch(DoorkeySearcher::class))
+        ->setFullTextGambit(KeyGambit::class),
+
+    (new Extend\Filter(DoorkeyFilterer::class))
+        ->addFilter(NoFilter::class),
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 
