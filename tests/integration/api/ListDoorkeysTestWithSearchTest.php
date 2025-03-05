@@ -15,7 +15,7 @@ namespace FoF\Doorman\Tests\integration\api;
 
 use Flarum\Testing\integration\TestCase;
 
-class ListDoorkeysTestWithSearch extends TestCase
+class ListDoorkeysTestWithSearchTest extends TestCase
 {
     protected function setUp(): void
     {
@@ -75,7 +75,7 @@ class ListDoorkeysTestWithSearch extends TestCase
                 'authenticatedAs' => 1,
             ])
              ->withQueryParams([
-                 'filter' => ['q' => 'ABCDEFG22'],
+                 'filter' => ['q' => 'ABCDEFG11'],
              ])
         );
 
@@ -86,6 +86,6 @@ class ListDoorkeysTestWithSearch extends TestCase
             return $row['id'];
         }, $data['data']);
 
-        $this->assertEqualsCanonicalizing(['22'], $ids, 'ID does not match');
+        $this->assertEqualsCanonicalizing(['11'], $ids, 'ID does not match');
     }
 }
