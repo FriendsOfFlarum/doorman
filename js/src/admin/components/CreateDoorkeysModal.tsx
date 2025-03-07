@@ -5,7 +5,9 @@ import extractText from 'flarum/common/utils/extractText';
 import ItemList from 'flarum/common/utils/ItemList';
 import Stream from 'flarum/common/utils/Stream';
 import Switch from 'flarum/common/components/Switch';
+import Select from 'flarum/common/components/Select';
 
+import Group from 'flarum/common/models/Group';
 import type Mithril from 'mithril';
 
 export interface ICreateDoorkeyModalAttrs extends IInternalModalAttrs {
@@ -80,6 +82,7 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
       'key',
       <div className="Form-group">
         <label>{keyLabel}</label>
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.key')}</div>
         <input className="FormControl" name="key" type="text" placeholder={keyLabel} aria-label={keyLabel} bidi={this.key} disabled={this.loading} />
       </div>,
       100
@@ -89,14 +92,20 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
       'groupId',
       <div className="Form-group">
         <label>{groupLabel}</label>
-        <input
-          className="FormControl"
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.group')}</div>
+        <Select
           name="groupId"
-          type="text"
-          placeholder={groupLabel}
+          options={this.getGroupsForInput()}
           aria-label={groupLabel}
           bidi={this.groupId}
+          onchange={(e: Event) => {
+            const target = e.target as HTMLSelectElement;
+            alert('test');
+            this.groupId(target.value);
+            m.redraw();
+          }}
           disabled={this.loading}
+          value={this.groupId + ''}
         />
       </div>,
       80
@@ -106,6 +115,7 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
       'maxUses',
       <div className="Form-group">
         <label>{maxUsesLabel}</label>
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.max_uses')}</div>
         <input
           className="FormControl"
           name="maxUses"
@@ -122,9 +132,10 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
     items.add(
       'activates',
       <div className="Form-group">
-        {/* <label>{activateslabel}</label> */}
+        <label>{activateslabel}</label>
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.activates_user')}</div>
         <Switch name="activates" state={this.activates()} onchange={(checked: boolean) => this.activates(checked)} disabled={this.loading}>
-          {activateslabel}
+          {'‎'} {/* Zero-width space to fix unexpected UI when left empty*/}
         </Switch>
       </div>,
       40
@@ -180,6 +191,20 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
         this.bulkAdd(false);
         this.loaded();
       });
+  }
+
+  getGroupsForInput() {
+    let options: { [key: string]: string } = {};
+
+    app.store.all('groups').map((group) => {
+      const groupCasted = group as Group;
+      if (groupCasted.id() === Group.GUEST_ID) {
+        return;
+      }
+      options[groupCasted.id() as string] = groupCasted.nameSingular();
+    });
+
+    return options;
   }
 
   generateRandomKey() {
