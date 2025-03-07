@@ -23,6 +23,7 @@ use FoF\Doorman\Filter\NoFilter;
 use FoF\Doorman\Search\DoorkeySearcher;
 use FoF\Doorman\Search\Gambit\FulltextGambit;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
+use FoF\Doorman\Content\AdminPayload;
 
 return [
     (new Extend\Frontend('forum'))
@@ -31,7 +32,8 @@ return [
 
     (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js')
-        ->css(__DIR__.'/resources/less/admin.less'),
+        ->css(__DIR__.'/resources/less/admin.less')
+        ->content(AdminPayload::class),
 
     (new Extend\Model(User::class))
         ->cast('invite_code', 'string'),
