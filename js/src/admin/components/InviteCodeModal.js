@@ -19,7 +19,7 @@ export default class InviteCodeModal extends Modal {
   }
 
   title() {
-    return app.translator.trans('fof-doorman.admin.modal.title');
+    return app.translator.trans('fof-doorman.admin.modals.send_invites.title');
   }
 
   oncreate(vnode) {
@@ -43,11 +43,11 @@ export default class InviteCodeModal extends Modal {
     return (
       <div className="Modal-body">
         <h3>
-          {app.translator.trans('fof-doorman.admin.modal.group', {
+          {app.translator.trans('fof-doorman.admin.modals.send_invites.group', {
             group: app.store.getById('groups', this.doorkey.groupId()).nameSingular(),
           })}
         </h3>
-        <div className="helpText">{app.translator.trans('fof-doorman.admin.modal.help')}</div>
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.modals.send_invites.help')}</div>
         <div className="Form Form--centered">
           <div className="Form-group">
             <input
@@ -55,7 +55,7 @@ export default class InviteCodeModal extends Modal {
               name="text"
               id="EmailInput"
               className="FormControl"
-              placeholder={app.translator.trans('fof-doorman.admin.modal.placeholder')}
+              placeholder={app.translator.trans('fof-doorman.admin.modals.send_invites.placeholder')}
               disabled={this.loading}
             />
           </div>
@@ -84,7 +84,7 @@ export default class InviteCodeModal extends Modal {
                 onclick: this.send.bind(this),
                 disabled: this.emails.length === 0,
               },
-              app.translator.trans('fof-doorman.admin.modal.send')
+              app.translator.trans('fof-doorman.admin.modals.send_invites.send')
             )}
           </div>
         </div>
@@ -105,7 +105,7 @@ export default class InviteCodeModal extends Modal {
         const uses = this.doorkey.uses();
 
         if (maxUses > 0 && uses + this.emails.length + 1 > maxUses) {
-          this.alert = app.alerts.show(Alert, { type: 'error' }, app.translator.trans('fof-doorman.admin.modal.max_use_conflict'));
+          this.alert = app.alerts.show(Alert, { type: 'error' }, app.translator.trans('fof-doorman.admin.modals.send_invites.max_use_conflict'));
           m.redraw();
         } else {
           if (this.validateEmail(email)) {
@@ -117,7 +117,7 @@ export default class InviteCodeModal extends Modal {
             this.alert = app.alerts.show(
               Alert,
               { type: 'error' },
-              app.translator.trans('fof-doorman.admin.modal.invalid_emails', { emails: this.badEmails.join(', ') })
+              app.translator.trans('fof-doorman.admin.modals.send_invites.invalid_emails', { emails: this.badEmails.join(', ') })
             );
             m.redraw();
           }
@@ -154,7 +154,7 @@ export default class InviteCodeModal extends Modal {
       })
       .then(() => {
         app.modal.close();
-        this.alert = app.alerts.show(Alert, { type: 'success' }, app.translator.trans('fof-doorman.admin.modal.success'));
+        this.alert = app.alerts.show(Alert, { type: 'success' }, app.translator.trans('fof-doorman.admin.modals.send_invites.success'));
       });
   }
 }

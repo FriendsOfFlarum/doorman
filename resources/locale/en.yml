@@ -1,58 +1,112 @@
 fof-doorman:
+  admin:
+    ref:
+      fields:
+        key:
+          label: Key
+          help: Code the user will type in when registering.
+        group:
+          label: Group
+          help: The group the user will be added to when registering using the invite code.
+        max_uses:
+          label: Max Uses
+          help: The max number of times the code can be used. Set to 0 for unlimited uses
+        activates_user:
+          label: Activates User
+          help: Automatically activates the user when they register.
+
+    modals:
+      create_doorkey:
+        title: Create new Invite Code
+        key:
+          label: => fof-doorman.admin.ref.fields.key.label
+          help: => fof-doorman.admin.ref.fields.key.help
+        group:
+          label: => fof-doorman.admin.ref.fields.group.label
+          help: => fof-doorman.admin.ref.fields.group.help
+        max_uses:
+          label: => fof-doorman.admin.ref.fields.max_uses.label
+          help: => fof-doorman.admin.ref.fields.max_uses.help
+        activates_user:
+          label: => fof-doorman.admin.ref.fields.activates_user.label
+          help: => fof-doorman.admin.ref.fields.activates_user.help
+        submit_button: Create Invite Code
+        submit_and_create_another_button: Create and add another
+
+      edit_doorkey:
+        title: Edit Invite Code
+        key:
+          label: => fof-doorman.admin.ref.fields.key.label
+          help: => fof-doorman.admin.ref.fields.key.help
+        group:
+          label: => fof-doorman.admin.ref.fields.group.label
+          help: => fof-doorman.admin.ref.fields.group.help
+        max_uses:
+          label: => fof-doorman.admin.ref.fields.max_uses.label
+          help: => fof-doorman.admin.ref.fields.max_uses.help
+        activates_user:
+          label: => fof-doorman.admin.ref.fields.activates_user.label
+          help: => fof-doorman.admin.ref.fields.activates_user.help
+        submit_button: Save Changes
+
+      send_invites:
+        title: Send Invite Codes
+        group: Sending invites for {group} group
+        help: Accepts a comma, space, or comma-space seperated list. Type an individual email or paste a list then press space to add it/them.
+        placeholder: Enter emails here
+        invalid_emails: "The following email(s) are invalid: {emails}"
+        max_use_conflict: The number of emails exceeds the max number of uses for this code.
+        send: Send Emails
+        success: Emails successfully sent
+
+    settings:
+      search: Search doorkeys
+      total_doorkeys: "Total doorkeys: {count}"
+      create_doorkey_button: Create Invite Code
+      optional_usage: Make invite code optional when signing up
+
+    list:
+      columns:
+        id: ID
+        key: => fof-doorman.admin.ref.fields.key.label
+        group: => fof-doorman.admin.ref.fields.group.label
+        max_uses: => fof-doorman.admin.ref.fields.max_uses.label
+        activates_user: => fof-doorman.admin.ref.fields.activates_user.label
+        manage: Manage
+        uses: Uses
+      content:
+        invalid_column: => core.admin.users.grid.columns.invalid_column
+        no_group: => core.admin.users.grid.columns.group_badges.no_badges
+        warning: This invite code has been used its max number of times.
+        delete: Are you sure you want to delete the invite code "{key}"?
+        uses:
+          used_times: "{remaining, plural, =0 {Unlimited uses} one {{remainingUses} use left} other {{remainingUses} uses left}}"
+          total_uses: "{totalUses, plural, one {Used {totalUses} time} other {Used {totalUses} times}}"
+      pagination:
+        first_page_button: => core.admin.users.pagination.first_page_button
+        back_button: => core.admin.users.pagination.back_button
+        page_counter: => core.admin.users.pagination.page_counter
+        go_to_page_textbox_a11y_label: => core.admin.users.pagination.go_to_page_textbox_a11y_label
+        next_button: => core.admin.users.pagination.next_button
+        last_page_button: => core.admin.users.pagination.last_page_button
+
   forum:
-    email:
-      subject: Invite to Join
-      body: |
-        Hello,
-
-        You have been invited to sign up for {forum}.
-
-        When you are ready to create your account, simply click the following link and enter the code when signing up:
-
-        Url: {url}
-        Invite code: {code}
-
-        If you received this in error, please ignore this email.
     sign_up:
       invalid_doorkey: The invite code your entered is invalid.
       doorkey_required: Please enter an invite code.
       doorman_placeholder: Invite Code
       doorman_placeholder_optional: Invite Code (optional)
 
-  admin:
-    modal:
-      title: Send Invite Codes
-      group: Sending invites for {group} group
-      help: Accepts a comma, space, or comma-space seperated list. Type an individual email or paste a list then press space to add it/them.
-      placeholder: Enter emails here
-      invalid_emails: "The following email(s) are invalid: {emails}"
-      max_use_conflict: The number of emails exceeds the max number of uses for this code.
-      send: Send Emails
-      success: Emails successfully sent
-    invalid_doorkey: The invite code you provided is invalid.
-    doorkey_required: You must provide an Invite Code
-    nav:
-      desc: Create invite codes for users to sign up and be assigned to a group
-    page:
-      title: Doorman
-      doorkey:
-        used_times: "{remaining, plural, =0 {Unlimited uses} one {{remaining} use left} other {{remaining} uses left}}"
-        total_uses: "{totalUses, plural, one {Used {totalUses} time} other {Used {totalUses} times}}"
-        title: Invite Codes
-        help:
-          key: "Key: Code the user will type in when registering."
-          group: "Group: The group the user will be added to when the register."
-          max: "Max Uses: The max number of times the code can be used, set to 0 for unlimited uses"
-          activates: "Activates User: Automatically activates the user when they register."
-        warning: This invite code has been used its max number of times.
-        key: Key
-        max_uses: Max Uses
-        heading:
-          key: Key
-          group: Group
-          activate: Activates User
-          max_uses: Max Uses
-        allow-public:
-          title: Allow public Sign Up
-          switch-label: Make invite code optional when signing up
+  email:
+    subject: Invite to Join
+    body: |
+      Hello,
 
+      You have been invited to sign up for {forum}.
+
+      When you are ready to create your account, simply click the following link and enter the code when signing up:
+
+      Url: {url}
+      Invite code: {code}
+
+      If you received this in error, please ignore this email.
