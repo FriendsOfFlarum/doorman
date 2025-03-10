@@ -99,9 +99,9 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
           name="groupId"
           options={this.getGroupsForInput()}
           aria-label={app.translator.trans('fof-doorman.admin.ref.fields.group')}
-          bidi={this.groupId}
+          value={String(this.groupId())}
+          onchange={(val: string) => this.groupId(Number(val))}
           disabled={this.loading}
-          value={this.groupId}
         />
       </div>,
       80
