@@ -20,6 +20,23 @@ fof-doorman:
       doorman_placeholder_optional: Invite Code (optional)
 
   admin:
+    create_doorkey_button: Create Invite Code
+    create_doorkey_modal:
+      title: Create new Invite Code
+      key: Key
+      group: Group
+      max_uses: Max Uses
+      activates_label: Activates User
+      submit_button: Create Invite Code
+      submit_and_create_another_button: Create and add another
+    edit_doorkey_modal:
+      title: Edit Invite Code
+      key: Key
+      group: Group
+      max_uses: Max Uses
+      activates: Activates User
+      save: Save Changes
+
     modal:
       title: Send Invite Codes
       group: Sending invites for {group} group
@@ -35,6 +52,9 @@ fof-doorman:
       desc: Create invite codes for users to sign up and be assigned to a group
     page:
       title: Doorman
+      search: Search doorkeys
+      total_doorkeys: "Total doorkeys: {count}"
+
       doorkey:
         used_times: "{remaining, plural, =0 {Unlimited uses} one {{remaining} use left} other {{remaining} uses left}}"
         total_uses: "{totalUses, plural, one {Used {totalUses} time} other {Used {totalUses} times}}"
@@ -50,9 +70,32 @@ fof-doorman:
         heading:
           key: Key
           group: Group
-          activate: Activates User
+          activates: Activates User
           max_uses: Max Uses
+          notify: Notify
+          edit: Edit
+          invalid_column_content: => core.admin.users.grid.invalid_column_content
+
+        pagination:
+          first_page_button: => core.admin.users.pagination.first_page_button
+          back_button: => core.admin.users.pagination.back_button
+          page_counter: => core.admin.users.pagination.page_counter
+          go_to_page_textbox_a11y_label: => core.admin.users.pagination.go_to_page_textbox_a11y_label
+          next_button: => core.admin.users.pagination.next_button
+          last_page_button: => core.admin.users.pagination.last_page_button
+
         allow-public:
           title: Allow public Sign Up
           switch-label: Make invite code optional when signing up
 
+    ref:
+      fields:
+        key: Key
+        group: Group
+        max_uses: Max Uses
+        activates_user: Activates User
+      explanation:
+        key: Code the user will type in when registering.
+        group: The group the user will be added to when registering using the invite code.
+        max_uses: The max number of times the code can be used. Set to 0 for unlimited uses
+        activates_user: Automatically activates the user when they register.
