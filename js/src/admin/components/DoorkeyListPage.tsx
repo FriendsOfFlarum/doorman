@@ -450,12 +450,15 @@ export default class DoorkeyListPage extends ExtensionPage {
   }
 
   deleteDoorkey(doorkey: Doorkey) {
-    this.loadingDelete[doorkey.id()] = true;
-    m.redraw();
-
-    doorkey.delete().finally(() => {
-      this.loadingDelete[doorkey.id()] = false;
+    const doorkeyId = doorkey.id();
+    if (doorkeyId) {
+      this.loadingDelete[doorkeyId] = true;
       m.redraw();
-    });
+
+      doorkey.delete().finally(() => {
+        this.loadingDelete[doorkeyId] = false;
+        m.redraw();
+      });
+    }
   }
 }
