@@ -63,7 +63,7 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
     );
 
     items.add(
-      'groupId',
+      'group',
       <div className="Form-group">
         <label>{app.translator.trans('fof-doorman.admin.ref.fields.group')}</label>
         <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.group')}</div>
