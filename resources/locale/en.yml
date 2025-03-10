@@ -75,6 +75,8 @@ fof-doorman:
           notify: Notify
           edit: Edit
           invalid_column_content: => core.admin.users.grid.invalid_column_content
+        content:
+          no_group: => core.admin.users.grid.columns.group_badges.no_badges
 
         pagination:
           first_page_button: => core.admin.users.pagination.first_page_button

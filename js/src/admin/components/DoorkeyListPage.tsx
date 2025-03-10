@@ -6,6 +6,8 @@ import Button from 'flarum/common/components/Button';
 import ItemList from 'flarum/common/utils/ItemList';
 import classList from 'flarum/common/utils/classList';
 import extractText from 'flarum/common/utils/extractText';
+import GroupBadge from 'flarum/common/components/GroupBadge';
+import Group from 'flarum/common/models/Group';
 
 import CreateDoorkeyModal from './CreateDoorkeyModal';
 import InviteCodeModal from './InviteCodeModal';
@@ -310,7 +312,12 @@ export default class DoorkeyListPage extends ExtensionPage {
       'group',
       {
         name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.group'),
-        content: (doorkey: Doorkey) => <div>{doorkey.groupId()}</div>,
+        content: (doorkey: Doorkey) => {
+          const group = doorkey.group();
+          if (group && group.id() === Group.MEMBER_ID) return app.translator.trans('fof-doorman.admin.page.doorkey.content.no_group');
+
+          return <GroupBadge group={doorkey.group()} />;
+        },
       },
       80
     );
