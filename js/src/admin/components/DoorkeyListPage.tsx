@@ -278,7 +278,7 @@ export default class DoorkeyListPage extends ExtensionPage {
     const items = new ItemList<Mithril.Children>();
 
     items.add(
-      'createUser',
+      'createDoorkey',
       <Button className="Button DoorkeyListPage-createDoorkeyBtn" icon="fas fa-door-open" onclick={() => app.modal.show(CreateDoorkeyModal)}>
         {app.translator.trans('fof-doorman.admin.settings.create_doorkey_button')}
       </Button>,
