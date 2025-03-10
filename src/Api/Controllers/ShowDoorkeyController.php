@@ -33,7 +33,7 @@ class ShowDoorkeyController extends AbstractShowController
     protected $doorkeys;
 
     /**
-     * @param DoorkeyRepository $users
+     * @param DoorkeyRepository $doorkeys
      */
     public function __construct(DoorkeyRepository $doorkeys)
     {
