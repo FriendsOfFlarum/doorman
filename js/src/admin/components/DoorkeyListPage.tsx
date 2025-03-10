@@ -359,6 +359,7 @@ export default class DoorkeyListPage extends ExtensionPage {
               onclick={() => app.modal.show(EditDoorkeyModal, { doorkey })}
             />
             <Button
+              aria-label={app.translator.trans('fof-doorman.admin.page.doorkey.heading.delete')}
               className="Button Button--danger Button--icon"
               icon={`fas ${this.loadingDelete[doorkey.id()] ? 'fa-circle-notch fa-spin' : 'fa-times'} fa-fw`}
               onclick={() => this.deleteDoorkey(doorkey)}

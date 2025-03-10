@@ -74,6 +74,7 @@ fof-doorman:
           max_uses: Max Uses
           notify: Notify
           edit: Edit
+          delete: Delete
           invalid_column_content: => core.admin.users.grid.invalid_column_content
         content:
           no_group: => core.admin.users.grid.columns.group_badges.no_badges
