@@ -18,12 +18,12 @@ use Flarum\User\Event\Registered;
 use Flarum\User\Event\Saving as UserSaving;
 use Flarum\User\User;
 use FoF\Doorman\Api\Controllers;
+use FoF\Doorman\Content\AdminPayload;
 use FoF\Doorman\Filter\DoorkeyFilterer;
 use FoF\Doorman\Filter\NoFilter;
 use FoF\Doorman\Search\DoorkeySearcher;
 use FoF\Doorman\Search\Gambit\FulltextGambit;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
-use FoF\Doorman\Content\AdminPayload;
 
 return [
     (new Extend\Frontend('forum'))
