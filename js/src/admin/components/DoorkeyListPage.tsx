@@ -114,6 +114,16 @@ export default class DoorkeyListPage extends ExtensionPage {
       <div className="container">
         <div className="DoorkeyListPage-header">{this.headerItems().toArray()}</div>
 
+        <div className="Doorkey-allowPublic">
+          {this.buildSettingComponent({
+            type: 'boolean',
+            setting: 'fof-doorman.allowPublic',
+            label: app.translator.trans('fof-doorman.admin.page.doorkey.allow-public.switch-label'),
+          })}
+
+          {this.submitButton()}
+        </div>
+
         <section
           className={classList(['DoorkeyListPage-grid', this.isLoadingPage ? 'DoorkeyListPage-grid--loadingPage' : 'DoorkeyListPage-grid--loaded'])}
           style={{ '--columns': columns.length }}
