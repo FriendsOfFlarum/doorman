@@ -19,4 +19,8 @@ export default class Doorkey extends Model {
   uses() {
     return Model.attribute<number>('uses').call(this);
   }
+
+  protected apiEndpoint() {
+    return '/fof/doorkeys' + (this.exists ? `/${(this.data as any).id}` : '');
+  }
 }
