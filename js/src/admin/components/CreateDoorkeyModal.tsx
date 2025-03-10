@@ -73,39 +73,35 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
   fields() {
     const items = new ItemList();
 
-    const keyLabel = extractText(app.translator.trans('fof-doorman.admin.create_doorkey_modal.keyLabel'));
-    const groupLabel = extractText(app.translator.trans('fof-doorman.admin.create_doorkey_modal.groupLabel'));
-    const maxUsesLabel = extractText(app.translator.trans('fof-doorman.admin.create_doorkey_modal.maxUsesLabel'));
-    const activateslabel = extractText(app.translator.trans('fof-doorman.admin.create_doorkey_modal.activatesLabel'));
-
     items.add(
       'key',
       <div className="Form-group">
-        <label>{keyLabel}</label>
+        <label>{app.translator.trans('fof-doorman.admin.ref.fields.key')}</label>
         <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.key')}</div>
-        <input className="FormControl" name="key" type="text" placeholder={keyLabel} aria-label={keyLabel} bidi={this.key} disabled={this.loading} />
+        <input
+          className="FormControl"
+          name="key"
+          type="text"
+          aria-label={app.translator.trans('fof-doorman.admin.create_doorkey_modal.keyLabel')}
+          bidi={this.key}
+          disabled={this.loading}
+        />
       </div>,
       100
     );
 
     items.add(
-      'groupId',
+      'group',
       <div className="Form-group">
-        <label>{groupLabel}</label>
+        <label>{app.translator.trans('fof-doorman.admin.ref.fields.group')}</label>
         <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.group')}</div>
         <Select
           name="groupId"
           options={this.getGroupsForInput()}
-          aria-label={groupLabel}
+          aria-label={app.translator.trans('fof-doorman.admin.ref.fields.group')}
           bidi={this.groupId}
-          onchange={(e: Event) => {
-            const target = e.target as HTMLSelectElement;
-            alert('test');
-            this.groupId(target.value);
-            m.redraw();
-          }}
           disabled={this.loading}
-          value={this.groupId + ''}
+          value={this.groupId}
         />
       </div>,
       80
@@ -114,14 +110,13 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
     items.add(
       'maxUses',
       <div className="Form-group">
-        <label>{maxUsesLabel}</label>
+        <label>{app.translator.trans('fof-doorman.admin.ref.fields.max_uses')}</label>
         <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.max_uses')}</div>
         <input
           className="FormControl"
           name="maxUses"
           type="number"
-          placeholder={maxUsesLabel}
-          aria-label={maxUsesLabel}
+          aria-label={app.translator.trans('fof-doorman.admin.ref.fields.max_uses')}
           bidi={this.maxUses}
           disabled={this.loading}
         />
@@ -132,7 +127,7 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
     items.add(
       'activates',
       <div className="Form-group">
-        <label>{activateslabel}</label>
+        <label>{app.translator.trans('fof-doorman.admin.ref.fields.activates_user')}</label>
         <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.activates_user')}</div>
         <Switch name="activates" state={this.activates()} onchange={(checked: boolean) => this.activates(checked)} disabled={this.loading}>
           {'‎'} {/* Zero-width space to fix unexpected UI when left empty*/}
