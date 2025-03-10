@@ -497,6 +497,8 @@ export default class DoorkeyListPage extends ExtensionPage {
   }
 
   deleteDoorkey(doorkey: Doorkey) {
+    if (!confirm(extractText(app.translator.trans('fof-doorman.admin.list.content.delete', { key: doorkey.key() })))) return;
+
     const doorkeyId = doorkey.id();
     if (doorkeyId) {
       this.loadingDelete[doorkeyId] = true;

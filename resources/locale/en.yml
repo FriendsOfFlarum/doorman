@@ -78,6 +78,7 @@ fof-doorman:
         invalid_column: => core.admin.users.grid.columns.invalid_column
         no_group: => core.admin.users.grid.columns.group_badges.no_badges
         warning: This invite code has been used its max number of times.
+        delete: Are you sure you want to delete the invite code "{key}"?
         uses:
           used_times: "{remaining, plural, =0 {Unlimited uses} one {{remainingUses} use left} other {{remainingUses} uses left}}"
           total_uses: "{totalUses, plural, one {Used {totalUses} time} other {Used {totalUses} times}}"
