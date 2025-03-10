@@ -153,7 +153,17 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
       .then(this.hide.bind(this))
       .catch(() => {
         this.loading = false;
-        m.redraw();
+      })
+      .finally(() => {
+        const id = this.attrs.doorkey.id();
+        if (id) {
+          /**
+           * Used as a workaround to update the UI because we are not properly
+           * saving the group relationship here. Ideally, the relationship would
+           * be saved properly in the frontend which would update the UI automatically.
+           */
+          app.store.find('fof/doorkeys', id);
+        }
       });
   }
 }

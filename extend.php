@@ -42,7 +42,8 @@ return [
         ->post('/fof/doorkeys/invites', 'fof.doorkey.invite', Controllers\SendInvitesController::class)
         ->delete('/fof/doorkeys/{id}', 'fof.doorkey.delete', Controllers\DeleteDoorkeyController::class)
         ->patch('/fof/doorkeys/{id}', 'fof.doorkey.update', Controllers\UpdateDoorkeyController::class)
-        ->get('/fof/doorkeys', 'fof.doorkeys.index', Controllers\ListDoorkeysController::class),
+        ->get('/fof/doorkeys', 'fof.doorkeys.index', Controllers\ListDoorkeysController::class)
+        ->get('/fof/doorkeys/{id}', 'fof.doorkeys.show', Controllers\ShowDoorkeyController::class),
 
     (new Extend\SimpleFlarumSearch(DoorkeySearcher::class))
         ->setFullTextGambit(FulltextGambit::class),
