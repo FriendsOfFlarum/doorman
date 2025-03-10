@@ -1,4 +1,6 @@
 import Model from 'flarum/common/Model';
+import type Group from 'flarum/common/models/Group';
+
 export default class Doorkey extends Model {
   key() {
     return Model.attribute<string>('key').call(this);
@@ -6,6 +8,10 @@ export default class Doorkey extends Model {
 
   groupId() {
     return Model.attribute<number>('groupId').call(this);
+  }
+
+  group() {
+    return Model.hasOne<Group>('group').call(this);
   }
 
   maxUses() {
