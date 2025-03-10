@@ -14,9 +14,9 @@
 namespace FoF\Doorman\Api\Serializers;
 
 use Flarum\Api\Serializer\AbstractSerializer;
+use Flarum\Api\Serializer\GroupSerializer;
 use FoF\Doorman\Doorkey;
 use InvalidArgumentException;
-use Flarum\Api\Serializer\GroupSerializer;
 
 class DoorkeySerializer extends AbstractSerializer
 {
