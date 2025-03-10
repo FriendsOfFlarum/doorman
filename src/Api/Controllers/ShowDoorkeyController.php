@@ -34,8 +34,10 @@ class ShowDoorkeyController extends AbstractShowController
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {
-        $id = Arr::get($request->getQueryParams(), 'id');
         $actor = RequestUtil::getActor($request);
+        $actor->assertAdmin();
+
+        $id = Arr::get($request->getQueryParams(), 'id');
 
         $doorkey = $this->doorkeys->findOrFail($id, $actor);
 
