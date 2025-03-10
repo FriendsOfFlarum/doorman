@@ -73,13 +73,14 @@ fof-doorman:
         max_uses: => fof-doorman.admin.ref.fields.max_uses.label
         activates_user: => fof-doorman.admin.ref.fields.activates_user.label
         manage: Manage
-        uses_label: Uses
-        uses:
-          used_times: "{remaining, plural, =0 {Unlimited uses} one {{remaining} use left} other {{remaining} uses left}}"
-          total_uses: "{totalUses, plural, one {Used {totalUses} time} other {Used {totalUses} times}}"
+        uses: Uses
       content:
         invalid_column: => core.admin.users.grid.columns.invalid_column
         no_group: => core.admin.users.grid.columns.group_badges.no_badges
+        warning: This invite code has been used its max number of times.
+        uses:
+          used_times: "{remaining, plural, =0 {Unlimited uses} one {{remainingUses} use left} other {{remainingUses} uses left}}"
+          total_uses: "{totalUses, plural, one {Used {totalUses} time} other {Used {totalUses} times}}"
       pagination:
         first_page_button: => core.admin.users.pagination.first_page_button
         back_button: => core.admin.users.pagination.back_button

@@ -9,6 +9,7 @@ import extractText from 'flarum/common/utils/extractText';
 import GroupBadge from 'flarum/common/components/GroupBadge';
 import Group from 'flarum/common/models/Group';
 import icon from 'flarum/common/helpers/icon';
+import Badge from 'flarum/common/components/Badge';
 
 import CreateDoorkeyModal from './CreateDoorkeyModal';
 import InviteCodeModal from './InviteCodeModal';
@@ -384,6 +385,35 @@ export default class DoorkeyListPage extends ExtensionPage {
         ),
       },
       50
+    );
+
+    columns.add(
+      'uses',
+      {
+        name: app.translator.trans('fof-doorman.admin.list.columns.uses'),
+        content: (doorkey: Doorkey) => {
+          const maxUses = doorkey.maxUses();
+          const totalUses = doorkey.uses();
+
+          console.log({ maxUses, totalUses });
+          const remainingUses = maxUses - totalUses;
+
+          return maxUses > 0 && totalUses >= maxUses ? (
+            Badge.component({
+              className: 'Button--icon Doorkey-badge',
+              icon: 'fas fa-user-slash',
+              label: app.translator.trans('fof-doorman.admin.list.content.warning'),
+            })
+          ) : (
+            <b>
+              {remainingUses < 0
+                ? app.translator.trans('fof-doorman.admin.list.content.uses.total_uses', { totalUses })
+                : app.translator.trans('fof-doorman.admin.list.content.uses.used_times', { remainingUses })}
+            </b>
+          );
+        },
+      },
+      40
     );
 
     return columns;
