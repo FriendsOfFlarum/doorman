@@ -10,7 +10,7 @@ import Group from 'flarum/common/models/Group';
 
 import type Mithril from 'mithril';
 import type Doorkey from '../../common/models/Doorkey';
-import type { SaveAttributes, SaveRelationships } from 'flarum/common//Model';
+import type { SaveAttributes } from 'flarum/common//Model';
 
 export interface IEditDoorkeyModalAttrs extends IInternalModalAttrs {
   doorkey: Doorkey;
@@ -135,15 +135,12 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
     return options;
   }
 
-  data() {
-    const data: SaveAttributes = {};
-    const relationships: SaveRelationships = {};
-
-    data.groupId = this.groupId();
-
-    data.relationships = relationships;
-
-    return data;
+  data(): SaveAttributes {
+    return {
+      groupId: Number(this.groupId()),
+      maxUses: Number(this.maxUses()),
+      activates: this.activates(),
+    };
   }
 
   onsubmit(e: SubmitEvent) {
