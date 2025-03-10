@@ -324,7 +324,7 @@ export default class DoorkeyListPage extends ExtensionPage {
         name: app.translator.trans('fof-doorman.admin.list.columns.group'),
         content: (doorkey: Doorkey) => {
           const group = doorkey.group();
-          if (group && group.id() === Group.MEMBER_ID) return app.translator.trans('fof-doorman.admin.page.doorkey.content.no_group');
+          if (group && group.id() === Group.MEMBER_ID) return app.translator.trans('fof-doorman.admin.list.content.no_group');
 
           return <GroupBadge group={doorkey.group()} />;
         },
