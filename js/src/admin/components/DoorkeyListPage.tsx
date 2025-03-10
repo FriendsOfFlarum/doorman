@@ -8,6 +8,7 @@ import classList from 'flarum/common/utils/classList';
 import extractText from 'flarum/common/utils/extractText';
 import GroupBadge from 'flarum/common/components/GroupBadge';
 import Group from 'flarum/common/models/Group';
+import icon from 'flarum/common/helpers/icon';
 
 import CreateDoorkeyModal from './CreateDoorkeyModal';
 import InviteCodeModal from './InviteCodeModal';
@@ -344,7 +345,13 @@ export default class DoorkeyListPage extends ExtensionPage {
       'activates',
       {
         name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.activates'),
-        content: (doorkey: Doorkey) => doorkey.activates() ?? null,
+        content: (doorkey: Doorkey) => {
+          const activates = doorkey.activates();
+
+          if (activates) return icon('fas fa-user-check');
+
+          return icon('fas fa-times-circle');
+        },
       },
       60
     );
