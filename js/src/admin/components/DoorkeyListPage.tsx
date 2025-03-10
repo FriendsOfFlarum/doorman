@@ -121,7 +121,7 @@ export default class DoorkeyListPage extends ExtensionPage {
           {this.buildSettingComponent({
             type: 'boolean',
             setting: 'fof-doorman.allowPublic',
-            label: app.translator.trans('fof-doorman.admin.page.doorkey.allow-public.switch-label'),
+            label: app.translator.trans('fof-doorman.admin.settings.optional_usage'),
           })}
 
           {this.submitButton()}
@@ -172,27 +172,27 @@ export default class DoorkeyListPage extends ExtensionPage {
         <nav className="DoorkeyListPage-gridPagination">
           <Button
             disabled={this.pageNumber === 0}
-            title={app.translator.trans('fof-doorman.admin.page.doorkey.pagination.first_page_button')}
+            title={app.translator.trans('fof-doorman.admin.list.pagination.first_page_button')}
             onclick={this.goToPage.bind(this, 1)}
             icon="fas fa-step-backward"
             className="Button Button--icon DoorkeyListPage-firstPageBtn"
           />
           <Button
             disabled={this.pageNumber === 0}
-            title={app.translator.trans('fof-doorman.admin.page.doorkey.pagination.back_button')}
+            title={app.translator.trans('fof-doorman.admin.list.pagination.back_button')}
             onclick={this.previousPage.bind(this)}
             icon="fas fa-chevron-left"
             className="Button Button--icon DoorkeyListPage-backBtn"
           />
           <span className="DoorkeyListPage-pageNumber">
-            {app.translator.trans('fof-doorman.admin.page.doorkey.pagination.page_counter', {
+            {app.translator.trans('fof-doorman.admin.list.pagination.page_counter', {
               current: (
                 <input
                   type="text"
                   inputmode="numeric"
                   pattern="[0-9]*"
                   value={this.loadingPageNumber + 1}
-                  aria-label={extractText(app.translator.trans('fof-doorman.admin.page.doorkey.pagination.go_to_page_textbox_a11y_label'))}
+                  aria-label={extractText(app.translator.trans('fof-doorman.admin.list.pagination.go_to_page_textbox_a11y_label'))}
                   autocomplete="off"
                   className="FormControl DoorkeyListPage-pageNumberInput"
                   onchange={(e: InputEvent) => {
@@ -225,14 +225,14 @@ export default class DoorkeyListPage extends ExtensionPage {
           </span>
           <Button
             disabled={!this.moreData}
-            title={app.translator.trans('fof-doorman.admin.page.doorkey.pagination.next_button')}
+            title={app.translator.trans('fof-doorman.admin.list.pagination.next_button')}
             onclick={this.nextPage.bind(this)}
             icon="fas fa-chevron-right"
             className="Button Button--icon DoorkeyListPage-nextBtn"
           />
           <Button
             disabled={!this.moreData}
-            title={app.translator.trans('fof-doorman.admin.page.doorkey.pagination.last_page_button')}
+            title={app.translator.trans('fof-doorman.admin.list.pagination.last_page_button')}
             onclick={this.goToPage.bind(this, this.getTotalPageCount())}
             icon="fas fa-step-forward"
             className="Button Button--icon DoorkeyListPage-lastPageBtn"
@@ -251,7 +251,7 @@ export default class DoorkeyListPage extends ExtensionPage {
         <input
           className="FormControl SearchBar"
           type="search"
-          placeholder={app.translator.trans('fof-doorman.admin.page.search')}
+          placeholder={app.translator.trans('fof-doorman.admin.settings.search')}
           oninput={(e: InputEvent) => {
             this.isLoadingPage = true;
             this.query = (e?.target as HTMLInputElement)?.value;
@@ -264,7 +264,7 @@ export default class DoorkeyListPage extends ExtensionPage {
 
     items.add(
       'totalDoorkeys',
-      <p class="DoorkeyListPage-totalDoorkeys">{app.translator.trans('fof-doorman.admin.page.total_doorkeys', { count: this.doorkeyCount })}</p>,
+      <p class="DoorkeyListPage-totalDoorkeys">{app.translator.trans('fof-doorman.admin.settings.total_doorkeys', { count: this.doorkeyCount })}</p>,
       90
     );
 
@@ -279,7 +279,7 @@ export default class DoorkeyListPage extends ExtensionPage {
     items.add(
       'createUser',
       <Button className="Button DoorkeyListPage-createDoorkeyBtn" icon="fas fa-door-open" onclick={() => app.modal.show(CreateDoorkeyModal)}>
-        {app.translator.trans('fof-doorman.admin.create_doorkey_button')}
+        {app.translator.trans('fof-doorman.admin.settings.create_doorkey_button')}
       </Button>,
       100
     );
@@ -303,7 +303,7 @@ export default class DoorkeyListPage extends ExtensionPage {
     columns.add(
       'id',
       {
-        name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.id'),
+        name: app.translator.trans('fof-doorman.admin.list.columns.id'),
         content: (doorkey: Doorkey) => doorkey.id(),
       },
       100
@@ -312,7 +312,7 @@ export default class DoorkeyListPage extends ExtensionPage {
     columns.add(
       'key',
       {
-        name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.key'),
+        name: app.translator.trans('fof-doorman.admin.list.columns.key'),
         content: (doorkey: Doorkey) => doorkey.key() ?? null,
       },
       90
@@ -321,7 +321,7 @@ export default class DoorkeyListPage extends ExtensionPage {
     columns.add(
       'group',
       {
-        name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.group'),
+        name: app.translator.trans('fof-doorman.admin.list.columns.group'),
         content: (doorkey: Doorkey) => {
           const group = doorkey.group();
           if (group && group.id() === Group.MEMBER_ID) return app.translator.trans('fof-doorman.admin.page.doorkey.content.no_group');
@@ -335,7 +335,7 @@ export default class DoorkeyListPage extends ExtensionPage {
     columns.add(
       'maxUses',
       {
-        name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.max_uses'),
+        name: app.translator.trans('fof-doorman.admin.list.columns.max_uses'),
         content: (doorkey: Doorkey) => doorkey.maxUses() ?? null,
       },
       70
@@ -344,7 +344,7 @@ export default class DoorkeyListPage extends ExtensionPage {
     columns.add(
       'activates',
       {
-        name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.activates'),
+        name: app.translator.trans('fof-doorman.admin.list.columns.activates_user'),
         content: (doorkey: Doorkey) => {
           const activates = doorkey.activates();
 
@@ -359,7 +359,7 @@ export default class DoorkeyListPage extends ExtensionPage {
     columns.add(
       'manage',
       {
-        name: null,
+        name: app.translator.trans('fof-doorman.admin.list.columns.manage'),
         content: (doorkey: Doorkey) => (
           <>
             <Button

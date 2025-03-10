@@ -50,7 +50,7 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
   }
 
   title() {
-    return app.translator.trans('fof-doorman.admin.create_doorkey_modal.title');
+    return app.translator.trans('fof-doorman.admin.modals.create_doorkey.title');
   }
 
   content() {
@@ -67,16 +67,9 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
     items.add(
       'key',
       <div className="Form-group">
-        <label>{app.translator.trans('fof-doorman.admin.ref.fields.key')}</label>
-        <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.key')}</div>
-        <input
-          className="FormControl"
-          name="key"
-          type="text"
-          aria-label={app.translator.trans('fof-doorman.admin.create_doorkey_modal.keyLabel')}
-          bidi={this.key}
-          disabled={this.loading}
-        />
+        <label>{app.translator.trans('fof-doorman.admin.modals.create_doorkey.key.label')}</label>
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.modals.create_doorkey.key.help')}</div>
+        <input className="FormControl" name="key" type="text" bidi={this.key} disabled={this.loading} />
       </div>,
       100
     );
@@ -84,12 +77,11 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
     items.add(
       'group',
       <div className="Form-group">
-        <label>{app.translator.trans('fof-doorman.admin.ref.fields.group')}</label>
-        <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.group')}</div>
+        <label>{app.translator.trans('fof-doorman.admin.modals.create_doorkey.group.label')}</label>
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.modals.create_doorkey.group.help')}</div>
         <Select
           name="groupId"
           options={this.getGroupsForInput()}
-          aria-label={app.translator.trans('fof-doorman.admin.ref.fields.group')}
           value={String(this.groupId())}
           onchange={(val: string) => this.groupId(Number(val))}
           disabled={this.loading}
@@ -101,16 +93,9 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
     items.add(
       'maxUses',
       <div className="Form-group">
-        <label>{app.translator.trans('fof-doorman.admin.ref.fields.max_uses')}</label>
-        <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.max_uses')}</div>
-        <input
-          className="FormControl"
-          name="maxUses"
-          type="number"
-          aria-label={app.translator.trans('fof-doorman.admin.ref.fields.max_uses')}
-          bidi={this.maxUses}
-          disabled={this.loading}
-        />
+        <label>{app.translator.trans('fof-doorman.admin.modals.create_doorkey.max_uses.label')}</label>
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.modals.create_doorkey.max_uses.help')}</div>
+        <input className="FormControl" name="maxUses" type="number" bidi={this.maxUses} disabled={this.loading} />
       </div>,
       60
     );
@@ -118,8 +103,8 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
     items.add(
       'activates',
       <div className="Form-group">
-        <label>{app.translator.trans('fof-doorman.admin.ref.fields.activates_user')}</label>
-        <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.activates_user')}</div>
+        <label>{app.translator.trans('fof-doorman.admin.modals.create_doorkey.activates_user.label')}</label>
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.modals.create_doorkey.activates_user.help')}</div>
         <Switch name="activates" state={this.activates()} onchange={(checked: boolean) => this.activates(checked)} disabled={this.loading}>
           {'‎'} {/* Zero-width space to fix unexpected UI when left empty*/}
         </Switch>
@@ -131,7 +116,7 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
       'submit',
       <div className="Form-group">
         <Button className="Button Button--primary Button--block" type="submit" loading={this.loading}>
-          {app.translator.trans('fof-doorman.admin.create_doorkey_modal.submit_button')}
+          {app.translator.trans('fof-doorman.admin.modals.create_doorkey.submit_button')}
         </Button>
       </div>,
       0
@@ -141,7 +126,7 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
       'submitAndAdd',
       <div className="Form-group">
         <Button className="Button Button--block" onclick={() => this.bulkAdd(true) && this.onsubmit()} disabled={this.loading}>
-          {app.translator.trans('fof-doorman.admin.create_doorkey_modal.submit_and_create_another_button')}
+          {app.translator.trans('fof-doorman.admin.modals.create_doorkey.submit_and_create_another_button')}
         </Button>
       </div>,
       -20

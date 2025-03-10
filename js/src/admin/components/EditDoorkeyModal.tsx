@@ -38,7 +38,7 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
   }
 
   title() {
-    return app.translator.trans('fof-doorman.admin.edit_doorkey_modal.title');
+    return app.translator.trans('fof-doorman.admin.modals.edit_doorkey.title');
   }
 
   content() {
@@ -55,8 +55,8 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
     items.add(
       'key',
       <div className="Form-group">
-        <label>{app.translator.trans('fof-doorman.admin.ref.fields.key')}</label>
-        <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.key')}</div>
+        <label>{app.translator.trans('fof-doorman.admin.modals.edit_doorkey.key.label')}</label>
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.modals.edit_doorkey.key.help')}</div>
         <input className="FormControl" bidi={this.key} disabled={true} />
       </div>,
       100
@@ -65,8 +65,8 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
     items.add(
       'group',
       <div className="Form-group">
-        <label>{app.translator.trans('fof-doorman.admin.ref.fields.group')}</label>
-        <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.group')}</div>
+        <label>{app.translator.trans('fof-doorman.admin.modals.create_doorkey.group.label')}</label>
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.modals.create_doorkey.group.help')}</div>
         <Select
           name="groupId"
           options={this.getGroupsForInput()}
@@ -82,8 +82,8 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
     items.add(
       'maxUses',
       <div className="Form-group">
-        <label>{app.translator.trans('fof-doorman.admin.ref.fields.max_uses')}</label>
-        <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.max_uses')}</div>
+        <label>{app.translator.trans('fof-doorman.admin.modals.create_doorkey.max_uses.label')}</label>
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.modals.create_doorkey.max_uses.help')}</div>
         <input
           className="FormControl"
           name="maxUses"
@@ -99,8 +99,8 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
     items.add(
       'activates',
       <div className="Form-group">
-        <label>{app.translator.trans('fof-doorman.admin.ref.fields.activates_user')}</label>
-        <div className="helpText">{app.translator.trans('fof-doorman.admin.ref.explanation.activates_user')}</div>
+        <label>{app.translator.trans('fof-doorman.admin.modals.create_doorkey.activates_user.label')}</label>
+        <div className="helpText">{app.translator.trans('fof-doorman.admin.modals.create_doorkey.activates_user.help')}</div>
         <Switch name="activates" state={this.activates()} onchange={(checked: boolean) => this.activates(checked)} disabled={this.loading}>
           {'‎'} {/* Zero-width space to fix unexpected UI when left empty*/}
         </Switch>
@@ -112,7 +112,7 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
       'submit',
       <div className="Form-group">
         <Button className="Button Button--primary" type="submit" loading={this.loading}>
-          {app.translator.trans('fof-doorman.admin.edit_doorkey_modal.save')}
+          {app.translator.trans('fof-doorman.admin.modals.edit_doorkey.submit_button')}
         </Button>
       </div>,
       -10
