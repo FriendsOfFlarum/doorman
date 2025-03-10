@@ -13,11 +13,11 @@ import Badge from 'flarum/common/components/Badge';
 
 import CreateDoorkeyModal from './CreateDoorkeyModal';
 import InviteCodeModal from './InviteCodeModal';
+import EditDoorkeyModal from './EditDoorkeyModal';
 
 import type { ExtensionPageAttrs } from 'flarum/admin/components/ExtensionPage';
 import type Doorkey from 'src/common/models/Doorkey';
 import type Mithril from 'mithril';
-import EditDoorkeyModal from './EditDoorkeyModal';
 
 export type ColumnData = {
   /**
