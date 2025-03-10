@@ -394,8 +394,6 @@ export default class DoorkeyListPage extends ExtensionPage {
         content: (doorkey: Doorkey) => {
           const maxUses = doorkey.maxUses();
           const totalUses = doorkey.uses();
-
-          console.log({ maxUses, totalUses });
           const remainingUses = maxUses - totalUses;
 
           return maxUses > 0 && totalUses >= maxUses ? (
