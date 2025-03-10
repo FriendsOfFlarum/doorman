@@ -4,15 +4,16 @@ import { debounce } from 'flarum/common/utils/throttleDebounce';
 import LoadingIndicator from 'flarum/common/components/LoadingIndicator';
 import Button from 'flarum/common/components/Button';
 import ItemList from 'flarum/common/utils/ItemList';
-
 import classList from 'flarum/common/utils/classList';
 import extractText from 'flarum/common/utils/extractText';
 
-import CreateDoorkeyModal from './CreateDoorkeysModal';
+import CreateDoorkeyModal from './CreateDoorkeyModal';
+import InviteCodeModal from './InviteCodeModal';
 
 import type { ExtensionPageAttrs } from 'flarum/admin/components/ExtensionPage';
 import type Doorkey from 'src/common/models/Doorkey';
 import type Mithril from 'mithril';
+import EditDoorkeyModal from './EditDoorkeyModal';
 
 export type ColumnData = {
   /**
@@ -51,6 +52,8 @@ export default class DoorkeyListPage extends ExtensionPage {
    * data provided by `AdminPayload.php`.
    */
   readonly doorkeyCount: number = app.data.modelStatistics.doorkeys.total;
+
+  loadingDelete: { [key: string]: boolean } = {};
 
   /**
    * Get total number of doorkey pages.
@@ -285,30 +288,21 @@ export default class DoorkeyListPage extends ExtensionPage {
     const columns = new ItemList<ColumnData>();
 
     columns.add(
-      'id',
-      {
-        name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.id'),
-        content: (doorkey: Doorkey) => doorkey.id() ?? null,
-      },
-      100
-    );
-
-    columns.add(
       'key',
       {
         name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.key'),
         content: (doorkey: Doorkey) => doorkey.key() ?? null,
       },
-      100
+      90
     );
 
     columns.add(
       'group',
       {
         name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.group'),
-        content: (doorkey: Doorkey) => doorkey.groupId() ?? null,
+        content: (doorkey: Doorkey) => <div>{doorkey.groupId()}</div>,
       },
-      100
+      80
     );
 
     columns.add(
@@ -317,7 +311,7 @@ export default class DoorkeyListPage extends ExtensionPage {
         name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.max_uses'),
         content: (doorkey: Doorkey) => doorkey.maxUses() ?? null,
       },
-      100
+      70
     );
 
     columns.add(
@@ -326,7 +320,36 @@ export default class DoorkeyListPage extends ExtensionPage {
         name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.activates'),
         content: (doorkey: Doorkey) => doorkey.activates() ?? null,
       },
-      100
+      60
+    );
+
+    columns.add(
+      'manage',
+      {
+        name: null,
+        content: (doorkey: Doorkey) => (
+          <>
+            <Button
+              aria-label={app.translator.trans('fof-doorman.admin.page.doorkey.heading.notify')}
+              className="Button Button--icon Doorkey-button"
+              icon="fa fa-envelope fa-fw"
+              onclick={() => app.modal.show(InviteCodeModal, { doorkey: doorkey })}
+            />
+            <Button
+              aria-label={app.translator.trans('fof-doorman.admin.page.doorkey.heading.edit')}
+              className="Button Button--icon Doorkey-button"
+              icon="fas fa-pencil-alt"
+              onclick={() => app.modal.show(EditDoorkeyModal, { doorkey })}
+            />
+            <Button
+              className="Button Button--danger Button--icon"
+              icon={`fas ${this.loadingDelete[doorkey.id()] ? 'fa-circle-notch fa-spin' : 'fa-times'} fa-fw`}
+              onclick={() => this.deleteDoorkey(doorkey)}
+            />
+          </>
+        ),
+      },
+      50
     );
 
     return columns;
@@ -407,5 +430,15 @@ export default class DoorkeyListPage extends ExtensionPage {
 
     params.set('page', `${pageNumber}`);
     window.location.hash = search?.[0] + '?' + params.toString();
+  }
+
+  deleteDoorkey(doorkey: Doorkey) {
+    this.loadingDelete[doorkey.id()] = true;
+    m.redraw();
+
+    doorkey.delete().finally(() => {
+      this.loadingDelete[doorkey.id()] = false;
+      m.redraw();
+    });
   }
 }
