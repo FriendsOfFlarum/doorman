@@ -71,9 +71,9 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
           name="groupId"
           options={this.getGroupsForInput()}
           aria-label={app.translator.trans('fof-doorman.admin.edit_doorkey_modal.group')}
-          bidi={this.groupId}
+          value={String(this.groupId())}
+          onchange={(val: string) => this.groupId(Number(val))}
           disabled={this.loading}
-          value={this.groupId}
         />
       </div>,
       80
