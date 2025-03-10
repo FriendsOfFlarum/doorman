@@ -158,7 +158,7 @@ export default class DoorkeyListPage extends ExtensionPage {
                   aria-rowindex={rowIndex + 2}
                   role="cell"
                 >
-                  {columnContent || app.translator.trans('fof-doorman.admin.page.doorkey.invalid_column_content')}
+                  {columnContent || app.translator.trans('fof-doorman.admin.page.doorkey.heading.invalid_column_content')}
                 </div>
               );
             })
@@ -298,6 +298,15 @@ export default class DoorkeyListPage extends ExtensionPage {
    */
   columns(): ItemList<ColumnData> {
     const columns = new ItemList<ColumnData>();
+
+    columns.add(
+      'id',
+      {
+        name: app.translator.trans('fof-doorman.admin.page.doorkey.heading.id'),
+        content: (doorkey: Doorkey) => doorkey.id(),
+      },
+      100
+    );
 
     columns.add(
       'key',

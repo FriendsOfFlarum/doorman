@@ -68,6 +68,7 @@ fof-doorman:
         key: Key
         max_uses: Max Uses
         heading:
+          id: ID
           key: Key
           group: Group
           activates: Activates User
