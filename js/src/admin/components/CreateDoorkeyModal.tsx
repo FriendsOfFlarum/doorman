@@ -55,17 +55,9 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
 
   content() {
     return (
-      <>
-        <div className="Modal-body">{this.body()}</div>
-      </>
-    );
-  }
-
-  body() {
-    return (
-      <>
+      <div className="Modal-body">
         <div className="Form">{this.fields().toArray()}</div>
-      </>
+      </div>
     );
   }
 
