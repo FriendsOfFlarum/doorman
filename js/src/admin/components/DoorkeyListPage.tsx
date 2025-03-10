@@ -504,6 +504,7 @@ export default class DoorkeyListPage extends ExtensionPage {
 
       doorkey.delete().finally(() => {
         this.loadingDelete[doorkeyId] = false;
+        window.location.reload();
         m.redraw();
       });
     }
