@@ -15,8 +15,8 @@ namespace FoF\Doorman\Tests\integration\api;
 
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
-use Illuminate\Support\Arr;
 use FoF\Doorman\Doorkey;
+use Illuminate\Support\Arr;
 
 class EditDoorkeyTest extends TestCase
 {
@@ -62,14 +62,14 @@ class EditDoorkeyTest extends TestCase
         $response = $this->send(
             $this->request('PATCH', '/api/fof/doorkeys/1', [
                 'authenticatedAs' => $actorId,
-                'json' => [
+                'json'            => [
                     'data' => [
                         'attributes' => [
                             'activates' => false,
-                            'groupId' => 3,
-                            'key' => 'EDITEDKEY',
-                            'maxUses' => 15,
-                            'uses' => 0,
+                            'groupId'   => 3,
+                            'key'       => 'EDITEDKEY',
+                            'maxUses'   => 15,
+                            'uses'      => 0,
                         ],
                         'type' => 'doorkeys',
                     ],
@@ -87,7 +87,6 @@ class EditDoorkeyTest extends TestCase
         $doorkey = Doorkey::find(1);
         $this->assertEquals(false, $doorkey->activates);
         $this->assertEquals(15, $doorkey->max_uses);
-
     }
 
     /**
@@ -100,14 +99,14 @@ class EditDoorkeyTest extends TestCase
         $response = $this->send(
             $this->request('PATCH', '/api/fof/doorkeys/1', [
                 'authenticatedAs' => $actorId,
-                'json' => [
+                'json'            => [
                     'data' => [
                         'attributes' => [
                             'activates' => false,
-                            'groupId' => 3,
-                            'key' => 'EDITEDKEY',
-                            'maxUses' => 15,
-                            'uses' => 0,
+                            'groupId'   => 3,
+                            'key'       => 'EDITEDKEY',
+                            'maxUses'   => 15,
+                            'uses'      => 0,
                         ],
                     ],
                 ],

@@ -15,7 +15,6 @@ namespace FoF\Doorman\Tests\integration\api;
 
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
-use Illuminate\Support\Arr;
 use FoF\Doorman\Doorkey;
 
 class DeleteDoorkeyTest extends TestCase
@@ -69,7 +68,6 @@ class DeleteDoorkeyTest extends TestCase
 
         // Ensure the key was deleted
         $this->assertNull(Doorkey::find(1));
-
     }
 
     /**

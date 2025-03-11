@@ -15,8 +15,8 @@ namespace FoF\Doorman\Tests\integration\api;
 
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
-use Illuminate\Support\Arr;
 use FoF\Doorman\Doorkey;
+use Illuminate\Support\Arr;
 
 class CreateDoorkeyTest extends TestCase
 {
@@ -59,14 +59,14 @@ class CreateDoorkeyTest extends TestCase
         $response = $this->send(
             $this->request('POST', '/api/fof/doorkeys', [
                 'authenticatedAs' => $actorId,
-                'json' => [
+                'json'            => [
                     'data' => [
                         'attributes' => [
                             'activates' => true,
-                            'groupId' => 3,
-                            'key' => 'ABCDEFG1',
-                            'maxUses' => 10,
-                            'uses' => 0,
+                            'groupId'   => 3,
+                            'key'       => 'ABCDEFG1',
+                            'maxUses'   => 10,
+                            'uses'      => 0,
                         ],
                         'type' => 'doorkeys',
                     ],
@@ -81,7 +81,6 @@ class CreateDoorkeyTest extends TestCase
         $this->assertEquals('ABCDEFG1', Arr::get($response, 'data.attributes.key'));
 
         $this->assertEquals(1, Doorkey::count());
-
     }
 
     /**
@@ -94,14 +93,14 @@ class CreateDoorkeyTest extends TestCase
         $response = $this->send(
             $this->request('POST', '/api/fof/doorkeys', [
                 'authenticatedAs' => $actorId,
-                'json' => [
+                'json'            => [
                     'data' => [
                         'attributes' => [
                             'activates' => true,
-                            'groupId' => 3,
-                            'key' => 'ABCDEFG1',
-                            'maxUses' => 10,
-                            'uses' => 0,
+                            'groupId'   => 3,
+                            'key'       => 'ABCDEFG1',
+                            'maxUses'   => 10,
+                            'uses'      => 0,
                         ],
                     ],
                 ],
