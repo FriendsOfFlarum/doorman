@@ -13,7 +13,6 @@
 
 namespace FoF\Doorman\Commands;
 
-use Flarum\User\Exception\PermissionDeniedException;
 use FoF\Doorman\Doorkey;
 use FoF\Doorman\Validators\DoorkeyValidator;
 use Illuminate\Support\Arr;
@@ -38,19 +37,14 @@ class EditDoorkeyHandler
     /**
      * @param EditDoorkey $command
      *
-     * @throws PermissionDeniedException
-     *
      * @return Doorkey
      */
     public function handle(EditDoorkey $command)
     {
-        $actor = $command->actor;
         $data = $command->data;
         $attributes = Arr::get($data, 'attributes', []);
 
         $validate = [];
-
-        $actor->assertAdmin();
 
         $doorkey = Doorkey::where('id', $command->doorkeyId)->firstOrFail();
 

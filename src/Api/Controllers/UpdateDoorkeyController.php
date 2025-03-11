@@ -14,6 +14,7 @@
 namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractShowController;
+use Flarum\Http\RequestUtil;
 use FoF\Doorman\Api\Serializers\DoorkeySerializer;
 use FoF\Doorman\Commands\EditDoorkey;
 use Illuminate\Contracts\Bus\Dispatcher;
@@ -46,6 +47,8 @@ class UpdateDoorkeyController extends AbstractShowController
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {
+        RequestUtil::getActor($request)->assertAdmin();
+
         return $this->bus->dispatch(
             new EditDoorkey(Arr::get($request->getQueryParams(), 'id'), $request->getAttribute('actor'), Arr::get($request->getParsedBody(), 'data', []))
         );
