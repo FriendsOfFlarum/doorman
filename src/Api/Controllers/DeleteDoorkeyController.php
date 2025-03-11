@@ -14,6 +14,7 @@
 namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractDeleteController;
+use Flarum\Http\RequestUtil;
 use FoF\Doorman\Commands\DeleteDoorkey;
 use Illuminate\Contracts\Bus\Dispatcher;
 use Illuminate\Support\Arr;
@@ -39,6 +40,8 @@ class DeleteDoorkeyController extends AbstractDeleteController
      */
     protected function delete(ServerRequestInterface $request)
     {
+        RequestUtil::getActor($request)->assertAdmin();
+
         $this->bus->dispatch(
             new DeleteDoorkey(Arr::get($request->getQueryParams(), 'id'), $request->getAttribute('actor'))
         );

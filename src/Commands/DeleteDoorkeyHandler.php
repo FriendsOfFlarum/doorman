@@ -13,7 +13,6 @@
 
 namespace FoF\Doorman\Commands;
 
-use Flarum\User\Exception\PermissionDeniedException;
 use FoF\Doorman\Doorkey;
 
 class DeleteDoorkeyHandler
@@ -21,16 +20,10 @@ class DeleteDoorkeyHandler
     /**
      * @param DeleteDoorkey $command
      *
-     * @throws PermissionDeniedException
-     *
      * @return mixed
      */
     public function handle(DeleteDoorkey $command)
     {
-        $actor = $command->actor;
-
-        $actor->assertAdmin();
-
         $doorkey = Doorkey::where('id', $command->doorkeyId)->firstOrFail();
 
         $doorkey->delete();
