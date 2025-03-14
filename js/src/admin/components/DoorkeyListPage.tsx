@@ -37,7 +37,7 @@ export default class DoorkeyListPage extends ExtensionPage {
   /**
    * Number of doorkeys to load per page.
    */
-  private numPerPage: number = 5;
+  private numPerPage: number = 50;
 
   /**
    * Current page number. Zero-indexed.
