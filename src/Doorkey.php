@@ -14,6 +14,7 @@
 namespace FoF\Doorman;
 
 use Flarum\Database\AbstractModel;
+use Flarum\Database\ScopeVisibilityTrait;
 use Flarum\Group\Group;
 
 /**
@@ -25,6 +26,8 @@ use Flarum\Group\Group;
  */
 class Doorkey extends AbstractModel
 {
+    use ScopeVisibilityTrait;
+
     /**
      * @var string
      */
