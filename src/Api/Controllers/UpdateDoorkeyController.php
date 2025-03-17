@@ -48,6 +48,7 @@ class UpdateDoorkeyController extends AbstractShowController
     protected function data(ServerRequestInterface $request, Document $document)
     {
         $actor = RequestUtil::getActor($request);
+        $actor->assertAdmin();
 
         return $this->bus->dispatch(
             new EditDoorkey(Arr::get($request->getQueryParams(), 'id'), $actor, Arr::get($request->getParsedBody(), 'data', []))

@@ -13,7 +13,6 @@
 
 namespace FoF\Doorman\Commands;
 
-use Flarum\User\Exception\PermissionDeniedException;
 use FoF\Doorman\Doorkey;
 use FoF\Doorman\Events\DoorkeyCreated;
 use FoF\Doorman\Validators\DoorkeyValidator;
@@ -44,17 +43,13 @@ class CreateDoorkeyHandler
     /**
      * @param CreateDoorkey $command
      *
-     * @throws PermissionDeniedException
      * @throws \Illuminate\Validation\ValidationException
      *
      * @return Doorkey
      */
     public function handle(CreateDoorkey $command)
     {
-        $actor = $command->actor;
         $data = $command->data;
-
-        $actor->assertAdmin();
 
         $doorkey = Doorkey::build(
             Arr::get($data, 'attributes.key'),
@@ -66,6 +61,8 @@ class CreateDoorkeyHandler
         $this->validator->assertValid($doorkey->getAttributes());
 
         $doorkey->save();
+
+        $actor = $command->actor;
 
         $doorkey->afterSave(function ($doorkey) use ($actor, $data) {
             $this->events->dispatch(

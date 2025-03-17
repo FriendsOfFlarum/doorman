@@ -41,6 +41,7 @@ class DeleteDoorkeyController extends AbstractDeleteController
     protected function delete(ServerRequestInterface $request)
     {
         $actor = RequestUtil::getActor($request);
+        $actor->assertAdmin();
 
         $this->bus->dispatch(
             new DeleteDoorkey(Arr::get($request->getQueryParams(), 'id'), $actor)

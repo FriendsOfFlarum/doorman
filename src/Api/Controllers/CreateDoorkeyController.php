@@ -48,6 +48,7 @@ class CreateDoorkeyController extends AbstractCreateController
     protected function data(ServerRequestInterface $request, Document $document)
     {
         $actor = RequestUtil::getActor($request);
+        $actor->assertAdmin();
 
         return $this->bus->dispatch(
             new CreateDoorkey($actor, Arr::get($request->getParsedBody(), 'data', []))
