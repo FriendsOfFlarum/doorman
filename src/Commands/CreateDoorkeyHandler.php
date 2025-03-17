@@ -14,7 +14,9 @@
 namespace FoF\Doorman\Commands;
 
 use FoF\Doorman\Doorkey;
+use FoF\Doorman\Events\DoorkeyCreated;
 use FoF\Doorman\Validators\DoorkeyValidator;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 
 class CreateDoorkeyHandler
@@ -25,11 +27,17 @@ class CreateDoorkeyHandler
     protected $validator;
 
     /**
+     * @var Dispatcher
+     */
+    protected $events;
+
+    /**
      * @param DoorkeyValidator $validator
      */
-    public function __construct(DoorkeyValidator $validator)
+    public function __construct(DoorkeyValidator $validator, Dispatcher $events)
     {
         $this->validator = $validator;
+        $this->events = $events;
     }
 
     /**
@@ -53,6 +61,12 @@ class CreateDoorkeyHandler
         $this->validator->assertValid($doorkey->getAttributes());
 
         $doorkey->save();
+
+        $doorkey->afterSave(function ($doorkey) use ($actor, $data) {
+            $this->events->dispatch(
+                new DoorkeyCreated($doorkey, $actor, $data)
+            );
+        });
 
         return $doorkey;
     }

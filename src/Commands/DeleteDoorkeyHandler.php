@@ -14,9 +14,21 @@
 namespace FoF\Doorman\Commands;
 
 use FoF\Doorman\Doorkey;
+use FoF\Doorman\Events\DoorkeyDeleted;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class DeleteDoorkeyHandler
 {
+    /**
+     * @var Dispatcher
+     */
+    protected $events;
+
+    public function __construct(Dispatcher $events)
+    {
+        $this->events = $events;
+    }
+
     /**
      * @param DeleteDoorkey $command
      *
@@ -27,6 +39,12 @@ class DeleteDoorkeyHandler
         $doorkey = Doorkey::where('id', $command->doorkeyId)->firstOrFail();
 
         $doorkey->delete();
+
+        $doorkey->afterDelete(function ($doorkey) use ($actor) {
+            $this->events->dispatch(
+                new DoorkeyDeleted($doorkey, $actor, [])
+            );
+        });
 
         return $doorkey;
     }
