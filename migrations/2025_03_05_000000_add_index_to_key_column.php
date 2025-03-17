@@ -11,18 +11,19 @@
  *
  */
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Schema\Builder;
 
 return [
     'up' => function (Builder $schema) {
-        $connection = $schema->getConnection();
-        $prefix = $connection->getTablePrefix();
-        $connection->statement('ALTER TABLE '.$prefix.'doorkeys ADD FULLTEXT `key` (`key`)');
+        $schema->table('doorkeys', function (Blueprint $table) {
+            $table->fullText('key');
+        });
     },
 
     'down' => function (Builder $schema) {
-        $connection = $schema->getConnection();
-        $prefix = $connection->getTablePrefix();
-        $connection->statement('ALTER TABLE '.$prefix.'doorkeys DROP INDEX `key`');
+        $schema->table('doorkeys', function (Blueprint $table) {
+            $table->dropFullText('key');
+        });
     },
 ];
