@@ -13,8 +13,8 @@
 
 namespace FoF\Doorman\Tests\integration\api;
 
-use Flarum\Testing\integration\TestCase;
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
+use Flarum\Testing\integration\TestCase;
 
 class ListDoorkeysTestWithSearchTest extends TestCase
 {
