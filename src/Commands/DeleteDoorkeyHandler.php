@@ -13,27 +13,40 @@
 
 namespace FoF\Doorman\Commands;
 
-use Flarum\User\Exception\PermissionDeniedException;
 use FoF\Doorman\Doorkey;
+use FoF\Doorman\Events\DoorkeyDeleted;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class DeleteDoorkeyHandler
 {
     /**
+     * @var Dispatcher
+     */
+    protected $events;
+
+    public function __construct(Dispatcher $events)
+    {
+        $this->events = $events;
+    }
+
+    /**
      * @param DeleteDoorkey $command
-     *
-     * @throws PermissionDeniedException
      *
      * @return mixed
      */
     public function handle(DeleteDoorkey $command)
     {
-        $actor = $command->actor;
-
-        $actor->assertAdmin();
-
         $doorkey = Doorkey::where('id', $command->doorkeyId)->firstOrFail();
 
         $doorkey->delete();
+
+        $actor = $command->actor;
+
+        $doorkey->afterDelete(function ($doorkey) use ($actor) {
+            $this->events->dispatch(
+                new DoorkeyDeleted($doorkey, $actor, [])
+            );
+        });
 
         return $doorkey;
     }

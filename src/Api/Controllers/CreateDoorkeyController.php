@@ -14,6 +14,7 @@
 namespace FoF\Doorman\Api\Controllers;
 
 use Flarum\Api\Controller\AbstractCreateController;
+use Flarum\Http\RequestUtil;
 use FoF\Doorman\Api\Serializers\DoorkeySerializer;
 use FoF\Doorman\Commands\CreateDoorkey;
 use Illuminate\Contracts\Bus\Dispatcher;
@@ -46,8 +47,11 @@ class CreateDoorkeyController extends AbstractCreateController
      */
     protected function data(ServerRequestInterface $request, Document $document)
     {
+        $actor = RequestUtil::getActor($request);
+        $actor->assertAdmin();
+
         return $this->bus->dispatch(
-            new CreateDoorkey($request->getAttribute('actor'), Arr::get($request->getParsedBody(), 'data', []))
+            new CreateDoorkey($actor, Arr::get($request->getParsedBody(), 'data', []))
         );
     }
 }

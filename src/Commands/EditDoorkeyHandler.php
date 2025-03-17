@@ -13,9 +13,10 @@
 
 namespace FoF\Doorman\Commands;
 
-use Flarum\User\Exception\PermissionDeniedException;
 use FoF\Doorman\Doorkey;
+use FoF\Doorman\Events\DoorkeyUpdated;
 use FoF\Doorman\Validators\DoorkeyValidator;
+use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
 
 class EditDoorkeyHandler
@@ -26,31 +27,32 @@ class EditDoorkeyHandler
     protected $validator;
 
     /**
+     * @var Dispatcher
+     */
+    protected $events;
+
+    /**
      * EditDoorkeyHandler constructor.
      *
      * @param DoorkeyValidator $validator
      */
-    public function __construct(DoorkeyValidator $validator)
+    public function __construct(DoorkeyValidator $validator, Dispatcher $events)
     {
         $this->validator = $validator;
+        $this->events = $events;
     }
 
     /**
      * @param EditDoorkey $command
      *
-     * @throws PermissionDeniedException
-     *
      * @return Doorkey
      */
     public function handle(EditDoorkey $command)
     {
-        $actor = $command->actor;
         $data = $command->data;
         $attributes = Arr::get($data, 'attributes', []);
 
         $validate = [];
-
-        $actor->assertAdmin();
 
         $doorkey = Doorkey::where('id', $command->doorkeyId)->firstOrFail();
 
@@ -77,6 +79,14 @@ class EditDoorkeyHandler
         $this->validator->assertValid(array_merge($doorkey->getDirty(), $validate));
 
         $doorkey->save();
+
+        $actor = $command->actor;
+
+        $doorkey->afterSave(function ($doorkey) use ($actor, $data) {
+            $this->events->dispatch(
+                new DoorkeyUpdated($doorkey, $actor, $data)
+            );
+        });
 
         return $doorkey;
     }
