@@ -20,7 +20,7 @@ use Flarum\User\User;
 use FoF\Doorman\Api\Controllers;
 use FoF\Doorman\Content\AdminPayload;
 use FoF\Doorman\Filter\DoorkeyFilterer;
-use FoF\Doorman\Filter\NoFilter;
+use FoF\Doorman\Filter\CreatedByFilterGambit;
 use FoF\Doorman\Search\DoorkeySearcher;
 use FoF\Doorman\Search\Gambit\FulltextGambit;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
@@ -46,10 +46,11 @@ return [
         ->get('/fof/doorkeys/{id}', 'fof.doorkeys.show', Controllers\ShowDoorkeyController::class),
 
     (new Extend\SimpleFlarumSearch(DoorkeySearcher::class))
+        ->addGambit(CreatedByFilterGambit::class)
         ->setFullTextGambit(FulltextGambit::class),
 
     (new Extend\Filter(DoorkeyFilterer::class))
-        ->addFilter(NoFilter::class),
+        ->addFilter(CreatedByFilterGambit::class),
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 
