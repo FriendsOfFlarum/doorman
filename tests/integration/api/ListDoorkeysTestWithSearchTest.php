@@ -54,6 +54,7 @@ class ListDoorkeysTestWithSearchTest extends TestCase
         parent::tearDown();
 
         $this->database()->table('doorkeys')->delete();
+        $this->database()->table('users')->delete();
     }
 
     /**
