@@ -28,6 +28,10 @@ class ListDoorkeysTestWithSearchTest extends TestCase
 
         $this->database()->rollBack();
 
+        $this->database()->table('users')->insert([
+            $this->normalUser(),
+        ]);
+
         $this->database()->table('doorkeys')->insert([
             ['id' => 1, 'key' => 'SecretKey', 'group_id' => 3, 'max_uses' => 10, 'uses' => 0, 'activates' => 1, 'created_by' => 1],
             ['id' => 2, 'key' => 'SecretKey2', 'group_id' => 3, 'max_uses' => 10, 'uses' => 1, 'activates' => 1, 'created_by' => 1],
@@ -35,10 +39,6 @@ class ListDoorkeysTestWithSearchTest extends TestCase
             ['id' => 4, 'key' => 'ABCDEFG4', 'group_id' => 3, 'max_uses' => 10, 'uses' => 3, 'activates' => 1, 'created_by' => 1],
             ['id' => 5, 'key' => 'ABCDEFG5', 'group_id' => 3, 'max_uses' => 20, 'uses' => 4, 'activates' => 1, 'created_by' => 2],
             ['id' => 6, 'key' => 'ABCDEFG6', 'group_id' => 3, 'max_uses' => 10, 'uses' => 5, 'activates' => 1, 'created_by' => 2],
-        ]);
-
-        $this->database()->table('users')->insert([
-            $this->normalUser(),
         ]);
 
         $this->database()->beginTransaction();
