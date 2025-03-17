@@ -18,16 +18,21 @@ use Flarum\User\Event\Registered;
 use Flarum\User\Event\Saving as UserSaving;
 use Flarum\User\User;
 use FoF\Doorman\Api\Controllers;
+use FoF\Doorman\Content\AdminPayload;
+use FoF\Doorman\Filter\DoorkeyFilterer;
+use FoF\Doorman\Filter\NoFilter;
+use FoF\Doorman\Search\DoorkeySearcher;
+use FoF\Doorman\Search\Gambit\FulltextGambit;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
 
 return [
     (new Extend\Frontend('forum'))
-        ->js(__DIR__.'/js/dist/forum.js')
-        ->css(__DIR__.'/resources/less/forum.less'),
+        ->js(__DIR__.'/js/dist/forum.js'),
 
     (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js')
-        ->css(__DIR__.'/resources/less/admin.less'),
+        ->css(__DIR__.'/resources/less/admin.less')
+        ->content(AdminPayload::class),
 
     (new Extend\Model(User::class))
         ->cast('invite_code', 'string'),
@@ -37,7 +42,14 @@ return [
         ->post('/fof/doorkeys/invites', 'fof.doorkey.invite', Controllers\SendInvitesController::class)
         ->delete('/fof/doorkeys/{id}', 'fof.doorkey.delete', Controllers\DeleteDoorkeyController::class)
         ->patch('/fof/doorkeys/{id}', 'fof.doorkey.update', Controllers\UpdateDoorkeyController::class)
-        ->get('/fof/doorkeys', 'fof.doorkeys.index', Controllers\ListDoorkeysController::class),
+        ->get('/fof/doorkeys', 'fof.doorkeys.index', Controllers\ListDoorkeysController::class)
+        ->get('/fof/doorkeys/{id}', 'fof.doorkeys.show', Controllers\ShowDoorkeyController::class),
+
+    (new Extend\SimpleFlarumSearch(DoorkeySearcher::class))
+        ->setFullTextGambit(FulltextGambit::class),
+
+    (new Extend\Filter(DoorkeyFilterer::class))
+        ->addFilter(NoFilter::class),
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 

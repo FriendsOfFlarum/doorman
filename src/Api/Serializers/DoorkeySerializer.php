@@ -14,6 +14,7 @@
 namespace FoF\Doorman\Api\Serializers;
 
 use Flarum\Api\Serializer\AbstractSerializer;
+use Flarum\Api\Serializer\GroupSerializer;
 use FoF\Doorman\Doorkey;
 use InvalidArgumentException;
 
@@ -44,5 +45,10 @@ class DoorkeySerializer extends AbstractSerializer
             'maxUses'   => (int) $doorkey->max_uses,
             'activates' => (bool) $doorkey->activates,
         ];
+    }
+
+    protected function group($user)
+    {
+        return $this->hasOne($user, GroupSerializer::class);
     }
 }
