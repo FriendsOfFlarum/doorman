@@ -62,6 +62,8 @@ class CreateDoorkeyHandler
 
         $doorkey->save();
 
+        $actor = $command->actor;
+
         $doorkey->afterSave(function ($doorkey) use ($actor, $data) {
             $this->events->dispatch(
                 new DoorkeyCreated($doorkey, $actor, $data)
