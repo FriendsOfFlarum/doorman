@@ -28,7 +28,7 @@ export default class Doorkey extends Model {
   }
 
   createdBy() {
-    return Model.attribute<User>('createdBy').call(this);
+    return Model.hasOne<User>('createdBy').call(this);
   }
 
   protected apiEndpoint() {

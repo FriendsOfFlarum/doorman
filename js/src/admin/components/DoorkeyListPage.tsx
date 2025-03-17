@@ -414,6 +414,33 @@ export default class DoorkeyListPage extends ExtensionPage {
       40
     );
 
+    columns.add(
+      'createdBy',
+      {
+        name: app.translator.trans('fof-doorman.admin.list.columns.created_by'),
+        content: (doorkey: Doorkey) => {
+          const user = doorkey.createdBy();
+
+          if (!user) return app.translator.trans('fof-doorman.admin.list.content.no_created_by');
+
+          const profileUrl = `${app.forum.attribute('baseUrl')}/u/${user.slug()}`;
+
+          return (
+            <a
+              target="_blank"
+              href={profileUrl}
+              title={extractText(
+                app.translator.trans('core.admin.users.grid.columns.username.profile_link_tooltip', { username: user.displayName() })
+              )}
+            >
+              {user.displayName()}
+            </a>
+          );
+        },
+      },
+      30
+    );
+
     return columns;
   }
 

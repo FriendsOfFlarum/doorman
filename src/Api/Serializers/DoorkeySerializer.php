@@ -15,6 +15,7 @@ namespace FoF\Doorman\Api\Serializers;
 
 use Flarum\Api\Serializer\AbstractSerializer;
 use Flarum\Api\Serializer\GroupSerializer;
+use Flarum\Api\Serializer\UserSerializer;
 use FoF\Doorman\Doorkey;
 use InvalidArgumentException;
 
@@ -50,5 +51,10 @@ class DoorkeySerializer extends AbstractSerializer
     protected function group($user)
     {
         return $this->hasOne($user, GroupSerializer::class);
+    }
+
+    protected function createdBy($user)
+    {
+        return $this->hasOne($user, UserSerializer::class);
     }
 }
