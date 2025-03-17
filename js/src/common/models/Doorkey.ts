@@ -1,5 +1,6 @@
 import Model from 'flarum/common/Model';
 import type Group from 'flarum/common/models/Group';
+import type User from 'flarum/common/models/User';
 
 export default class Doorkey extends Model {
   key() {
@@ -24,6 +25,10 @@ export default class Doorkey extends Model {
 
   uses() {
     return Model.attribute<number>('uses').call(this);
+  }
+
+  createdBy() {
+    return Model.attribute<User>('createdBy').call(this);
   }
 
   protected apiEndpoint() {

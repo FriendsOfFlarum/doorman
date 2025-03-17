@@ -81,6 +81,7 @@ class CreateDoorkeyTest extends TestCase
         $this->assertEquals('ABCDEFG1', Arr::get($response, 'data.attributes.key'));
 
         $this->assertEquals(1, Doorkey::count());
+        $this->assertEquals($actorId, Doorkey::first()->created_by);
     }
 
     /**
