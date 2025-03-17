@@ -61,8 +61,8 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
     );
   }
 
-  fields() {
-    const items = new ItemList();
+  fields(): ItemList<Mithril.Children> {
+    const items = new ItemList<Mithril.Children>();
 
     items.add(
       'key',

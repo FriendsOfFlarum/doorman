@@ -49,8 +49,8 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
     );
   }
 
-  fields() {
-    const items = new ItemList();
+  fields(): ItemList<Mithril.Children> {
+    const items = new ItemList<Mithril.Children>();
 
     items.add(
       'key',
