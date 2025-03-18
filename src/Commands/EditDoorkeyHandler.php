@@ -14,7 +14,7 @@
 namespace FoF\Doorman\Commands;
 
 use FoF\Doorman\Doorkey;
-use FoF\Doorman\Events\DoorkeyUpdated;
+use FoF\Doorman\Events\DoorkeyUpdating;
 use FoF\Doorman\Validators\DoorkeyValidator;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\Arr;
@@ -76,17 +76,15 @@ class EditDoorkeyHandler
             $doorkey->activates = $attributes['activates'];
         }
 
+        $actor = $command->actor;
+
+        $this->events->dispatch(
+            new DoorkeyUpdating($doorkey, $actor, $data)
+        );
+
         $this->validator->assertValid(array_merge($doorkey->getDirty(), $validate));
 
         $doorkey->save();
-
-        $actor = $command->actor;
-
-        $doorkey->afterSave(function ($doorkey) use ($actor, $data) {
-            $this->events->dispatch(
-                new DoorkeyUpdated($doorkey, $actor, $data)
-            );
-        });
 
         return $doorkey;
     }

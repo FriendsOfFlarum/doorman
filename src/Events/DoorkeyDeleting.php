@@ -13,6 +13,6 @@
 
 namespace FoF\Doorman\Events;
 
-class DoorkeyCreated extends AbstractDoorkeyEvent
+class DoorkeyDeleting extends AbstractDoorkeyEvent
 {
 }
