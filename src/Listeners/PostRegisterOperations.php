@@ -67,8 +67,8 @@ class PostRegisterOperations
 
         $user->save();
 
-            $this->events->dispatch(
-                new DoorkeyUsed($doorkey, $user, [])
-            );
+        $this->events->dispatch(
+            new DoorkeyUsed($doorkey, $user, [])
+        );
     }
 }
