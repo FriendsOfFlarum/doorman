@@ -27,7 +27,7 @@ class ListDoorkeysController extends AbstractListController
 {
     public $serializer = DoorkeySerializer::class;
 
-    public $include = ['group'];
+    public $include = ['group', 'createdBy'];
 
     /**
      * @var DoorkeyFilterer

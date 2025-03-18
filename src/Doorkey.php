@@ -16,6 +16,7 @@ namespace FoF\Doorman;
 use Flarum\Database\AbstractModel;
 use Flarum\Database\ScopeVisibilityTrait;
 use Flarum\Group\Group;
+use Flarum\User\User;
 
 /**
  * @property string $key
@@ -23,6 +24,7 @@ use Flarum\Group\Group;
  * @property int    $max_uses
  * @property int    $activates
  * @property int    $uses
+ * @property int    $created_by
  */
 class Doorkey extends AbstractModel
 {
@@ -47,5 +49,10 @@ class Doorkey extends AbstractModel
     public function group()
     {
         return $this->belongsTo(Group::class, 'group_id');
+    }
+
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
     }
 }

@@ -50,6 +50,7 @@ class CreateDoorkeyHandler
     public function handle(CreateDoorkey $command)
     {
         $data = $command->data;
+        $actor = $command->actor;
 
         $doorkey = Doorkey::build(
             Arr::get($data, 'attributes.key'),
@@ -58,11 +59,11 @@ class CreateDoorkeyHandler
             Arr::get($data, 'attributes.activates')
         );
 
+        $doorkey->created_by = $actor->id;
+
         $this->validator->assertValid($doorkey->getAttributes());
 
         $doorkey->save();
-
-        $actor = $command->actor;
 
         $doorkey->afterSave(function ($doorkey) use ($actor, $data) {
             $this->events->dispatch(

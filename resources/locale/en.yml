@@ -74,6 +74,7 @@ fof-doorman:
         activates_user: => fof-doorman.admin.ref.fields.activates_user.label
         manage: Manage
         uses: Uses
+        created_by: Created By
       content:
         invalid_column: => core.admin.users.grid.columns.invalid_column
         no_group: => core.admin.users.grid.columns.group_badges.no_badges
@@ -82,6 +83,7 @@ fof-doorman:
         uses:
           used_times: "{remaining, plural, =0 {Unlimited uses} one {{remainingUses} use left} other {{remainingUses} uses left}}"
           total_uses: "{totalUses, plural, one {Used {totalUses} time} other {Used {totalUses} times}}"
+        no_created_by: Unknown User
       pagination:
         first_page_button: => core.admin.users.pagination.first_page_button
         back_button: => core.admin.users.pagination.back_button

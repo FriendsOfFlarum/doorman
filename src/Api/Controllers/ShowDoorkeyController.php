@@ -25,7 +25,7 @@ class ShowDoorkeyController extends AbstractShowController
 {
     public $serializer = DoorkeySerializer::class;
 
-    public $include = ['group'];
+    public $include = ['group', 'createdBy'];
 
     /**
      * @var DoorkeyRepository
