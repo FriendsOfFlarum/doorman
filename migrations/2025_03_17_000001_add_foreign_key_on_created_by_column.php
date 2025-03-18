@@ -17,7 +17,7 @@ use Illuminate\Database\Schema\Builder;
 return [
     'up' => function (Builder $schema) {
         $schema->table('doorkeys', function (Blueprint $table) {
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('set null');
+            $table->foreign('created_by')->references('id')->on('users')->nullOnDelete();
         });
     },
     'down' => function (Builder $schema) {
