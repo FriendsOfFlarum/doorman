@@ -17,6 +17,8 @@ use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\Saving;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
 use Illuminate\Support\Arr;
+use FoF\Doorman\Doorkey;
+
 
 class ValidateDoorkey
 {
@@ -49,6 +51,13 @@ class ValidateDoorkey
                 'fof-doorkey' => $key,
             ]);
             $event->user->invite_code = $key;
+
+            $doorkey = Doorkey::where('key', $key)->first();
+
+            if ($doorkey->activates) {
+                $event->user->activate();
+            }
+
         }
     }
 }
