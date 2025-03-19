@@ -15,10 +15,9 @@ namespace FoF\Doorman\Listeners;
 
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\Saving;
+use FoF\Doorman\Doorkey;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
 use Illuminate\Support\Arr;
-use FoF\Doorman\Doorkey;
-
 
 class ValidateDoorkey
 {
@@ -57,7 +56,6 @@ class ValidateDoorkey
             if ($doorkey->activates) {
                 $event->user->activate();
             }
-
         }
     }
 }
