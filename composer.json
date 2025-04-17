@@ -50,7 +50,8 @@
             "discuss": "https://discuss.flarum.org/d/17845"
         },
         "optional-dependencies": [
-            "fof/direct-links"
+            "fof/direct-links",
+            "fof/oauth"
         ],
         "flarum-cli": {
             "modules": {
@@ -61,7 +62,8 @@
     },
     "require-dev": {
         "flarum/phpstan": "*",
-        "flarum/testing": "^1.0.0"
+        "flarum/testing": "^1.0.0",
+        "fof/oauth": "*"
     },
     "scripts": {
         "analyse:phpstan": "phpstan analyse",

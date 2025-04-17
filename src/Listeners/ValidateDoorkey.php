@@ -16,6 +16,7 @@ namespace FoF\Doorman\Listeners;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\Saving;
 use FoF\Doorman\Doorkey;
+use FoF\Doorman\DoorkeyBypassRegistry;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
 use Illuminate\Support\Arr;
 
@@ -38,6 +39,16 @@ class ValidateDoorkey
     public function handle(Saving $event)
     {
         if (!$event->user->exists) {
+            // Check if this user is exempt from doorkey validation
+            if (isset($event->user->doorkey_identifier) && 
+                DoorkeyBypassRegistry::isUserExempt($event->user->doorkey_identifier)) {
+                
+                // Remove the transient attribute before saving
+                unset($event->user->doorkey_identifier);
+                
+                return;
+            }
+
             $key = strtoupper(Arr::get($event->data, 'attributes.fof-doorkey'));
 
             // Allows the invitation key to be optional if the setting was enabled
