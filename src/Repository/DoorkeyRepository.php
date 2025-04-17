@@ -24,14 +24,14 @@ class DoorkeyRepository
         return Doorkey::query();
     }
 
-    public function findOrFail($id, User $actor = null)
+    public function findOrFail($id, ?User $actor = null)
     {
         $query = $this->query()->where('id', $id);
 
         return $this->scopeVisibleTo($query, $actor)->firstOrFail();
     }
 
-    protected function scopeVisibleTo(Builder $query, User $actor = null)
+    protected function scopeVisibleTo(Builder $query, ?User $actor = null)
     {
         if ($actor !== null) {
             $query->whereVisibleTo($actor);
