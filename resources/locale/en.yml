@@ -76,7 +76,7 @@ fof-doorman:
         uses: Uses
         created_by: Created By
       content:
-        invalid_column: => core.admin.users.grid.columns.invalid_column
+        invalid_column: => core.admin.users.grid.invalid_column_content
         no_group: => core.admin.users.grid.columns.group_badges.no_badges
         warning: This invite code has been used its max number of times.
         delete: Are you sure you want to delete the invite code "{key}"?
