@@ -18,22 +18,32 @@ use FoF\Doorman\DoorkeyBypassRegistry;
 class OAuthBypassDoorkey
 {
     /**
+     * @var DoorkeyBypassRegistry
+     */
+    protected $registry;
+
+    /**
+     * @param DoorkeyBypassRegistry $registry
+     */
+    public function __construct(DoorkeyBypassRegistry $registry)
+    {
+        $this->registry = $registry;
+    }
+
+    /**
      * @param RegisteringFromProvider $event
      */
     public function handle(RegisteringFromProvider $event)
     {
         $provider = $event->provider;
         
-        // Get the list of providers that can bypass doorkey from the container
-        $bypassProviders = resolve('fof-doorman.bypass_providers');
-        
         // Check if the provider is in the bypass list
-        if (in_array($provider, $bypassProviders)) {
+        if ($this->registry->isProviderAllowed($provider)) {
             // Generate a unique identifier for this user
             $identifier = spl_object_hash($event->user);
             
             // Mark this user as exempt from doorkey validation
-            DoorkeyBypassRegistry::exemptUser($identifier);
+            $this->registry->exemptUser($identifier);
             
             // Store the identifier in a transient attribute that won't be saved to the database
             $event->user->doorkey_identifier = $identifier;

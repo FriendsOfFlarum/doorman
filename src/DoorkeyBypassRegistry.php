@@ -12,27 +12,35 @@
 
 namespace FoF\Doorman;
 
+use Illuminate\Contracts\Container\Container;
+
 class DoorkeyBypassRegistry
 {
     /**
-     * @var array
+     * @var Container
      */
-    private static $bypassProviders = [];
-    
+    protected $container;
+
     /**
-     * @var array
+     * @param Container $container
      */
-    private static $exemptUsers = [];
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
 
     /**
      * Register a provider that can bypass doorkey requirements.
      *
      * @param string $provider
      */
-    public static function registerProvider(string $provider): void
+    public function registerProvider(string $provider): void
     {
-        if (!in_array($provider, self::$bypassProviders)) {
-            self::$bypassProviders[] = $provider;
+        $providers = $this->container->make('fof-doorman.bypass_providers');
+        
+        if (!in_array($provider, $providers)) {
+            $providers[] = $provider;
+            $this->container->instance('fof-doorman.bypass_providers', $providers);
         }
     }
 
@@ -42,9 +50,10 @@ class DoorkeyBypassRegistry
      * @param string $provider
      * @return bool
      */
-    public static function isProviderAllowed(string $provider): bool
+    public function isProviderAllowed(string $provider): bool
     {
-        return in_array($provider, self::$bypassProviders);
+        $providers = $this->container->make('fof-doorman.bypass_providers');
+        return in_array($provider, $providers);
     }
     
     /**
@@ -52,9 +61,14 @@ class DoorkeyBypassRegistry
      *
      * @param string $identifier A unique identifier for the user
      */
-    public static function exemptUser(string $identifier): void
+    public function exemptUser(string $identifier): void
     {
-        self::$exemptUsers[$identifier] = true;
+        $exemptUsers = $this->container->bound('fof-doorman.exempt_users') 
+            ? $this->container->make('fof-doorman.exempt_users') 
+            : [];
+            
+        $exemptUsers[$identifier] = true;
+        $this->container->instance('fof-doorman.exempt_users', $exemptUsers);
     }
     
     /**
@@ -63,8 +77,12 @@ class DoorkeyBypassRegistry
      * @param string $identifier A unique identifier for the user
      * @return bool
      */
-    public static function isUserExempt(string $identifier): bool
+    public function isUserExempt(string $identifier): bool
     {
-        return isset(self::$exemptUsers[$identifier]) && self::$exemptUsers[$identifier] === true;
+        $exemptUsers = $this->container->bound('fof-doorman.exempt_users') 
+            ? $this->container->make('fof-doorman.exempt_users') 
+            : [];
+            
+        return isset($exemptUsers[$identifier]) && $exemptUsers[$identifier] === true;
     }
 }

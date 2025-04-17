@@ -39,6 +39,7 @@ return [
         ->content(AdminPayload::class),
 
     (new Extend\Model(User::class))
+        ->cast('doorkey_identifier', 'string')
         ->cast('invite_code', 'string'),
 
     (new Extend\Routes('api'))
@@ -66,8 +67,8 @@ return [
 
     (new Extend\Event())
         ->listen(Registered::class, Listeners\PostRegisterOperations::class)
-        ->listen(UserSaving::class, Listeners\ValidateDoorkey::class)
-        ->listen(RegisteringFromProvider::class, OAuthBypassDoorkey::class),
+        ->listen(UserSaving::class, [Listeners\ValidateDoorkey::class, 'handle'])
+        ->listen(RegisteringFromProvider::class, [Listeners\OAuthBypassDoorkey::class, 'handle']),
 
     (new Extend\ServiceProvider())
         ->register(DoorkeyServiceProvider::class),

@@ -39,15 +39,22 @@ class BypassDoorkey implements ExtenderInterface
         // Get the existing providers from the container
         $existingProviders = $container->make('fof-doorman.bypass_providers');
         
-        // Register each provider with the registry
+        // Add new providers to the list
         foreach ($this->providers as $provider) {
             if (!in_array($provider, $existingProviders)) {
                 $existingProviders[] = $provider;
-                DoorkeyBypassRegistry::registerProvider($provider);
             }
         }
         
         // Update the container binding with the new list
         $container->instance('fof-doorman.bypass_providers', $existingProviders);
+        
+        // Also get the registry and register the providers directly
+        if ($container->has(DoorkeyBypassRegistry::class)) {
+            $registry = $container->make(DoorkeyBypassRegistry::class);
+            foreach ($this->providers as $provider) {
+                $registry->registerProvider($provider);
+            }
+        }
     }
 }

@@ -53,14 +53,21 @@ class OAuthBypassTest extends TestCase
      */
     public function test_bypass_doorkey_extender_registers_providers(): void
     {
+        // Apply the extender BEFORE booting the app
         $this->extend((new BypassDoorkey())
             ->forProvider('github')
             ->forProvider('discord'));
-
+        
+        // Now boot the app
+        $app = $this->app();
+        
+        // Get the registry from the container
+        $registry = $app->getContainer()->make(DoorkeyBypassRegistry::class);
+        
         // Verify that the providers were registered
-        $this->assertTrue(DoorkeyBypassRegistry::isProviderAllowed('github'));
-        $this->assertTrue(DoorkeyBypassRegistry::isProviderAllowed('discord'));
-        $this->assertFalse(DoorkeyBypassRegistry::isProviderAllowed('gitlab'));
+        $this->assertTrue($registry->isProviderAllowed('github'), 'GitHub provider should be allowed');
+        $this->assertTrue($registry->isProviderAllowed('discord'), 'Discord provider should be allowed');
+        $this->assertFalse($registry->isProviderAllowed('gitlab'), 'GitLab provider should not be allowed');
     }
 
     /**
@@ -68,8 +75,14 @@ class OAuthBypassTest extends TestCase
      */
     public function test_oauth_bypass_doorkey_listener_marks_users_exempt(): void
     {
+        // Boot the app
+        $app = $this->app();
+        
+        // Get the registry from the container
+        $registry = $app->getContainer()->make(DoorkeyBypassRegistry::class);
+        
         // Register a provider directly in the registry
-        DoorkeyBypassRegistry::registerProvider('github');
+        $registry->registerProvider('github');
 
         // Create a mock user
         $user = new User();
@@ -77,22 +90,15 @@ class OAuthBypassTest extends TestCase
         // Create the event
         $event = new RegisteringFromProvider($user, 'github', []);
 
-        // Create a mock container that returns our predefined providers
-        // $container = $this->createMock(Container::class);
-        // $container->method('make')
-        //     ->with('fof-doorman.bypass_providers')
-        //     ->willReturn(['github']);
-
-        $listener = new OAuthBypassDoorkey();
-
-        $this->app();
+        // Create the listener with the registry
+        $listener = new OAuthBypassDoorkey($registry);
 
         // Handle the event
         $listener->handle($event);
 
         // Verify that the user was marked as exempt
         $this->assertTrue(isset($user->doorkey_identifier));
-        $this->assertTrue(DoorkeyBypassRegistry::isUserExempt($user->doorkey_identifier));
+        $this->assertTrue($registry->isUserExempt($user->doorkey_identifier));
 
         // Test with a non-allowed provider
         $user2 = new User();
@@ -108,16 +114,19 @@ class OAuthBypassTest extends TestCase
      */
     public function test_doorkey_identifier_is_removed_before_saving(): void
     {
-        // This test simulates the ValidateDoorkey listener's behavior
-        // without actually saving to the database
-
+        // Boot the app
+        $app = $this->app();
+        
+        // Get the registry from the container
+        $registry = $app->getContainer()->make(DoorkeyBypassRegistry::class);
+        
         // Register a provider
-        DoorkeyBypassRegistry::registerProvider('github');
+        $registry->registerProvider('github');
 
         // Create a user that's exempt (simulating OAuth registration)
         $user = new User();
         $identifier = spl_object_hash($user);
-        DoorkeyBypassRegistry::exemptUser($identifier);
+        $registry->exemptUser($identifier);
         $user->doorkey_identifier = $identifier;
 
         // Create a mock event
@@ -132,9 +141,9 @@ class OAuthBypassTest extends TestCase
         $event = new \Flarum\User\Event\Saving($user, new User(), $data);
 
         // Create the validator listener
-        $validator = $this->app()->getContainer()->make(DoorkeyLoginValidator::class);
-        $settings = $this->app()->getContainer()->make(SettingsRepositoryInterface::class);
-        $validateListener = new ValidateDoorkey($validator, $settings);
+        $validator = $app->getContainer()->make(DoorkeyLoginValidator::class);
+        $settings = $app->getContainer()->make(SettingsRepositoryInterface::class);
+        $validateListener = new ValidateDoorkey($validator, $settings, $registry);
 
         // Handle the event
         $validateListener->handle($event);
