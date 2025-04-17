@@ -160,7 +160,7 @@ export default class DoorkeyListPage extends ExtensionPage {
                   aria-rowindex={rowIndex + 2}
                   role="cell"
                 >
-                  {columnContent || app.translator.trans('fof-doorman.admin.list.content.invalid_column')}
+                  {columnContent ?? app.translator.trans('fof-doorman.admin.list.content.invalid_column')}
                 </div>
               );
             })
