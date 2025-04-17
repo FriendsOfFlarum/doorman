@@ -8,6 +8,7 @@
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
+ *
  */
 
 namespace FoF\Doorman\Tests\integration;
@@ -49,7 +50,7 @@ class OAuthBypassTest extends TestCase
     }
 
     /**
-     * Test that the BypassDoorkey extender correctly registers providers
+     * Test that the BypassDoorkey extender correctly registers providers.
      */
     public function test_bypass_doorkey_extender_registers_providers(): void
     {
@@ -57,13 +58,13 @@ class OAuthBypassTest extends TestCase
         $this->extend((new BypassDoorkey())
             ->forProvider('github')
             ->forProvider('discord'));
-        
+
         // Now boot the app
         $app = $this->app();
-        
+
         // Get the registry from the container
         $registry = $app->getContainer()->make(DoorkeyBypassRegistry::class);
-        
+
         // Verify that the providers were registered
         $this->assertTrue($registry->isProviderAllowed('github'), 'GitHub provider should be allowed');
         $this->assertTrue($registry->isProviderAllowed('discord'), 'Discord provider should be allowed');
@@ -71,16 +72,16 @@ class OAuthBypassTest extends TestCase
     }
 
     /**
-     * Test that the OAuthBypassDoorkey listener correctly marks users as exempt
+     * Test that the OAuthBypassDoorkey listener correctly marks users as exempt.
      */
     public function test_oauth_bypass_doorkey_listener_marks_users_exempt(): void
     {
         // Boot the app
         $app = $this->app();
-        
+
         // Get the registry from the container
         $registry = $app->getContainer()->make(DoorkeyBypassRegistry::class);
-        
+
         // Register a provider directly in the registry
         $registry->registerProvider('github');
 
@@ -110,16 +111,16 @@ class OAuthBypassTest extends TestCase
     }
 
     /**
-     * Test that the doorkey_identifier property is removed before saving
+     * Test that the doorkey_identifier property is removed before saving.
      */
     public function test_doorkey_identifier_is_removed_before_saving(): void
     {
         // Boot the app
         $app = $this->app();
-        
+
         // Get the registry from the container
         $registry = $app->getContainer()->make(DoorkeyBypassRegistry::class);
-        
+
         // Register a provider
         $registry->registerProvider('github');
 
@@ -132,10 +133,10 @@ class OAuthBypassTest extends TestCase
         // Create a mock event
         $data = [
             'attributes' => [
-                'username' => 'test_user_' . rand(1000, 9999),
-                'email' => 'test' . rand(1000, 9999) . '@example.com',
+                'username' => 'test_user_'.rand(1000, 9999),
+                'email'    => 'test'.rand(1000, 9999).'@example.com',
                 'password' => 'password123',
-            ]
+            ],
         ];
 
         $event = new \Flarum\User\Event\Saving($user, new User(), $data);

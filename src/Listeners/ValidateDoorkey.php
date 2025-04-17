@@ -27,7 +27,7 @@ class ValidateDoorkey
     protected $registry;
 
     public function __construct(
-        DoorkeyLoginValidator $validator, 
+        DoorkeyLoginValidator $validator,
         SettingsRepositoryInterface $settings,
         DoorkeyBypassRegistry $registry
     ) {
@@ -45,12 +45,11 @@ class ValidateDoorkey
     {
         if (!$event->user->exists) {
             // Check if this user is exempt from doorkey validation
-            if (isset($event->user->doorkey_identifier) && 
+            if (isset($event->user->doorkey_identifier) &&
                 $this->registry->isUserExempt($event->user->doorkey_identifier)) {
-                
                 // Remove the transient attribute before saving
                 unset($event->user->doorkey_identifier);
-                
+
                 return;
             }
 
