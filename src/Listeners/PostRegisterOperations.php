@@ -56,6 +56,10 @@ class PostRegisterOperations
             return;
         }
 
+        if (empty($doorkey)) {
+            return;
+        }
+
         if ($doorkey->group_id !== 3) {
             $oldGroups = $user->groups()->get()->all();
 

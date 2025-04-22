@@ -31,7 +31,7 @@ class SuggestionListener
     public function handle(SettingSuggestions $event)
     {
         if ($this->registry->isProviderAllowed($event->provider)) {
-            $event->registration->provide('fof-doorkey.bypass', true);
+            $event->registration->provide('fofDoorkeyBypass', true);
         }
     }
 }

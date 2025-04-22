@@ -68,7 +68,8 @@ return [
         ->listen(Registered::class, Listeners\PostRegisterOperations::class)
         ->listen(UserSaving::class, Listeners\ValidateDoorkey::class)
         ->listen(RegisteringFromProvider::class, Listeners\OAuthBypassDoorkey::class)
-        ->listen(SettingSuggestions::class, Listeners\SuggestionListener::class),
+        ->listen(SettingSuggestions::class, Listeners\SuggestionListener::class)
+        ->listen(UserSaving::class, Listeners\ClearBypass::class),
 
     (new Extend\ServiceProvider())
         ->register(DoorkeyServiceProvider::class),
