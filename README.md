@@ -13,6 +13,8 @@ Each code can be set to have a maximum number of uses, what group the user shoul
 
 ### OAuth Bypass
 
+Important: this feature requires `1.7.1` or higher of `fof/oauth`.
+
 Doorman can be configured to allow users registering through specific OAuth providers to bypass the doorkey requirement. This is useful for allowing trusted authentication methods (like corporate SSO) to skip the invitation code step.
 
 To enable this feature in your extension:
