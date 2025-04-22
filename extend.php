@@ -39,7 +39,8 @@ return [
 
     (new Extend\Model(User::class))
         ->cast('doorkey_identifier', 'string')
-        ->cast('invite_code', 'string'),
+        ->cast('invite_code', 'string')
+        ->cast('fofDoorkeyBypass', 'string'),
 
     (new Extend\Routes('api'))
         ->post('/fof/doorkeys', 'fof.doorkey.create', Controllers\CreateDoorkeyController::class)
