@@ -66,8 +66,8 @@ return [
 
     (new Extend\Event())
         ->listen(Registered::class, Listeners\PostRegisterOperations::class)
-        ->listen(UserSaving::class, [Listeners\ValidateDoorkey::class, 'handle'])
-        ->listen(RegisteringFromProvider::class, [Listeners\OAuthBypassDoorkey::class, 'handle'])
+        ->listen(UserSaving::class, Listeners\ValidateDoorkey::class)
+        ->listen(RegisteringFromProvider::class, Listeners\OAuthBypassDoorkey::class)
         ->listen(SettingSuggestions::class, Listeners\SuggestionListener::class),
 
     (new Extend\ServiceProvider())
