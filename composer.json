@@ -63,7 +63,7 @@
     "require-dev": {
         "flarum/phpstan": "*",
         "flarum/testing": "^1.0.0",
-        "fof/oauth": "*"
+        "fof/oauth": "^1.7.1"
     },
     "scripts": {
         "analyse:phpstan": "phpstan analyse",
