@@ -39,4 +39,9 @@ class DoorkeyRepository
 
         return $query;
     }
+
+    public function getByKey(?string $key): ?Doorkey
+    {
+        return $this->query()->where('key', $key)->first();
+    }
 }

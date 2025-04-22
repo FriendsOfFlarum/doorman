@@ -19,6 +19,7 @@
         }
     ],
     "require": {
+        "php": "^7.4 || ^8.0",
         "flarum/core": "^1.3.0"
     },
     "replace": {
@@ -50,7 +51,8 @@
             "discuss": "https://discuss.flarum.org/d/17845"
         },
         "optional-dependencies": [
-            "fof/direct-links"
+            "fof/direct-links",
+            "fof/oauth"
         ],
         "flarum-cli": {
             "modules": {
@@ -61,7 +63,8 @@
     },
     "require-dev": {
         "flarum/phpstan": "*",
-        "flarum/testing": "^1.0.0"
+        "flarum/testing": "^1.0.0",
+        "fof/oauth": "^1.7.1"
     },
     "scripts": {
         "analyse:phpstan": "phpstan analyse",

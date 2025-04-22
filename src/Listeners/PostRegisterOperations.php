@@ -16,8 +16,8 @@ namespace FoF\Doorman\Listeners;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\GroupsChanged;
 use Flarum\User\Event\Registered;
-use FoF\Doorman\Doorkey;
 use FoF\Doorman\Events\DoorkeyUsed;
+use FoF\Doorman\Repository\DoorkeyRepository;
 use Illuminate\Contracts\Events\Dispatcher;
 
 class PostRegisterOperations
@@ -32,16 +32,23 @@ class PostRegisterOperations
      */
     protected $events;
 
-    public function __construct(SettingsRepositoryInterface $settings, Dispatcher $events)
+    /**
+     * @var DoorkeyRepository
+     */
+    protected $doorkeys;
+
+    public function __construct(SettingsRepositoryInterface $settings, Dispatcher $events, DoorkeyRepository $doorkeys)
     {
         $this->settings = $settings;
         $this->events = $events;
+        $this->doorkeys = $doorkeys;
     }
 
     public function handle(Registered $event)
     {
         $user = $event->user;
-        $doorkey = Doorkey::where('key', $user->invite_code)->first();
+
+        $doorkey = $this->doorkeys->getByKey($user->invite_code);
 
         // Allows the invitation key to be optional if the setting was enabled
         $allow = json_decode($this->settings->get('fof-doorman.allowPublic'));
@@ -49,7 +56,7 @@ class PostRegisterOperations
             return;
         }
 
-        if ($doorkey->group_id !== 3) {
+        if ($doorkey && $doorkey->group_id !== 3) {
             $oldGroups = $user->groups()->get()->all();
 
             $user->groups()->attach($doorkey->group_id);
@@ -59,12 +66,14 @@ class PostRegisterOperations
             );
         }
 
-        $doorkey->increment('uses');
-
         $user->save();
 
-        $this->events->dispatch(
-            new DoorkeyUsed($doorkey, $user, [])
-        );
+        if ($doorkey) {
+            $doorkey->increment('uses');
+
+            $this->events->dispatch(
+                new DoorkeyUsed($doorkey, $user, [])
+            );
+        }
     }
 }

@@ -8,6 +8,12 @@ app.initializers.add('fof-doorman', () => {
     this.doorkey = Stream('');
   });
   extend(SignUpModal.prototype, 'fields', function (fields) {
+    if (this.attrs.provided && this.attrs.provided.includes('fofDoorkeyBypass')) {
+      // unset `fof-doorkey.bypass` if it is set
+      this.attrs.provided = this.attrs.provided.filter((item) => item !== 'fofDoorkeyBypass');
+      return;
+    }
+
     const isOptional = app.forum.data.attributes['fof-doorman.allowPublic'];
     const placeholder = isOptional
       ? app.translator.trans('fof-doorman.forum.sign_up.doorman_placeholder_optional')

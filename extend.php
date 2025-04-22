@@ -15,15 +15,18 @@ namespace FoF\Doorman;
 
 use Flarum\Extend;
 use Flarum\User\Event\Registered;
+use Flarum\User\Event\RegisteringFromProvider;
 use Flarum\User\Event\Saving as UserSaving;
 use Flarum\User\User;
 use FoF\Doorman\Api\Controllers;
 use FoF\Doorman\Content\AdminPayload;
 use FoF\Doorman\Filter\CreatedByFilterGambit;
 use FoF\Doorman\Filter\DoorkeyFilterer;
+use FoF\Doorman\Provider\DoorkeyServiceProvider;
 use FoF\Doorman\Search\DoorkeySearcher;
 use FoF\Doorman\Search\Gambit\FulltextGambit;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
+use FoF\OAuth\Events\SettingSuggestions;
 
 return [
     (new Extend\Frontend('forum'))
@@ -35,7 +38,9 @@ return [
         ->content(AdminPayload::class),
 
     (new Extend\Model(User::class))
-        ->cast('invite_code', 'string'),
+        ->cast('doorkey_identifier', 'string')
+        ->cast('invite_code', 'string')
+        ->cast('fofDoorkeyBypass', 'string'),
 
     (new Extend\Routes('api'))
         ->post('/fof/doorkeys', 'fof.doorkey.create', Controllers\CreateDoorkeyController::class)
@@ -62,5 +67,11 @@ return [
 
     (new Extend\Event())
         ->listen(Registered::class, Listeners\PostRegisterOperations::class)
-        ->listen(UserSaving::class, Listeners\ValidateDoorkey::class),
+        ->listen(UserSaving::class, Listeners\ValidateDoorkey::class)
+        ->listen(RegisteringFromProvider::class, Listeners\OAuthBypassDoorkey::class)
+        ->listen(SettingSuggestions::class, Listeners\SuggestionListener::class)
+        ->listen(UserSaving::class, Listeners\ClearBypass::class),
+
+    (new Extend\ServiceProvider())
+        ->register(DoorkeyServiceProvider::class),
 ];
