@@ -26,6 +26,7 @@ use FoF\Doorman\Provider\DoorkeyServiceProvider;
 use FoF\Doorman\Search\DoorkeySearcher;
 use FoF\Doorman\Search\Gambit\FulltextGambit;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
+use FoF\OAuth\Events\SettingSuggestions;
 
 return [
     (new Extend\Frontend('forum'))
@@ -66,7 +67,8 @@ return [
     (new Extend\Event())
         ->listen(Registered::class, Listeners\PostRegisterOperations::class)
         ->listen(UserSaving::class, [Listeners\ValidateDoorkey::class, 'handle'])
-        ->listen(RegisteringFromProvider::class, [Listeners\OAuthBypassDoorkey::class, 'handle']),
+        ->listen(RegisteringFromProvider::class, [Listeners\OAuthBypassDoorkey::class, 'handle'])
+        ->listen(SettingSuggestions::class, Listeners\SuggestionListener::class),
 
     (new Extend\ServiceProvider())
         ->register(DoorkeyServiceProvider::class),
