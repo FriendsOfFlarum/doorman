@@ -9,6 +9,8 @@ app.initializers.add('fof-doorman', () => {
   });
   extend(SignUpModal.prototype, 'fields', function (fields) {
     if (this.attrs.provided && this.attrs.provided.includes('fof-doorkey.bypass')) {
+      // unset `fof-doorkey.bypass` if it is set
+      this.attrs.provided = this.attrs.provided.filter((item) => item !== 'fof-doorkey.bypass');
       return;
     }
 
