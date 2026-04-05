@@ -35,10 +35,20 @@ class Doorkey extends AbstractModel
      */
     protected $table = 'doorkeys';
 
+    /**
+     * Normalize the key attribute on write: trim whitespace and uppercase.
+     *
+     * @param string|null $value
+     */
+    public function setKeyAttribute($value)
+    {
+        $this->attributes['key'] = strtoupper(trim((string) $value));
+    }
+
     public static function build($key, $groupId, $maxUses, $activates)
     {
         $doorkey = new static();
-        $doorkey->key = strtoupper($key);
+        $doorkey->key = $key;
         $doorkey->group_id = $groupId;
         $doorkey->max_uses = $maxUses;
         $doorkey->activates = $activates;

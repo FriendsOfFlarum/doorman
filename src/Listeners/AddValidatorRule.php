@@ -15,16 +15,18 @@ namespace FoF\Doorman\Listeners;
 
 use Flarum\Foundation\AbstractValidator;
 use Flarum\Settings\SettingsRepositoryInterface;
-use FoF\Doorman\Doorkey;
+use FoF\Doorman\Repository\DoorkeyRepository;
 use Illuminate\Validation\Validator;
 
 class AddValidatorRule
 {
     protected $settings;
+    protected $doorkeys;
 
-    public function __construct(SettingsRepositoryInterface $settings)
+    public function __construct(SettingsRepositoryInterface $settings, DoorkeyRepository $doorkeys)
     {
         $this->settings = $settings;
+        $this->doorkeys = $doorkeys;
     }
 
     public function __invoke(AbstractValidator $flarumValidator, Validator $validator)
@@ -32,7 +34,7 @@ class AddValidatorRule
         $validator->addExtension(
             'doorkey',
             function ($attribute, $value, $parameters) {
-                $doorkey = Doorkey::where('key', $value)->first();
+                $doorkey = $this->doorkeys->getByKey((string) $value);
 
                 // Allows the invitation key to be optional if the setting was enabled
                 $allow = json_decode($this->settings->get('fof-doorman.allowPublic'));

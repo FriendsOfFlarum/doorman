@@ -189,7 +189,7 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
    */
   submitData(): SignupBody {
     const data = {
-      key: this.key(),
+      key: this.key().trim(),
       groupId: this.groupId(),
       maxUses: this.maxUses(),
       activates: this.activates(),

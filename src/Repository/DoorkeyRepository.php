@@ -42,6 +42,16 @@ class DoorkeyRepository
 
     public function getByKey(?string $key): ?Doorkey
     {
-        return $this->query()->where('key', $key)->first();
+        if ($key === null) {
+            return null;
+        }
+
+        $normalized = strtoupper(trim($key));
+
+        if ($normalized === '') {
+            return null;
+        }
+
+        return $this->query()->where('key', $normalized)->first();
     }
 }

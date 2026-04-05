@@ -29,7 +29,7 @@ app.initializers.add('fof-doorman', () => {
 
   extend(SignUpModal.prototype, 'submitData', function (data) {
     const newData = data;
-    newData['fof-doorkey'] = this.doorkey;
+    newData['fof-doorkey'] = this.doorkey().trim();
     return newData;
   });
 });
