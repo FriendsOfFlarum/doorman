@@ -15,8 +15,8 @@ namespace FoF\Doorman\Listeners;
 
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Event\Saving;
-use FoF\Doorman\Doorkey;
 use FoF\Doorman\DoorkeyBypassRegistry;
+use FoF\Doorman\Repository\DoorkeyRepository;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
 use Illuminate\Support\Arr;
 
@@ -25,15 +25,18 @@ class ValidateDoorkey
     protected $validator;
     protected $settings;
     protected $registry;
+    protected $doorkeys;
 
     public function __construct(
         DoorkeyLoginValidator $validator,
         SettingsRepositoryInterface $settings,
-        DoorkeyBypassRegistry $registry
+        DoorkeyBypassRegistry $registry,
+        DoorkeyRepository $doorkeys
     ) {
         $this->validator = $validator;
         $this->settings = $settings;
         $this->registry = $registry;
+        $this->doorkeys = $doorkeys;
     }
 
     /**
@@ -53,7 +56,7 @@ class ValidateDoorkey
                 return;
             }
 
-            $key = strtoupper(Arr::get($event->data, 'attributes.fof-doorkey'));
+            $key = strtoupper(trim((string) Arr::get($event->data, 'attributes.fof-doorkey')));
 
             // Allows the invitation key to be optional if the setting was enabled
             $allow = json_decode($this->settings->get('fof-doorman.allowPublic'));
@@ -66,7 +69,7 @@ class ValidateDoorkey
             ]);
             $event->user->invite_code = $key;
 
-            $doorkey = Doorkey::where('key', $key)->first();
+            $doorkey = $this->doorkeys->getByKey($key);
 
             if ($doorkey->activates) {
                 $event->user->activate();

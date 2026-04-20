@@ -22,6 +22,7 @@ use FoF\Doorman\DoorkeyBypassRegistry;
 use FoF\Doorman\Extend\BypassDoorkey;
 use FoF\Doorman\Listeners\OAuthBypassDoorkey;
 use FoF\Doorman\Listeners\ValidateDoorkey;
+use FoF\Doorman\Repository\DoorkeyRepository;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
 
 class OAuthBypassTest extends TestCase
@@ -144,7 +145,8 @@ class OAuthBypassTest extends TestCase
         // Create the validator listener
         $validator = $app->getContainer()->make(DoorkeyLoginValidator::class);
         $settings = $app->getContainer()->make(SettingsRepositoryInterface::class);
-        $validateListener = new ValidateDoorkey($validator, $settings, $registry);
+        $doorkeys = $app->getContainer()->make(DoorkeyRepository::class);
+        $validateListener = new ValidateDoorkey($validator, $settings, $registry, $doorkeys);
 
         // Handle the event
         $validateListener->handle($event);
