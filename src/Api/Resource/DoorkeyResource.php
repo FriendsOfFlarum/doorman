@@ -71,6 +71,9 @@ class DoorkeyResource extends Resource\AbstractDatabaseResource
             Endpoint\Index::make()
                 ->admin()
                 ->defaultInclude(['group', 'createdBy'])
+                // Newest keys first by default, so freshly created keys appear
+                // at the top of the list. Explicit client sorts still win.
+                ->defaultSort('-id')
                 ->paginate(),
             Endpoint\Create::make()
                 ->admin(),
@@ -125,6 +128,7 @@ class DoorkeyResource extends Resource\AbstractDatabaseResource
     public function sorts(): array
     {
         return [
+            SortColumn::make('id'),
             SortColumn::make('key'),
             SortColumn::make('uses'),
             SortColumn::make('maxUses'),
