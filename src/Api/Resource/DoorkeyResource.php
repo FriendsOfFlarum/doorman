@@ -21,14 +21,14 @@ use Flarum\Api\Sort\SortColumn;
 use Flarum\Extension\ExtensionManager;
 use Flarum\Http\UrlGenerator;
 use Flarum\Locale\TranslatorInterface;
+use Flarum\Mail\Job\SendInformationalEmailJob;
 use Flarum\Settings\SettingsRepositoryInterface;
 use FoF\Doorman\Doorkey;
 use FoF\Doorman\Events\DoorkeyCreated;
 use FoF\Doorman\Events\DoorkeyDeleted;
 use FoF\Doorman\Events\DoorkeyUpdated;
-use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Contracts\Queue\Queue;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Mail\Message;
 use Illuminate\Support\Arr;
 use Laminas\Diactoros\Response\EmptyResponse;
 use Tobyz\JsonApiServer\Context as OriginalContext;
@@ -39,7 +39,7 @@ use Tobyz\JsonApiServer\Context as OriginalContext;
 class DoorkeyResource extends Resource\AbstractDatabaseResource
 {
     public function __construct(
-        protected Mailer $mailer,
+        protected Queue $queue,
         protected TranslatorInterface $translator,
         protected UrlGenerator $url,
         protected SettingsRepositoryInterface $settings,
@@ -185,7 +185,8 @@ class DoorkeyResource extends Resource\AbstractDatabaseResource
     }
 
     /**
-     * Email an invite containing a doorkey to a list of addresses.
+     * Email an invite containing a doorkey to a list of addresses, using
+     * Flarum's templated "informational" email (queued, HTML + plain text).
      */
     protected function sendInvites(Context $context): void
     {
@@ -194,11 +195,11 @@ class DoorkeyResource extends Resource\AbstractDatabaseResource
         /** @var Doorkey $doorkey */
         $doorkey = Doorkey::findOrFail(Arr::get($body, 'doorkeyId'));
 
-        $title = $this->settings->get('forum_title');
-        $subject = $title.' - '.$this->translator->trans('fof-doorman.email.subject');
+        $forumTitle = $this->settings->get('forum_title');
+        $subject = $this->translator->trans('fof-doorman.email.subject');
 
         $message = $this->translator->trans('fof-doorman.email.body', [
-            '{forum}' => $title,
+            '{forum}' => $forumTitle,
             '{url}'   => $this->extensions->isEnabled('fof-direct-links')
                 ? $this->url->to('forum')->route('direct-links-signup')
                 : $this->url->to('forum')->base(),
@@ -206,9 +207,14 @@ class DoorkeyResource extends Resource\AbstractDatabaseResource
         ]);
 
         foreach ((array) Arr::get($body, 'emails', []) as $email) {
-            $this->mailer->raw($message, function (Message $mail) use ($subject, $email) {
-                $mail->to($email)->subject($subject);
-            });
+            $this->queue->push(new SendInformationalEmailJob(
+                email: $email,
+                displayName: $email,
+                subject: $subject,
+                body: $message,
+                forumTitle: $forumTitle,
+                bodyTitle: $subject,
+            ));
         }
     }
 }

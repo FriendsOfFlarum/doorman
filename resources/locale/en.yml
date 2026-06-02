@@ -102,8 +102,6 @@ fof-doorman:
   email:
     subject: Invite to Join
     body: |
-      Hello,
-
       You have been invited to sign up for {forum}.
 
       When you are ready to create your account, simply click the following link and enter the code when signing up:
