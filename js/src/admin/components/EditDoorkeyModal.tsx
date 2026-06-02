@@ -72,7 +72,7 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
         <Select
           name="groupId"
           options={this.getGroupsForInput()}
-          aria-label={app.translator.trans('fof-doorman.admin.edit_doorkey_modal.group')}
+          aria-label={app.translator.trans('fof-doorman.admin.ref.fields.group.label')}
           value={String(this.groupId())}
           onchange={(val: string) => this.groupId(Number(val))}
           disabled={this.loading}
@@ -90,7 +90,7 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
           className="FormControl"
           name="maxUses"
           type="number"
-          aria-label={app.translator.trans('fof-doorman.admin.edit_doorkey_modal.max_uses')}
+          aria-label={app.translator.trans('fof-doorman.admin.ref.fields.max_uses.label')}
           bidi={this.maxUses}
           disabled={this.loading}
         />

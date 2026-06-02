@@ -84,13 +84,17 @@ fof-doorman:
           used_times: "{remaining, plural, =0 {Unlimited uses} one {{remainingUses} use left} other {{remainingUses} uses left}}"
           total_uses: "{totalUses, plural, one {Used {totalUses} time} other {Used {totalUses} times}}"
         no_created_by: Unknown User
+      actions:
+        notify: Email this invite code
+        edit: Edit invite code
+        delete: Delete invite code
       pagination:
-        first_page_button: => core.admin.users.pagination.first_page_button
-        back_button: => core.admin.users.pagination.back_button
-        page_counter: => core.admin.users.pagination.page_counter
-        go_to_page_textbox_a11y_label: => core.admin.users.pagination.go_to_page_textbox_a11y_label
-        next_button: => core.admin.users.pagination.next_button
-        last_page_button: => core.admin.users.pagination.last_page_button
+        first_page_button: => core.lib.pagination.first_button
+        back_button: => core.lib.pagination.back_button
+        page_counter: => core.lib.pagination.page_counter
+        go_to_page_textbox_a11y_label: => core.lib.pagination.go_to_page_textbox_a11y_label
+        next_button: => core.lib.pagination.next_button
+        last_page_button: => core.lib.pagination.last_button
 
   forum:
     sign_up:
