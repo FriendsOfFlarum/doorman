@@ -20,13 +20,8 @@ use Illuminate\Validation\Validator;
 
 class AddValidatorRule
 {
-    protected $settings;
-    protected $doorkeys;
-
-    public function __construct(SettingsRepositoryInterface $settings, DoorkeyRepository $doorkeys)
+    public function __construct(protected SettingsRepositoryInterface $settings, protected DoorkeyRepository $doorkeys)
     {
-        $this->settings = $settings;
-        $this->doorkeys = $doorkeys;
     }
 
     public function __invoke(AbstractValidator $flarumValidator, Validator $validator)

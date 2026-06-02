@@ -22,21 +22,8 @@ use Illuminate\Support\Arr;
 
 class ValidateDoorkey
 {
-    protected $validator;
-    protected $settings;
-    protected $registry;
-    protected $doorkeys;
-
-    public function __construct(
-        DoorkeyLoginValidator $validator,
-        SettingsRepositoryInterface $settings,
-        DoorkeyBypassRegistry $registry,
-        DoorkeyRepository $doorkeys
-    ) {
-        $this->validator = $validator;
-        $this->settings = $settings;
-        $this->registry = $registry;
-        $this->doorkeys = $doorkeys;
+    public function __construct(protected DoorkeyLoginValidator $validator, protected SettingsRepositoryInterface $settings, protected DoorkeyBypassRegistry $registry, protected DoorkeyRepository $doorkeys)
+    {
     }
 
     /**

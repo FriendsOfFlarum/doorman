@@ -21,23 +21,8 @@ use Illuminate\Support\Arr;
 
 class CreateDoorkeyHandler
 {
-    /**
-     * @var DoorkeyValidator
-     */
-    protected $validator;
-
-    /**
-     * @var Dispatcher
-     */
-    protected $events;
-
-    /**
-     * @param DoorkeyValidator $validator
-     */
-    public function __construct(DoorkeyValidator $validator, Dispatcher $events)
+    public function __construct(protected DoorkeyValidator $validator, protected Dispatcher $events)
     {
-        $this->validator = $validator;
-        $this->events = $events;
     }
 
     /**

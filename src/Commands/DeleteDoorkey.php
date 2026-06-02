@@ -18,24 +18,10 @@ use Flarum\User\User;
 class DeleteDoorkey
 {
     /**
-     * @var int
-     */
-    public $doorkeyId;
-
-    /**
-     * @var User
-     */
-    public $actor;
-
-    /**
      * DeleteDoorkey constructor.
      *
-     * @param      $doorkeyId
-     * @param User $actor
      */
-    public function __construct($doorkeyId, User $actor)
+    public function __construct(public $doorkeyId, public User $actor)
     {
-        $this->doorkeyId = $doorkeyId;
-        $this->actor = $actor;
     }
 }

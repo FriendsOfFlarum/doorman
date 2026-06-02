@@ -18,29 +18,9 @@ use Flarum\User\User;
 class EditDoorkey
 {
     /**
-     * @var int
-     */
-    public $doorkeyId;
-
-    /**
-     * @var User
-     */
-    public $actor;
-
-    /**
-     * @var array
-     */
-    public $data;
-
-    /**
      * @param int   $doorkeyId
-     * @param User  $actor
-     * @param array $data
      */
-    public function __construct($doorkeyId, User $actor, array $data)
+    public function __construct(public $doorkeyId, public User $actor, public array $data)
     {
-        $this->doorkeyId = $doorkeyId;
-        $this->actor = $actor;
-        $this->data = $data;
     }
 }

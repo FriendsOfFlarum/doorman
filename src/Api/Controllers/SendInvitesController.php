@@ -29,49 +29,10 @@ use Tobscure\JsonApi\Document;
 
 class SendInvitesController extends AbstractCreateController
 {
-    /**
-     * @var Dispatcher
-     */
-    protected $bus;
-
-    /**
-     * @var Mailer
-     */
-    protected $mailer;
-
-    /**
-     * @var TranslatorInterface
-     */
-    protected $translator;
-
-    /**
-     * @var UrlGenerator
-     */
-    protected $url;
-
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    protected $settings;
-
-    /**
-     * @var ExtensionManager
-     */
-    protected $extensions;
-
     public $serializer = DoorkeySerializer::class;
 
-    /**
-     * @param Dispatcher $bus
-     */
-    public function __construct(Dispatcher $bus, Mailer $mailer, TranslatorInterface $translator, UrlGenerator $url, SettingsRepositoryInterface $settings, ExtensionManager $extensions)
+    public function __construct(protected Dispatcher $bus, protected Mailer $mailer, protected TranslatorInterface $translator, protected UrlGenerator $url, protected SettingsRepositoryInterface $settings, protected ExtensionManager $extensions)
     {
-        $this->bus = $bus;
-        $this->mailer = $mailer;
-        $this->translator = $translator;
-        $this->url = $url;
-        $this->settings = $settings;
-        $this->extensions = $extensions;
     }
 
     /**

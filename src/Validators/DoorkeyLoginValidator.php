@@ -22,7 +22,7 @@ class DoorkeyLoginValidator extends AbstractValidator
     /**
      * {@inheritdoc}
      */
-    protected $rules = [
+    protected array $rules = [
         'fof-doorkey' => [
             'required',
             'doorkey',
@@ -32,7 +32,7 @@ class DoorkeyLoginValidator extends AbstractValidator
     /**
      * {@inheritdoc}
      */
-    protected function getMessages()
+    protected function getMessages(): array
     {
         $translator = resolve('translator');
 

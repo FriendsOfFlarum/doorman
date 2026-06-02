@@ -26,16 +26,10 @@ class CreatedByFilterGambit extends AbstractRegexGambit implements FilterInterfa
     use ValidateFilterTrait;
 
     /**
-     * @var \Flarum\User\UserRepository
-     */
-    protected $users;
-
-    /**
      * @param \Flarum\User\UserRepository $users
      */
-    public function __construct(UserRepository $users)
+    public function __construct(protected UserRepository $users)
     {
-        $this->users = $users;
     }
 
     /**

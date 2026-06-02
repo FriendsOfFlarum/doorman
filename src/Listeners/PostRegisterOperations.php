@@ -22,26 +22,8 @@ use Illuminate\Contracts\Events\Dispatcher;
 
 class PostRegisterOperations
 {
-    /**
-     * @var SettingsRepositoryInterface
-     */
-    protected $settings;
-
-    /**
-     * @var Dispatcher
-     */
-    protected $events;
-
-    /**
-     * @var DoorkeyRepository
-     */
-    protected $doorkeys;
-
-    public function __construct(SettingsRepositoryInterface $settings, Dispatcher $events, DoorkeyRepository $doorkeys)
+    public function __construct(protected SettingsRepositoryInterface $settings, protected Dispatcher $events, protected DoorkeyRepository $doorkeys)
     {
-        $this->settings = $settings;
-        $this->events = $events;
-        $this->doorkeys = $doorkeys;
     }
 
     public function handle(Registered $event)

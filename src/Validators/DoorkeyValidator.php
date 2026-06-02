@@ -22,7 +22,7 @@ class DoorkeyValidator extends AbstractValidator
     /**
      * {@inheritdoc}
      */
-    protected $rules = [
+    protected array $rules = [
         'key' => [
             'required',
             'string',

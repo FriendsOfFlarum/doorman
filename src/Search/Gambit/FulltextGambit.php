@@ -19,11 +19,8 @@ use FoF\Doorman\Repository\DoorkeyRepository;
 
 class FulltextGambit implements GambitInterface
 {
-    protected $doorkeys;
-
-    public function __construct(DoorkeyRepository $doorkeys)
+    public function __construct(protected DoorkeyRepository $doorkeys)
     {
-        $this->doorkeys = $doorkeys;
     }
 
     public function apply(SearchState $search, $searchValue)

@@ -29,29 +29,8 @@ class ListDoorkeysController extends AbstractListController
 
     public $include = ['group', 'createdBy'];
 
-    /**
-     * @var DoorkeyFilterer
-     */
-    protected $filterer;
-
-    /**
-     * @var DoorkeySearcher
-     */
-    protected $searcher;
-
-    /**
-     * @var UrlGenerator
-     */
-    protected $url;
-
-    /**
-     * @param UrlGenerator $url
-     */
-    public function __construct(DoorkeySearcher $searcher, DoorkeyFilterer $filterer, UrlGenerator $url)
+    public function __construct(protected DoorkeySearcher $searcher, protected DoorkeyFilterer $filterer, protected UrlGenerator $url)
     {
-        $this->filterer = $filterer;
-        $this->searcher = $searcher;
-        $this->url = $url;
     }
 
     protected function data(ServerRequestInterface $request, Document $document)

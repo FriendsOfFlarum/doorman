@@ -27,17 +27,8 @@ class ShowDoorkeyController extends AbstractShowController
 
     public $include = ['group', 'createdBy'];
 
-    /**
-     * @var DoorkeyRepository
-     */
-    protected $doorkeys;
-
-    /**
-     * @param DoorkeyRepository $doorkeys
-     */
-    public function __construct(DoorkeyRepository $doorkeys)
+    public function __construct(protected DoorkeyRepository $doorkeys)
     {
-        $this->doorkeys = $doorkeys;
     }
 
     /**

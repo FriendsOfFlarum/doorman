@@ -17,23 +17,7 @@ use Flarum\User\User;
 
 class CreateDoorkey
 {
-    /**
-     * @var User
-     */
-    public $actor;
-
-    /**
-     * @var array
-     */
-    public $data;
-
-    /**
-     * @param User  $actor
-     * @param array $data
-     */
-    public function __construct(User $actor, array $data)
+    public function __construct(public User $actor, public array $data)
     {
-        $this->actor = $actor;
-        $this->data = $data;
     }
 }

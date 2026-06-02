@@ -17,17 +17,8 @@ use Illuminate\Contracts\Container\Container;
 
 class DoorkeyBypassRegistry
 {
-    /**
-     * @var Container
-     */
-    protected $container;
-
-    /**
-     * @param Container $container
-     */
-    public function __construct(Container $container)
+    public function __construct(protected Container $container)
     {
-        $this->container = $container;
     }
 
     /**

@@ -36,7 +36,7 @@ class BypassDoorkey implements ExtenderInterface
         return $this;
     }
 
-    public function extend(Container $container, ?Extension $extension = null)
+    public function extend(Container $container, ?Extension $extension = null): void
     {
         // Get the existing providers from the container
         $existingProviders = $container->make('fof-doorman.bypass_providers');
