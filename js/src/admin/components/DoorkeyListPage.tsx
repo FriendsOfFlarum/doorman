@@ -169,6 +169,7 @@ export default class DoorkeyListPage extends ExtensionPage {
         <nav className="DoorkeyListPage-gridPagination">
           <Button
             disabled={this.pageNumber === 0}
+            aria-label={app.translator.trans('fof-doorman.admin.list.pagination.first_page_button')}
             title={app.translator.trans('fof-doorman.admin.list.pagination.first_page_button')}
             onclick={this.goToPage.bind(this, 1)}
             icon="fas fa-step-backward"
@@ -176,6 +177,7 @@ export default class DoorkeyListPage extends ExtensionPage {
           />
           <Button
             disabled={this.pageNumber === 0}
+            aria-label={app.translator.trans('fof-doorman.admin.list.pagination.back_button')}
             title={app.translator.trans('fof-doorman.admin.list.pagination.back_button')}
             onclick={this.previousPage.bind(this)}
             icon="fas fa-chevron-left"
@@ -222,6 +224,7 @@ export default class DoorkeyListPage extends ExtensionPage {
           </span>
           <Button
             disabled={!this.moreData}
+            aria-label={app.translator.trans('fof-doorman.admin.list.pagination.next_button')}
             title={app.translator.trans('fof-doorman.admin.list.pagination.next_button')}
             onclick={this.nextPage.bind(this)}
             icon="fas fa-chevron-right"
@@ -229,6 +232,7 @@ export default class DoorkeyListPage extends ExtensionPage {
           />
           <Button
             disabled={!this.moreData}
+            aria-label={app.translator.trans('fof-doorman.admin.list.pagination.last_page_button')}
             title={app.translator.trans('fof-doorman.admin.list.pagination.last_page_button')}
             onclick={this.goToPage.bind(this, this.getTotalPageCount())}
             icon="fas fa-step-forward"
@@ -364,19 +368,19 @@ export default class DoorkeyListPage extends ExtensionPage {
         content: (doorkey: Doorkey) => (
           <>
             <Button
-              aria-label={app.translator.trans('fof-doorman.admin.page.doorkey.heading.notify')}
+              aria-label={app.translator.trans('fof-doorman.admin.list.actions.notify')}
               className="Button Button--icon Doorkey-button"
               icon="fa fa-envelope fa-fw"
               onclick={() => app.modal.show(() => import('./InviteCodeModal'), { doorkey: doorkey })}
             />
             <Button
-              aria-label={app.translator.trans('fof-doorman.admin.page.doorkey.heading.edit')}
+              aria-label={app.translator.trans('fof-doorman.admin.list.actions.edit')}
               className="Button Button--icon Doorkey-button"
               icon="fas fa-pencil-alt"
               onclick={() => app.modal.show(() => import('./EditDoorkeyModal'), { doorkey })}
             />
             <Button
-              aria-label={app.translator.trans('fof-doorman.admin.page.doorkey.heading.delete')}
+              aria-label={app.translator.trans('fof-doorman.admin.list.actions.delete')}
               className="Button Button--danger Button--icon"
               icon={`fas ${this.loadingDelete[doorkey.id() || ''] ? 'fa-circle-notch fa-spin' : 'fa-times'} fa-fw`}
               onclick={() => this.deleteDoorkey(doorkey)}
