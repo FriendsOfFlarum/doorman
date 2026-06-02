@@ -13,9 +13,9 @@
 
 namespace FoF\Doorman\Search;
 
-use FoF\Doorman\Doorkey;
 use Flarum\Search\Database\AbstractSearcher;
 use Flarum\User\User;
+use FoF\Doorman\Doorkey;
 use Illuminate\Database\Eloquent\Builder;
 
 class DoorkeySearcher extends AbstractSearcher

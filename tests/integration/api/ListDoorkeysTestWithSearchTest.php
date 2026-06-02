@@ -15,7 +15,6 @@ namespace FoF\Doorman\Tests\integration\api;
 
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 
 class ListDoorkeysTestWithSearchTest extends TestCase

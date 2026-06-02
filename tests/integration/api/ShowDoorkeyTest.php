@@ -15,9 +15,9 @@ namespace FoF\Doorman\Tests\integration\api;
 
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
+use Illuminate\Support\Arr;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use Illuminate\Support\Arr;
 
 class ShowDoorkeyTest extends TestCase
 {
