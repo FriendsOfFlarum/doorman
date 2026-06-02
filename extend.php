@@ -13,6 +13,8 @@
 
 namespace FoF\Doorman;
 
+use Flarum\Api\Resource\UserResource;
+use Flarum\Api\Schema;
 use Flarum\Extend;
 use Flarum\Search\Database\DatabaseSearchDriver;
 use Flarum\User\Event\Registered;
@@ -67,4 +69,16 @@ return [
         ->register(DoorkeyServiceProvider::class),
 
     new Extend\ApiResource(Api\Resource\DoorkeyResource::class),
+
+    // Accept the `fof-doorkey` attribute submitted during registration. It is a
+    // transient, write-only input — the value is consumed by the ValidateDoorkey
+    // listener (on the User `Saving` event), so the field itself does not persist.
+    (new Extend\ApiResource(UserResource::class))
+        ->fields(fn () => [
+            Schema\Str::make('fof-doorkey')
+                ->writableOnCreate()
+                ->nullable()
+                ->visible(false)
+                ->set(fn () => null),
+        ]),
 ];
