@@ -105,6 +105,29 @@ class ListDoorkeysTest extends TestCase
     }
 
     #[Test]
+    public function doorkeys_are_sorted_newest_first_by_default()
+    {
+        $response = $this->send(
+            $this->request('GET', '/api/doorkeys', [
+                'authenticatedAs' => 1,
+            ]),
+        );
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        $ids = array_map(fn ($row) => (int) $row['id'], $data['data']);
+
+        // The newest (highest-ID) doorkey must come first.
+        $this->assertSame(22, $ids[0]);
+
+        // The whole page must be in descending ID order.
+        $descending = $ids;
+        rsort($descending);
+        $this->assertSame($descending, $ids, 'Doorkeys should be returned newest-first by default');
+    }
+
+    #[Test]
     public function group_relationship_included_by_default()
     {
         $response = $this->send(

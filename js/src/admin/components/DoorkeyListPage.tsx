@@ -278,7 +278,7 @@ export default class DoorkeyListPage extends ExtensionPage {
       <Button
         className="Button DoorkeyListPage-createDoorkeyBtn"
         icon="fas fa-door-open"
-        onclick={() => app.modal.show(() => import('./CreateDoorkeyModal'))}
+        onclick={() => app.modal.show(() => import('./CreateDoorkeyModal'), { oncreated: () => this.loadPage(this.pageNumber) })}
       >
         {app.translator.trans('fof-doorman.admin.settings.create_doorkey_button')}
       </Button>,

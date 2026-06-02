@@ -16,6 +16,12 @@ export interface ICreateDoorkeyModalAttrs extends IFormModalAttrs {
   groupId?: string;
   maxUses?: number;
   activates?: boolean;
+  /**
+   * Called after a doorkey is successfully created, so the opener (e.g. the
+   * list page) can refresh its data. Fires on every create, including when
+   * "create another" keeps the modal open.
+   */
+  oncreated?: () => void;
 }
 
 export type SignupBody = {
@@ -154,6 +160,8 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
         errorHandler: this.onerror.bind(this),
       })
       .then(() => {
+        this.attrs.oncreated?.();
+
         if (this.bulkAdd()) {
           this.resetData();
         } else {
