@@ -19,8 +19,8 @@
         }
     ],
     "require": {
-        "php": "^7.4 || ^8.0",
-        "flarum/core": "^1.3.0"
+        "php": "^8.2",
+        "flarum/core": "^2.0.0-beta"
     },
     "replace": {
         "reflar/doorman": "*"
@@ -62,8 +62,8 @@
         }
     },
     "require-dev": {
-        "flarum/phpstan": "*",
-        "flarum/testing": "^1.0.0",
+        "flarum/phpstan": "^2.0.0-beta",
+        "flarum/testing": "^2.0.0-beta",
         "fof/oauth": "^1.7.1"
     },
     "scripts": {
