@@ -1,9 +1,9 @@
-/// <reference types="flarum/@types/translator-icu-rich" />
-import Modal, { IInternalModalAttrs } from 'flarum/common/components/Modal';
+import { IFormModalAttrs } from 'flarum/common/components/FormModal';
+import FormModal from 'flarum/common/components/FormModal';
 import ItemList from 'flarum/common/utils/ItemList';
 import Stream from 'flarum/common/utils/Stream';
 import type Mithril from 'mithril';
-export interface ICreateDoorkeyModalAttrs extends IInternalModalAttrs {
+export interface ICreateDoorkeyModalAttrs extends IFormModalAttrs {
     key?: string;
     groupId?: string;
     maxUses?: number;
@@ -15,7 +15,7 @@ export type SignupBody = {
     maxUses: number;
     activates: boolean;
 };
-export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalAttrs = ICreateDoorkeyModalAttrs> extends Modal<CustomAttrs> {
+export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalAttrs = ICreateDoorkeyModalAttrs> extends FormModal<CustomAttrs> {
     key: Stream<string>;
     groupId: Stream<number>;
     maxUses: Stream<number>;
@@ -27,7 +27,7 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
     bulkAdd: Stream<boolean>;
     oninit(vnode: Mithril.Vnode<CustomAttrs, this>): void;
     className(): string;
-    title(): import("@askvortsov/rich-icu-message-formatter").NestedStringArray;
+    title(): string | any[];
     content(): JSX.Element;
     fields(): ItemList<Mithril.Children>;
     onready(): void;

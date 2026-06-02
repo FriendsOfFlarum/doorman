@@ -1,11 +1,10 @@
-/// <reference types="flarum/@types/translator-icu-rich" />
-export default class InviteCodeModal extends Modal<import("flarum/common/components/Modal").IInternalModalAttrs, undefined> {
+export default class InviteCodeModal extends FormModal<import("flarum/common/components/FormModal").IFormModalAttrs, undefined> {
     constructor();
     oninit(vnode: any): void;
     emails: any[] | undefined;
     doorkey: any;
     success: boolean | undefined;
-    title(): import("@askvortsov/rich-icu-message-formatter").NestedStringArray;
+    title(): string | any[];
     oncreate(vnode: any): void;
     onremove(vnode: any): void;
     content(): JSX.Element;
@@ -16,4 +15,4 @@ export default class InviteCodeModal extends Modal<import("flarum/common/compone
     removeEmail(i: any): void;
     send(e: any): void;
 }
-import Modal from "flarum/common/components/Modal";
+import FormModal from "flarum/common/components/FormModal";
