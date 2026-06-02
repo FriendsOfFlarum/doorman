@@ -20,7 +20,10 @@ use Illuminate\Contracts\Container\Container;
 
 class BypassDoorkey implements ExtenderInterface
 {
-    private $providers = [];
+    /**
+     * @var string[]
+     */
+    private array $providers = [];
 
     /**
      * Allow users registering through the specified OAuth provider to bypass doorkey requirements.
@@ -36,10 +39,11 @@ class BypassDoorkey implements ExtenderInterface
         return $this;
     }
 
-    public function extend(Container $container, ?Extension $extension = null)
+    public function extend(Container $container, ?Extension $extension = null): void
     {
         // Get the existing providers from the container
-        $existingProviders = $container->make('fof-doorman.bypass_providers');
+        /** @var string[] $existingProviders */
+        $existingProviders = $container->get('fof-doorman.bypass_providers');
 
         // Add new providers to the list
         foreach ($this->providers as $provider) {

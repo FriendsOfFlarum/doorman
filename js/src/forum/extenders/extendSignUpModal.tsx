@@ -1,20 +1,19 @@
 import app from 'flarum/forum/app';
 import { extend } from 'flarum/common/extend';
-import SignUpModal from 'flarum/forum/components/SignUpModal';
 import Stream from 'flarum/common/utils/Stream';
 
-app.initializers.add('fof-doorman', () => {
-  extend(SignUpModal.prototype, 'oninit', function () {
+export default function extendSignUpModal() {
+  extend('flarum/forum/components/SignUpModal', 'oninit', function () {
     this.doorkey = Stream('');
   });
-  extend(SignUpModal.prototype, 'fields', function (fields) {
+  extend('flarum/forum/components/SignUpModal', 'fields', function (fields) {
     if (this.attrs.provided && this.attrs.provided.includes('fofDoorkeyBypass')) {
       // unset `fof-doorkey.bypass` if it is set
-      this.attrs.provided = this.attrs.provided.filter((item) => item !== 'fofDoorkeyBypass');
+      this.attrs.provided = this.attrs.provided.filter((item: string) => item !== 'fofDoorkeyBypass');
       return;
     }
 
-    const isOptional = app.forum.data.attributes['fof-doorman.allowPublic'];
+    const isOptional = app.forum.data?.attributes?.['fof-doorman.allowPublic'];
     const placeholder = isOptional
       ? app.translator.trans('fof-doorman.forum.sign_up.doorman_placeholder_optional')
       : app.translator.trans('fof-doorman.forum.sign_up.doorman_placeholder');
@@ -27,9 +26,9 @@ app.initializers.add('fof-doorman', () => {
     );
   });
 
-  extend(SignUpModal.prototype, 'submitData', function (data) {
+  extend('flarum/forum/components/SignUpModal', 'submitData', function (data) {
     const newData = data;
     newData['fof-doorkey'] = this.doorkey().trim();
     return newData;
   });
-});
+}

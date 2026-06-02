@@ -16,6 +16,8 @@ namespace FoF\Doorman\Tests\integration\api;
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
 use FoF\Doorman\Doorkey;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 class DeleteDoorkeyTest extends TestCase
 {
@@ -37,29 +39,26 @@ class DeleteDoorkeyTest extends TestCase
         ]);
     }
 
-    public function permittedUsers(): array
+    public static function permittedUsers(): array
     {
         return [
             [1],
         ];
     }
 
-    public function unpermittedUsers(): array
+    public static function unpermittedUsers(): array
     {
         return [
             [2],
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider permittedUsers
-     */
+    #[Test]
+    #[DataProvider('permittedUsers')]
     public function permitted_users_can_delete_doorkey($actorId)
     {
         $response = $this->send(
-            $this->request('DELETE', '/api/fof/doorkeys/1', [
+            $this->request('DELETE', '/api/doorkeys/1', [
                 'authenticatedAs' => $actorId,
             ])
         );
@@ -70,15 +69,12 @@ class DeleteDoorkeyTest extends TestCase
         $this->assertNull(Doorkey::find(1));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider unpermittedUsers
-     */
+    #[Test]
+    #[DataProvider('unpermittedUsers')]
     public function unpermitted_users_cannot_delete_doorkey($actorId)
     {
         $response = $this->send(
-            $this->request('DELETE', '/api/fof/doorkeys/1', [
+            $this->request('DELETE', '/api/doorkeys/1', [
                 'authenticatedAs' => $actorId,
             ])
         );

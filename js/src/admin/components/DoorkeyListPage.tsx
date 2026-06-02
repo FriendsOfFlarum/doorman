@@ -8,12 +8,8 @@ import classList from 'flarum/common/utils/classList';
 import extractText from 'flarum/common/utils/extractText';
 import GroupBadge from 'flarum/common/components/GroupBadge';
 import Group from 'flarum/common/models/Group';
-import icon from 'flarum/common/helpers/icon';
+import Icon from 'flarum/common/components/Icon';
 import Badge from 'flarum/common/components/Badge';
-
-import CreateDoorkeyModal from './CreateDoorkeyModal';
-import InviteCodeModal from './InviteCodeModal';
-import EditDoorkeyModal from './EditDoorkeyModal';
 
 import type { ExtensionPageAttrs } from 'flarum/admin/components/ExtensionPage';
 import type Doorkey from 'src/common/models/Doorkey';
@@ -279,7 +275,11 @@ export default class DoorkeyListPage extends ExtensionPage {
 
     items.add(
       'createDoorkey',
-      <Button className="Button DoorkeyListPage-createDoorkeyBtn" icon="fas fa-door-open" onclick={() => app.modal.show(CreateDoorkeyModal)}>
+      <Button
+        className="Button DoorkeyListPage-createDoorkeyBtn"
+        icon="fas fa-door-open"
+        onclick={() => app.modal.show(() => import('./CreateDoorkeyModal'))}
+      >
         {app.translator.trans('fof-doorman.admin.settings.create_doorkey_button')}
       </Button>,
       100
@@ -349,9 +349,9 @@ export default class DoorkeyListPage extends ExtensionPage {
         content: (doorkey: Doorkey) => {
           const activates = doorkey.activates();
 
-          if (activates) return icon('fas fa-user-check');
+          if (activates) return <Icon name="fas fa-user-check" />;
 
-          return icon('fas fa-times-circle');
+          return <Icon name="fas fa-times-circle" />;
         },
       },
       60
@@ -367,13 +367,13 @@ export default class DoorkeyListPage extends ExtensionPage {
               aria-label={app.translator.trans('fof-doorman.admin.page.doorkey.heading.notify')}
               className="Button Button--icon Doorkey-button"
               icon="fa fa-envelope fa-fw"
-              onclick={() => app.modal.show(InviteCodeModal, { doorkey: doorkey })}
+              onclick={() => app.modal.show(() => import('./InviteCodeModal'), { doorkey: doorkey })}
             />
             <Button
               aria-label={app.translator.trans('fof-doorman.admin.page.doorkey.heading.edit')}
               className="Button Button--icon Doorkey-button"
               icon="fas fa-pencil-alt"
-              onclick={() => app.modal.show(EditDoorkeyModal, { doorkey })}
+              onclick={() => app.modal.show(() => import('./EditDoorkeyModal'), { doorkey })}
             />
             <Button
               aria-label={app.translator.trans('fof-doorman.admin.page.doorkey.heading.delete')}
@@ -460,7 +460,7 @@ export default class DoorkeyListPage extends ExtensionPage {
     this.setPageNumberInUrl(pageNumber + 1);
 
     app.store
-      .find<Doorkey[]>('fof/doorkeys', {
+      .find<Doorkey[]>('doorkeys', {
         filter: { q: this.query },
         page: {
           limit: this.numPerPage,

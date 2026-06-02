@@ -18,25 +18,7 @@ use FoF\Doorman\Doorkey;
 
 abstract class AbstractDoorkeyEvent
 {
-    /**
-     * @var Doorkey
-     */
-    public $doorkey;
-
-    /**
-     * @var User
-     */
-    public $actor;
-
-    /**
-     * @var array
-     */
-    public array $data;
-
-    public function __construct(Doorkey $doorkey, User $actor, array $data)
+    public function __construct(public Doorkey $doorkey, public User $actor, public array $data)
     {
-        $this->doorkey = $doorkey;
-        $this->actor = $actor;
-        $this->data = $data;
     }
 }

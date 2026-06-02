@@ -18,23 +18,14 @@ use FoF\Doorman\DoorkeyBypassRegistry;
 
 class OAuthBypassDoorkey
 {
-    /**
-     * @var DoorkeyBypassRegistry
-     */
-    protected $registry;
-
-    /**
-     * @param DoorkeyBypassRegistry $registry
-     */
-    public function __construct(DoorkeyBypassRegistry $registry)
+    public function __construct(protected DoorkeyBypassRegistry $registry)
     {
-        $this->registry = $registry;
     }
 
     /**
      * @param RegisteringFromProvider $event
      */
-    public function handle(RegisteringFromProvider $event)
+    public function handle(RegisteringFromProvider $event): void
     {
         $provider = $event->provider;
 

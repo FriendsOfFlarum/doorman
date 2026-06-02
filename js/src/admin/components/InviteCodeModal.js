@@ -1,9 +1,10 @@
+import Form from 'flarum/common/components/Form';
 import app from 'flarum/admin/app';
 import Alert from 'flarum/common/components/Alert';
-import Modal from 'flarum/common/components/Modal';
+import FormModal from 'flarum/common/components/FormModal';
 import Button from 'flarum/common/components/Button';
 
-export default class InviteCodeModal extends Modal {
+export default class InviteCodeModal extends FormModal {
   oninit(vnode) {
     super.oninit(vnode);
 
@@ -48,7 +49,7 @@ export default class InviteCodeModal extends Modal {
           })}
         </h3>
         <div className="helpText">{app.translator.trans('fof-doorman.admin.modals.send_invites.help')}</div>
-        <div className="Form Form--centered">
+        <Form className="Form--centered">
           <div className="Form-group">
             <input
               type="text"
@@ -87,7 +88,7 @@ export default class InviteCodeModal extends Modal {
               app.translator.trans('fof-doorman.admin.modals.send_invites.send')
             )}
           </div>
-        </div>
+        </Form>
       </div>
     );
   }
@@ -146,7 +147,7 @@ export default class InviteCodeModal extends Modal {
     app
       .request({
         method: 'POST',
-        url: app.forum.attribute('apiUrl') + '/fof/doorkeys/invites',
+        url: app.forum.attribute('apiUrl') + '/doorkeys/invites',
         body: {
           emails: this.emails,
           doorkeyId: this.doorkey.data.id,

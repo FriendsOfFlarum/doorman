@@ -16,6 +16,8 @@ namespace FoF\Doorman\Tests\integration\api;
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
 use Illuminate\Support\Arr;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 class ListDoorkeysTest extends TestCase
 {
@@ -58,14 +60,14 @@ class ListDoorkeysTest extends TestCase
         ]);
     }
 
-    public function permittedUsers(): array
+    public static function permittedUsers(): array
     {
         return [
             [1],
         ];
     }
 
-    public function unpermittedUsers(): array
+    public static function unpermittedUsers(): array
     {
         return [
             [null],
@@ -73,15 +75,12 @@ class ListDoorkeysTest extends TestCase
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider permittedUsers
-     */
+    #[Test]
+    #[DataProvider('permittedUsers')]
     public function permitted_users_can_see_doorkey_index($actorId)
     {
         $response = $this->send(
-            $this->request('GET', '/api/fof/doorkeys', [
+            $this->request('GET', '/api/doorkeys', [
                 'authenticatedAs' => $actorId,
             ]),
         );
@@ -92,15 +91,12 @@ class ListDoorkeysTest extends TestCase
         $this->assertEquals(20, count($data['data']));
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider unpermittedUsers
-     */
+    #[Test]
+    #[DataProvider('unpermittedUsers')]
     public function unpermitted_users_cannot_see_doorkey_index($actorId)
     {
         $response = $this->send(
-            $this->request('GET', '/api/fof/doorkeys', [
+            $this->request('GET', '/api/doorkeys', [
                 'authenticatedAs' => $actorId,
             ]),
         );
@@ -108,13 +104,11 @@ class ListDoorkeysTest extends TestCase
         $this->assertEquals(403, $response->getStatusCode());
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function group_relationship_included_by_default()
     {
         $response = $this->send(
-            $this->request('GET', '/api/fof/doorkeys', [
+            $this->request('GET', '/api/doorkeys', [
                 'authenticatedAs' => 1,
             ]),
         );

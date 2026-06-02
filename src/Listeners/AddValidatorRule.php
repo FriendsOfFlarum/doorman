@@ -20,33 +20,24 @@ use Illuminate\Validation\Validator;
 
 class AddValidatorRule
 {
-    protected $settings;
-    protected $doorkeys;
-
-    public function __construct(SettingsRepositoryInterface $settings, DoorkeyRepository $doorkeys)
+    public function __construct(protected SettingsRepositoryInterface $settings, protected DoorkeyRepository $doorkeys)
     {
-        $this->settings = $settings;
-        $this->doorkeys = $doorkeys;
     }
 
-    public function __invoke(AbstractValidator $flarumValidator, Validator $validator)
+    public function __invoke(AbstractValidator $flarumValidator, Validator $validator): void
     {
         $validator->addExtension(
             'doorkey',
-            function ($attribute, $value, $parameters) {
+            function ($attribute, $value, $parameters): bool {
                 $doorkey = $this->doorkeys->getByKey((string) $value);
 
                 // Allows the invitation key to be optional if the setting was enabled
                 $allow = json_decode($this->settings->get('fof-doorman.allowPublic'));
                 if ($allow && !$doorkey) {
-                    return;
+                    return true;
                 }
 
-                if ($doorkey !== null && ($doorkey->max_uses === 0 || $doorkey->uses < $doorkey->max_uses)) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return $doorkey !== null && ($doorkey->max_uses === 0 || $doorkey->uses < $doorkey->max_uses);
             }
         );
     }

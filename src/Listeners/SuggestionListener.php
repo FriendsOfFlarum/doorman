@@ -18,17 +18,11 @@ use FoF\OAuth\Events\SettingSuggestions;
 
 class SuggestionListener
 {
-    /**
-     * @var DoorkeyBypassRegistry
-     */
-    protected $registry;
-
-    public function __construct(DoorkeyBypassRegistry $registry)
+    public function __construct(protected DoorkeyBypassRegistry $registry)
     {
-        $this->registry = $registry;
     }
 
-    public function handle(SettingSuggestions $event)
+    public function handle(SettingSuggestions $event): void
     {
         if ($this->registry->isProviderAllowed($event->provider)) {
             $event->registration->provide('fofDoorkeyBypass', true);

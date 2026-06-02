@@ -1,5 +1,7 @@
+import Form from 'flarum/common/components/Form';
 import app from 'flarum/admin/app';
-import Modal, { IInternalModalAttrs } from 'flarum/common/components/Modal';
+import { IFormModalAttrs } from 'flarum/common/components/FormModal';
+import FormModal from 'flarum/common/components/FormModal';
 import Button from 'flarum/common/components/Button';
 import ItemList from 'flarum/common/utils/ItemList';
 import Stream from 'flarum/common/utils/Stream';
@@ -9,7 +11,7 @@ import Select from 'flarum/common/components/Select';
 import Group from 'flarum/common/models/Group';
 import type Mithril from 'mithril';
 
-export interface ICreateDoorkeyModalAttrs extends IInternalModalAttrs {
+export interface ICreateDoorkeyModalAttrs extends IFormModalAttrs {
   key?: string;
   groupId?: string;
   maxUses?: number;
@@ -23,7 +25,7 @@ export type SignupBody = {
   activates: boolean;
 };
 
-export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalAttrs = ICreateDoorkeyModalAttrs> extends Modal<CustomAttrs> {
+export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalAttrs = ICreateDoorkeyModalAttrs> extends FormModal<CustomAttrs> {
   key!: Stream<string>;
   groupId!: Stream<number>;
   maxUses!: Stream<number>;
@@ -56,7 +58,7 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
   content() {
     return (
       <div className="Modal-body">
-        <div className="Form">{this.fields().toArray()}</div>
+        <Form>{this.fields().toArray()}</Form>
       </div>
     );
   }
@@ -146,7 +148,7 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
 
     app
       .request({
-        url: app.forum.attribute('apiUrl') + '/fof/doorkeys',
+        url: app.forum.attribute('apiUrl') + '/doorkeys',
         method: 'POST',
         body: { data: { attributes: this.submitData() } },
         errorHandler: this.onerror.bind(this),

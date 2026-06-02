@@ -22,21 +22,8 @@ use Illuminate\Support\Arr;
 
 class ValidateDoorkey
 {
-    protected $validator;
-    protected $settings;
-    protected $registry;
-    protected $doorkeys;
-
-    public function __construct(
-        DoorkeyLoginValidator $validator,
-        SettingsRepositoryInterface $settings,
-        DoorkeyBypassRegistry $registry,
-        DoorkeyRepository $doorkeys
-    ) {
-        $this->validator = $validator;
-        $this->settings = $settings;
-        $this->registry = $registry;
-        $this->doorkeys = $doorkeys;
+    public function __construct(protected DoorkeyLoginValidator $validator, protected SettingsRepositoryInterface $settings, protected DoorkeyBypassRegistry $registry, protected DoorkeyRepository $doorkeys)
+    {
     }
 
     /**
@@ -44,7 +31,7 @@ class ValidateDoorkey
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function handle(Saving $event)
+    public function handle(Saving $event): void
     {
         if (!$event->user->exists) {
             // Check if this user is exempt from doorkey validation
@@ -71,7 +58,7 @@ class ValidateDoorkey
 
             $doorkey = $this->doorkeys->getByKey($key);
 
-            if ($doorkey->activates) {
+            if ($doorkey && $doorkey->activates) {
                 $event->user->activate();
             }
         }
