@@ -41,7 +41,7 @@ return [
         }
 
         // Add the portable B-tree index used by exact-match key lookups.
-        if (! $schema->hasIndex('doorkeys', $btreeIndex)) {
+        if (!$schema->hasIndex('doorkeys', $btreeIndex)) {
             $schema->table('doorkeys', function (Blueprint $table) {
                 $table->index('key');
             });
@@ -55,7 +55,7 @@ return [
             });
         }
 
-        if ($supportsFullText($schema) && ! $schema->hasIndex('doorkeys', $fulltextIndex)) {
+        if ($supportsFullText($schema) && !$schema->hasIndex('doorkeys', $fulltextIndex)) {
             $schema->table('doorkeys', function (Blueprint $table) {
                 $table->fullText('key');
             });

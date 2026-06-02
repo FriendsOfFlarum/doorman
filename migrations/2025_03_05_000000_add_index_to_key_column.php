@@ -26,7 +26,7 @@ $supportsFullText = fn (Builder $schema): bool => in_array(
 
 return [
     'up' => function (Builder $schema) use ($supportsFullText) {
-        if (! $supportsFullText($schema)) {
+        if (!$supportsFullText($schema)) {
             return;
         }
 
@@ -36,7 +36,7 @@ return [
     },
 
     'down' => function (Builder $schema) use ($supportsFullText) {
-        if (! $supportsFullText($schema)) {
+        if (!$supportsFullText($schema)) {
             return;
         }
 
