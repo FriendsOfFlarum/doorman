@@ -1,5 +1,7 @@
+import Form from 'flarum/common/components/Form';
 import app from 'flarum/common/app';
-import Modal, { IInternalModalAttrs } from 'flarum/common/components/Modal';
+import { IFormModalAttrs } from 'flarum/common/components/FormModal';
+import FormModal from 'flarum/common/components/FormModal';
 import Button from 'flarum/common/components/Button';
 
 import ItemList from 'flarum/common/utils/ItemList';
@@ -12,11 +14,11 @@ import type Mithril from 'mithril';
 import type Doorkey from '../../common/models/Doorkey';
 import type { SaveAttributes } from 'flarum/common//Model';
 
-export interface IEditDoorkeyModalAttrs extends IInternalModalAttrs {
+export interface IEditDoorkeyModalAttrs extends IFormModalAttrs {
   doorkey: Doorkey;
 }
 
-export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs = IEditDoorkeyModalAttrs> extends Modal<CustomAttrs> {
+export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs = IEditDoorkeyModalAttrs> extends FormModal<CustomAttrs> {
   protected key!: Stream<string>;
   protected groupId!: Stream<number>;
   protected maxUses!: Stream<number>;
@@ -44,7 +46,7 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
   content() {
     return (
       <div className="Modal-body">
-        <div className="Form">{this.fields().toArray()}</div>
+        <Form>{this.fields().toArray()}</Form>
       </div>
     );
   }

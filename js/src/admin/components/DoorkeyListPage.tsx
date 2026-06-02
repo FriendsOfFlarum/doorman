@@ -8,7 +8,7 @@ import classList from 'flarum/common/utils/classList';
 import extractText from 'flarum/common/utils/extractText';
 import GroupBadge from 'flarum/common/components/GroupBadge';
 import Group from 'flarum/common/models/Group';
-import icon from 'flarum/common/helpers/icon';
+import Icon from 'flarum/common/components/Icon';
 import Badge from 'flarum/common/components/Badge';
 
 import CreateDoorkeyModal from './CreateDoorkeyModal';
@@ -349,9 +349,9 @@ export default class DoorkeyListPage extends ExtensionPage {
         content: (doorkey: Doorkey) => {
           const activates = doorkey.activates();
 
-          if (activates) return icon('fas fa-user-check');
+          if (activates) return <Icon name="fas fa-user-check" />;
 
-          return icon('fas fa-times-circle');
+          return <Icon name="fas fa-times-circle" />;
         },
       },
       60
