@@ -17,8 +17,6 @@ use Flarum\Foundation\AbstractValidator;
 
 class DoorkeyLoginValidator extends AbstractValidator
 {
-    protected $translator;
-
     /**
      * {@inheritdoc}
      */

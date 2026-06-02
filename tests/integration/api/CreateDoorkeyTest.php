@@ -15,6 +15,8 @@ namespace FoF\Doorman\Tests\integration\api;
 
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 use FoF\Doorman\Doorkey;
 use Illuminate\Support\Arr;
 
@@ -35,29 +37,26 @@ class CreateDoorkeyTest extends TestCase
         ]);
     }
 
-    public function permittedUsers(): array
+    public static function permittedUsers(): array
     {
         return [
             [1],
         ];
     }
 
-    public function unpermittedUsers(): array
+    public static function unpermittedUsers(): array
     {
         return [
             [2],
         ];
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider permittedUsers
-     */
+    #[Test]
+    #[DataProvider('permittedUsers')]
     public function permitted_users_can_create_doorkey($actorId)
     {
         $response = $this->send(
-            $this->request('POST', '/api/fof/doorkeys', [
+            $this->request('POST', '/api/doorkeys', [
                 'authenticatedAs' => $actorId,
                 'json'            => [
                     'data' => [
@@ -66,7 +65,6 @@ class CreateDoorkeyTest extends TestCase
                             'groupId'   => 3,
                             'key'       => 'ABCDEFG1',
                             'maxUses'   => 10,
-                            'uses'      => 0,
                         ],
                         'type' => 'doorkeys',
                     ],
@@ -84,15 +82,12 @@ class CreateDoorkeyTest extends TestCase
         $this->assertEquals($actorId, Doorkey::first()->created_by);
     }
 
-    /**
-     * @test
-     *
-     * @dataProvider unpermittedUsers
-     */
+    #[Test]
+    #[DataProvider('unpermittedUsers')]
     public function unpermitted_users_cannot_create_doorkey($actorId)
     {
         $response = $this->send(
-            $this->request('POST', '/api/fof/doorkeys', [
+            $this->request('POST', '/api/doorkeys', [
                 'authenticatedAs' => $actorId,
                 'json'            => [
                     'data' => [
@@ -101,7 +96,6 @@ class CreateDoorkeyTest extends TestCase
                             'groupId'   => 3,
                             'key'       => 'ABCDEFG1',
                             'maxUses'   => 10,
-                            'uses'      => 0,
                         ],
                     ],
                 ],

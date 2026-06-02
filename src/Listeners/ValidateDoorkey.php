@@ -31,7 +31,7 @@ class ValidateDoorkey
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function handle(Saving $event)
+    public function handle(Saving $event): void
     {
         if (!$event->user->exists) {
             // Check if this user is exempt from doorkey validation
@@ -58,7 +58,7 @@ class ValidateDoorkey
 
             $doorkey = $this->doorkeys->getByKey($key);
 
-            if ($doorkey->activates) {
+            if ($doorkey && $doorkey->activates) {
                 $event->user->activate();
             }
         }

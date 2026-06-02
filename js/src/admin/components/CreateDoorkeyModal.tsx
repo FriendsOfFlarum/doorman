@@ -148,7 +148,7 @@ export default class CreateDoorkeyModal<CustomAttrs extends ICreateDoorkeyModalA
 
     app
       .request({
-        url: app.forum.attribute('apiUrl') + '/fof/doorkeys',
+        url: app.forum.attribute('apiUrl') + '/doorkeys',
         method: 'POST',
         body: { data: { attributes: this.submitData() } },
         errorHandler: this.onerror.bind(this),

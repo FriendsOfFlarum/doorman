@@ -14,17 +14,16 @@
 namespace FoF\Doorman;
 
 use Flarum\Extend;
+use Flarum\Search\Database\DatabaseSearchDriver;
 use Flarum\User\Event\Registered;
 use Flarum\User\Event\RegisteringFromProvider;
 use Flarum\User\Event\Saving as UserSaving;
 use Flarum\User\User;
-use FoF\Doorman\Api\Controllers;
 use FoF\Doorman\Content\AdminPayload;
-use FoF\Doorman\Filter\CreatedByFilterGambit;
-use FoF\Doorman\Filter\DoorkeyFilterer;
 use FoF\Doorman\Provider\DoorkeyServiceProvider;
+use FoF\Doorman\Search\CreatedByFilter;
 use FoF\Doorman\Search\DoorkeySearcher;
-use FoF\Doorman\Search\Gambit\FulltextGambit;
+use FoF\Doorman\Search\FulltextFilter;
 use FoF\Doorman\Validators\DoorkeyLoginValidator;
 use FoF\OAuth\Events\SettingSuggestions;
 
@@ -34,6 +33,7 @@ return [
 
     (new Extend\Frontend('admin'))
         ->js(__DIR__.'/js/dist/admin.js')
+        ->jsDirectory(__DIR__.'/js/dist/admin')
         ->css(__DIR__.'/resources/less/admin.less')
         ->content(AdminPayload::class),
 
@@ -42,20 +42,10 @@ return [
         ->cast('invite_code', 'string')
         ->cast('fofDoorkeyBypass', 'string'),
 
-    (new Extend\Routes('api'))
-        ->post('/fof/doorkeys', 'fof.doorkey.create', Controllers\CreateDoorkeyController::class)
-        ->post('/fof/doorkeys/invites', 'fof.doorkey.invite', Controllers\SendInvitesController::class)
-        ->delete('/fof/doorkeys/{id}', 'fof.doorkey.delete', Controllers\DeleteDoorkeyController::class)
-        ->patch('/fof/doorkeys/{id}', 'fof.doorkey.update', Controllers\UpdateDoorkeyController::class)
-        ->get('/fof/doorkeys', 'fof.doorkeys.index', Controllers\ListDoorkeysController::class)
-        ->get('/fof/doorkeys/{id}', 'fof.doorkeys.show', Controllers\ShowDoorkeyController::class),
-
-    (new Extend\SimpleFlarumSearch(DoorkeySearcher::class))
-        ->addGambit(CreatedByFilterGambit::class)
-        ->setFullTextGambit(FulltextGambit::class),
-
-    (new Extend\Filter(DoorkeyFilterer::class))
-        ->addFilter(CreatedByFilterGambit::class),
+    (new Extend\SearchDriver(DatabaseSearchDriver::class))
+        ->addSearcher(Doorkey::class, DoorkeySearcher::class)
+        ->setFulltext(DoorkeySearcher::class, FulltextFilter::class)
+        ->addFilter(DoorkeySearcher::class, CreatedByFilter::class),
 
     new Extend\Locales(__DIR__.'/resources/locale'),
 
@@ -63,7 +53,8 @@ return [
         ->configure(Listeners\AddValidatorRule::class),
 
     (new Extend\Settings())
-        ->serializeToForum('fof-doorman.allowPublic', 'fof-doorman.allowPublic', 'boolVal', false),
+        ->default('fof-doorman.allowPublic', false)
+        ->serializeToForum('fof-doorman.allowPublic', 'fof-doorman.allowPublic', 'boolVal'),
 
     (new Extend\Event())
         ->listen(Registered::class, Listeners\PostRegisterOperations::class)
@@ -74,5 +65,6 @@ return [
 
     (new Extend\ServiceProvider())
         ->register(DoorkeyServiceProvider::class),
+
     new Extend\ApiResource(Api\Resource\DoorkeyResource::class),
 ];

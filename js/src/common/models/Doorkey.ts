@@ -32,6 +32,6 @@ export default class Doorkey extends Model {
   }
 
   protected apiEndpoint() {
-    return '/fof/doorkeys' + (this.exists ? `/${(this.data as any).id}` : '');
+    return '/doorkeys' + (this.exists ? `/${(this.data as any).id}` : '');
   }
 }

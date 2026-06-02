@@ -164,7 +164,7 @@ export default class EditDoorkeyModal<CustomAttrs extends IEditDoorkeyModalAttrs
            * saving the group relationship here. Ideally, the relationship would
            * be saved properly in the frontend which would update the UI automatically.
            */
-          app.store.find('fof/doorkeys', id);
+          app.store.find('doorkeys', id);
         }
       });
   }

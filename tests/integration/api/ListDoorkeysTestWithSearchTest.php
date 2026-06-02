@@ -15,6 +15,8 @@ namespace FoF\Doorman\Tests\integration\api;
 
 use Flarum\Testing\integration\RetrievesAuthorizedUsers;
 use Flarum\Testing\integration\TestCase;
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Test;
 
 class ListDoorkeysTestWithSearchTest extends TestCase
 {
@@ -57,13 +59,11 @@ class ListDoorkeysTestWithSearchTest extends TestCase
         $this->database()->table('users')->whereIn('id', [2])->delete();
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function admin_can_search_for_key()
     {
         $response = $this->send(
-            $this->request('GET', '/api/fof/doorkeys', [
+            $this->request('GET', '/api/doorkeys', [
                 'authenticatedAs' => 1,
             ])
              ->withQueryParams([
@@ -81,13 +81,11 @@ class ListDoorkeysTestWithSearchTest extends TestCase
         $this->assertEqualsCanonicalizing(['6'], $ids, 'ID does not match');
     }
 
-    /**
-     * @test
-     */
+    #[Test]
     public function admin_can_search_for_partial_key()
     {
         $response = $this->send(
-            $this->request('GET', '/api/fof/doorkeys', [
+            $this->request('GET', '/api/doorkeys', [
                 'authenticatedAs' => 1,
             ])
              ->withQueryParams([
@@ -105,17 +103,15 @@ class ListDoorkeysTestWithSearchTest extends TestCase
         $this->assertEqualsCanonicalizing(['1', '2', '3'], $ids, 'IDs do not match');
     }
 
-    /**
-     * @test
-     */
-    public function admin_can_search_using_created_by_gambit()
+    #[Test]
+    public function admin_can_search_using_created_by_filter()
     {
         $response = $this->send(
-            $this->request('GET', '/api/fof/doorkeys', [
+            $this->request('GET', '/api/doorkeys', [
                 'authenticatedAs' => 1,
             ])
              ->withQueryParams([
-                 'filter' => ['q' => 'created_by:normal'],
+                 'filter' => ['created_by' => 'normal'],
              ])
         );
 
@@ -129,17 +125,15 @@ class ListDoorkeysTestWithSearchTest extends TestCase
         $this->assertEqualsCanonicalizing(['5', '6'], $ids, 'IDs do not match');
     }
 
-    /**
-     * @test
-     */
-    public function admin_can_search_using_created_by_gambit_with_negate()
+    #[Test]
+    public function admin_can_search_using_created_by_filter_with_negate()
     {
         $response = $this->send(
-            $this->request('GET', '/api/fof/doorkeys', [
+            $this->request('GET', '/api/doorkeys', [
                 'authenticatedAs' => 1,
             ])
              ->withQueryParams([
-                 'filter' => ['q' => '-created_by:normal'],
+                 'filter' => ['-created_by' => 'normal'],
              ])
         );
 

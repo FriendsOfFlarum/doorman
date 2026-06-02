@@ -19,15 +19,11 @@
         }
     ],
     "require": {
-        "php": "^8.2",
-        "flarum/core": "^2.0.0-beta"
-    },
-    "replace": {
-        "reflar/doorman": "*"
+        "flarum/core": "^2.0.0"
     },
     "authors": [
         {
-            "name": "Team Fof",
+            "name": "Team FoF",
             "email": "team@friendsofflarum.org",
             "role": "Developer"
         }
@@ -62,9 +58,9 @@
         }
     },
     "require-dev": {
-        "flarum/phpstan": "^2.0.0-beta",
-        "flarum/testing": "^2.0.0-beta",
-        "fof/oauth": "^1.7.1"
+        "flarum/phpstan": "^2.0.0",
+        "flarum/testing": "^2.0.0",
+        "fof/oauth": "^2.0.0"
     },
     "scripts": {
         "analyse:phpstan": "phpstan analyse",
@@ -88,5 +84,7 @@
         "psr-4": {
             "FoF\\Doorman\\Tests\\": "tests/"
         }
-    }
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
 }

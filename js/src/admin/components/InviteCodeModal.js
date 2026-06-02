@@ -147,7 +147,7 @@ export default class InviteCodeModal extends FormModal {
     app
       .request({
         method: 'POST',
-        url: app.forum.attribute('apiUrl') + '/fof/doorkeys/invites',
+        url: app.forum.attribute('apiUrl') + '/doorkeys/invites',
         body: {
           emails: this.emails,
           doorkeyId: this.doorkey.data.id,

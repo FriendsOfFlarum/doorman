@@ -17,7 +17,7 @@ use Flarum\User\Event\Saving;
 
 class ClearBypass
 {
-    public function handle(Saving $event)
+    public function handle(Saving $event): void
     {
         if ($event->user->fofDoorkeyBypass) {
             unset($event->user->fofDoorkeyBypass);

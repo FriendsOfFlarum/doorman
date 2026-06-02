@@ -13,22 +13,15 @@
 
 namespace FoF\Doorman\Search;
 
-use Flarum\Search\AbstractSearcher;
-use Flarum\Search\GambitManager;
+use FoF\Doorman\Doorkey;
+use Flarum\Search\Database\AbstractSearcher;
 use Flarum\User\User;
-use FoF\Doorman\Repository\DoorkeyRepository;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\Eloquent\Builder;
 
 class DoorkeySearcher extends AbstractSearcher
 {
-    public function __construct(protected DoorkeyRepository $doorkeys, protected Dispatcher $events, GambitManager $gambits, array $searchMutators)
+    public function getQuery(User $actor): Builder
     {
-        parent::__construct($gambits, $searchMutators);
-    }
-
-    protected function getQuery(User $actor): Builder
-    {
-        return $this->doorkeys->query()->whereVisibleTo($actor);
+        return Doorkey::query()->whereVisibleTo($actor);
     }
 }

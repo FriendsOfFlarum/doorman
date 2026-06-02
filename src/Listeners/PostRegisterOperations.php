@@ -26,7 +26,7 @@ class PostRegisterOperations
     {
     }
 
-    public function handle(Registered $event)
+    public function handle(Registered $event): void
     {
         $user = $event->user;
 

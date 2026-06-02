@@ -17,6 +17,7 @@ use Flarum\Database\AbstractModel;
 use Flarum\Database\ScopeVisibilityTrait;
 use Flarum\Group\Group;
 use Flarum\User\User;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @property string $key
@@ -40,28 +41,23 @@ class Doorkey extends AbstractModel
      *
      * @param string|null $value
      */
-    public function setKeyAttribute($value)
+    public function setKeyAttribute($value): void
     {
         $this->attributes['key'] = strtoupper(trim((string) $value));
     }
 
-    public static function build($key, $groupId, $maxUses, $activates)
-    {
-        $doorkey = new static();
-        $doorkey->key = $key;
-        $doorkey->group_id = $groupId;
-        $doorkey->max_uses = $maxUses;
-        $doorkey->activates = $activates;
-
-        return $doorkey;
-    }
-
-    public function group()
+    /**
+     * @return BelongsTo<Group, $this>
+     */
+    public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class, 'group_id');
     }
 
-    public function createdBy()
+    /**
+     * @return BelongsTo<User, $this>
+     */
+    public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
     }

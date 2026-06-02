@@ -1,11 +1,8 @@
-import CreateDoorkeyModal from './CreateDoorkeyModal';
 import DoorkeyListPage from './DoorkeyListPage';
-import EditDoorkeyModal from './EditDoorkeyModal';
-import InviteCodeModal from './InviteCodeModal';
 
+// Only the list page is part of the main admin bundle. The Create/Edit/Invite
+// modals are loaded on demand via dynamic `import()` (see DoorkeyListPage), so
+// they are split into separate chunks and intentionally kept out of this barrel.
 export const components = {
-  CreateDoorkeyModal,
   DoorkeyListPage,
-  EditDoorkeyModal,
-  InviteCodeModal,
 };
