@@ -74,4 +74,5 @@ return [
 
     (new Extend\ServiceProvider())
         ->register(DoorkeyServiceProvider::class),
+    new Extend\ApiResource(Api\Resource\DoorkeyResource::class),
 ];
