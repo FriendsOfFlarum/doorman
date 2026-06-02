@@ -138,6 +138,11 @@ class DoorkeyResource extends Resource\AbstractDatabaseResource
     {
         $model->created_by = $context->getActor()->id;
 
+        // `uses` is a read-only counter that is not provided on create. The
+        // column has no database-level default, so seed it explicitly to keep
+        // inserts valid across all drivers (SQLite enforces NOT NULL strictly).
+        $model->uses ??= 0;
+
         return $model;
     }
 
