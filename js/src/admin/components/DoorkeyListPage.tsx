@@ -111,134 +111,157 @@ export default class DoorkeyListPage extends ExtensionPage {
     const columns = this.columns().toArray();
 
     return (
-      <div className="container">
-        <div className="DoorkeyListPage-header">{this.headerItems().toArray()}</div>
+      <div className="ExtensionPage-settings">
+        <div className="container">
+          <section className="DoorkeyListPage-section">
+            <header className="DoorkeyListPage-section-header">
+              <h3 className="DoorkeyListPage-section-title">{app.translator.trans('fof-doorman.admin.settings.heading')}</h3>
+            </header>
+            <div className="DoorkeyListPage-section-body Doorkey-allowPublic">
+              {this.buildSettingComponent({
+                type: 'boolean',
+                setting: 'fof-doorman.allowPublic',
+                label: app.translator.trans('fof-doorman.admin.settings.optional_usage'),
+                help: app.translator.trans('fof-doorman.admin.settings.optional_usage_help'),
+              })}
 
-        <div className="Doorkey-allowPublic">
-          {this.buildSettingComponent({
-            type: 'boolean',
-            setting: 'fof-doorman.allowPublic',
-            label: app.translator.trans('fof-doorman.admin.settings.optional_usage'),
-          })}
-
-          {this.submitButton()}
-        </div>
-
-        <section
-          className={classList(['DoorkeyListPage-grid', this.isLoadingPage ? 'DoorkeyListPage-grid--loadingPage' : 'DoorkeyListPage-grid--loaded'])}
-          style={{ '--columns': columns.length }}
-          role="table"
-          // +1 to account for header
-          aria-rowcount={this.pageData.length + 1}
-          aria-colcount={columns.length}
-          aria-live="polite"
-          aria-busy={this.isLoadingPage ? 'true' : 'false'}
-        >
-          {/* Render columns */}
-          {columns.map((column, colIndex) => (
-            <div className="DoorkeyListPage-grid-header" role="columnheader" aria-colindex={colIndex + 1} aria-rowindex={1}>
-              {column.name}
+              <div className="Form-group Form-controls">{this.submitButton()}</div>
             </div>
-          ))}
+          </section>
 
-          {/* Render doorkey data */}
-          {this.pageData.map((doorkey, rowIndex) =>
-            columns.map((col, colIndex) => {
-              const columnContent = col.content && col.content(doorkey);
+          <section className="DoorkeyListPage-section DoorkeyListPage-section--list">
+            <header className="DoorkeyListPage-section-header">
+              <div className="DoorkeyListPage-section-titleGroup">
+                <h3 className="DoorkeyListPage-section-title">{app.translator.trans('fof-doorman.admin.list.heading')}</h3>
+                <span className="DoorkeyListPage-totalDoorkeys">
+                  {app.translator.trans('fof-doorman.admin.settings.total_doorkeys', { count: this.doorkeyCount })}
+                </span>
+              </div>
+              <div className="DoorkeyListPage-section-actions">{this.actionItems().toArray()}</div>
+            </header>
 
-              return (
-                <div
-                  className={classList(['DoorkeyListPage-grid-rowItem', rowIndex % 2 > 0 && 'DoorkeyListPage-grid-rowItem--shaded'])}
-                  data-doorkey-id={doorkey.id()}
-                  data-column-name={col.itemName}
-                  aria-colindex={colIndex + 1}
-                  // +2 to account for 0-based index, and for the header row
-                  aria-rowindex={rowIndex + 2}
-                  role="cell"
-                >
-                  {columnContent ?? app.translator.trans('fof-doorman.admin.list.content.invalid_column')}
+            <div className="DoorkeyListPage-toolbar">{this.headerItems().toArray()}</div>
+
+            <section
+              className={classList([
+                'DoorkeyListPage-grid',
+                this.isLoadingPage ? 'DoorkeyListPage-grid--loadingPage' : 'DoorkeyListPage-grid--loaded',
+              ])}
+              style={{ '--columns': columns.length }}
+              role="table"
+              // +1 to account for header
+              aria-rowcount={this.pageData.length + 1}
+              aria-colcount={columns.length}
+              aria-live="polite"
+              aria-busy={this.isLoadingPage ? 'true' : 'false'}
+            >
+              {/* Render columns */}
+              {columns.map((column, colIndex) => (
+                <div className="DoorkeyListPage-grid-header" role="columnheader" aria-colindex={colIndex + 1} aria-rowindex={1}>
+                  {column.name}
                 </div>
-              );
-            })
-          )}
+              ))}
 
-          {/* Loading spinner that shows when a new page is being loaded */}
-          {this.isLoadingPage && <LoadingIndicator size="large" />}
-        </section>
+              {/* Render doorkey data */}
+              {this.pageData.map((doorkey, rowIndex) =>
+                columns.map((col, colIndex) => {
+                  const columnContent = col.content && col.content(doorkey);
 
-        <nav className="DoorkeyListPage-gridPagination">
-          <Button
-            disabled={this.pageNumber === 0}
-            aria-label={app.translator.trans('fof-doorman.admin.list.pagination.first_page_button')}
-            title={app.translator.trans('fof-doorman.admin.list.pagination.first_page_button')}
-            onclick={this.goToPage.bind(this, 1)}
-            icon="fas fa-step-backward"
-            className="Button Button--icon DoorkeyListPage-firstPageBtn"
-          />
-          <Button
-            disabled={this.pageNumber === 0}
-            aria-label={app.translator.trans('fof-doorman.admin.list.pagination.back_button')}
-            title={app.translator.trans('fof-doorman.admin.list.pagination.back_button')}
-            onclick={this.previousPage.bind(this)}
-            icon="fas fa-chevron-left"
-            className="Button Button--icon DoorkeyListPage-backBtn"
-          />
-          <span className="DoorkeyListPage-pageNumber">
-            {app.translator.trans('fof-doorman.admin.list.pagination.page_counter', {
-              current: (
-                <input
-                  type="text"
-                  inputmode="numeric"
-                  pattern="[0-9]*"
-                  value={this.loadingPageNumber + 1}
-                  aria-label={extractText(app.translator.trans('fof-doorman.admin.list.pagination.go_to_page_textbox_a11y_label'))}
-                  autocomplete="off"
-                  className="FormControl DoorkeyListPage-pageNumberInput"
-                  onchange={(e: InputEvent) => {
-                    const target = e.target as HTMLInputElement;
-                    let pageNumber = parseInt(target.value);
+                  return (
+                    <div
+                      className={classList(['DoorkeyListPage-grid-rowItem', rowIndex % 2 > 0 && 'DoorkeyListPage-grid-rowItem--shaded'])}
+                      data-doorkey-id={doorkey.id()}
+                      data-column-name={col.itemName}
+                      aria-colindex={colIndex + 1}
+                      // +2 to account for 0-based index, and for the header row
+                      aria-rowindex={rowIndex + 2}
+                      role="cell"
+                    >
+                      {columnContent ?? app.translator.trans('fof-doorman.admin.list.content.invalid_column')}
+                    </div>
+                  );
+                })
+              )}
 
-                    if (isNaN(pageNumber)) {
-                      // Invalid value, reset to current page
-                      target.value = (this.pageNumber + 1).toString();
-                      return;
-                    }
+              {/* Loading spinner that shows when a new page is being loaded */}
+              {this.isLoadingPage && <LoadingIndicator size="large" />}
+            </section>
 
-                    if (pageNumber < 1) {
-                      // Lower constraint
-                      pageNumber = 1;
-                    } else if (pageNumber > this.getTotalPageCount()) {
-                      // Upper constraint
-                      pageNumber = this.getTotalPageCount();
-                    }
+            <nav className="DoorkeyListPage-gridPagination">
+              <Button
+                disabled={this.pageNumber === 0}
+                aria-label={app.translator.trans('fof-doorman.admin.list.pagination.first_page_button')}
+                title={app.translator.trans('fof-doorman.admin.list.pagination.first_page_button')}
+                onclick={this.goToPage.bind(this, 1)}
+                icon="fas fa-step-backward"
+                className="Button Button--icon DoorkeyListPage-firstPageBtn"
+              />
+              <Button
+                disabled={this.pageNumber === 0}
+                aria-label={app.translator.trans('fof-doorman.admin.list.pagination.back_button')}
+                title={app.translator.trans('fof-doorman.admin.list.pagination.back_button')}
+                onclick={this.previousPage.bind(this)}
+                icon="fas fa-chevron-left"
+                className="Button Button--icon DoorkeyListPage-backBtn"
+              />
+              <span className="DoorkeyListPage-pageNumber">
+                {app.translator.trans('fof-doorman.admin.list.pagination.page_counter', {
+                  current: (
+                    <input
+                      type="text"
+                      inputmode="numeric"
+                      pattern="[0-9]*"
+                      value={this.loadingPageNumber + 1}
+                      aria-label={extractText(app.translator.trans('fof-doorman.admin.list.pagination.go_to_page_textbox_a11y_label'))}
+                      autocomplete="off"
+                      className="FormControl DoorkeyListPage-pageNumberInput"
+                      onchange={(e: InputEvent) => {
+                        const target = e.target as HTMLInputElement;
+                        let pageNumber = parseInt(target.value);
 
-                    target.value = pageNumber.toString();
+                        if (isNaN(pageNumber)) {
+                          // Invalid value, reset to current page
+                          target.value = (this.pageNumber + 1).toString();
+                          return;
+                        }
 
-                    this.goToPage(pageNumber);
-                  }}
-                />
-              ),
-              currentNum: this.pageNumber + 1,
-              total: this.getTotalPageCount(),
-            })}
-          </span>
-          <Button
-            disabled={!this.moreData}
-            aria-label={app.translator.trans('fof-doorman.admin.list.pagination.next_button')}
-            title={app.translator.trans('fof-doorman.admin.list.pagination.next_button')}
-            onclick={this.nextPage.bind(this)}
-            icon="fas fa-chevron-right"
-            className="Button Button--icon DoorkeyListPage-nextBtn"
-          />
-          <Button
-            disabled={!this.moreData}
-            aria-label={app.translator.trans('fof-doorman.admin.list.pagination.last_page_button')}
-            title={app.translator.trans('fof-doorman.admin.list.pagination.last_page_button')}
-            onclick={this.goToPage.bind(this, this.getTotalPageCount())}
-            icon="fas fa-step-forward"
-            className="Button Button--icon DoorkeyListPage-lastPageBtn"
-          />
-        </nav>
+                        if (pageNumber < 1) {
+                          // Lower constraint
+                          pageNumber = 1;
+                        } else if (pageNumber > this.getTotalPageCount()) {
+                          // Upper constraint
+                          pageNumber = this.getTotalPageCount();
+                        }
+
+                        target.value = pageNumber.toString();
+
+                        this.goToPage(pageNumber);
+                      }}
+                    />
+                  ),
+                  currentNum: this.pageNumber + 1,
+                  total: this.getTotalPageCount(),
+                })}
+              </span>
+              <Button
+                disabled={!this.moreData}
+                aria-label={app.translator.trans('fof-doorman.admin.list.pagination.next_button')}
+                title={app.translator.trans('fof-doorman.admin.list.pagination.next_button')}
+                onclick={this.nextPage.bind(this)}
+                icon="fas fa-chevron-right"
+                className="Button Button--icon DoorkeyListPage-nextBtn"
+              />
+              <Button
+                disabled={!this.moreData}
+                aria-label={app.translator.trans('fof-doorman.admin.list.pagination.last_page_button')}
+                title={app.translator.trans('fof-doorman.admin.list.pagination.last_page_button')}
+                onclick={this.goToPage.bind(this, this.getTotalPageCount())}
+                icon="fas fa-step-forward"
+                className="Button Button--icon DoorkeyListPage-lastPageBtn"
+              />
+            </nav>
+          </section>
+        </div>
       </div>
     );
   }
@@ -262,14 +285,6 @@ export default class DoorkeyListPage extends ExtensionPage {
       </div>,
       100
     );
-
-    items.add(
-      'totalDoorkeys',
-      <p class="DoorkeyListPage-totalDoorkeys">{app.translator.trans('fof-doorman.admin.settings.total_doorkeys', { count: this.doorkeyCount })}</p>,
-      90
-    );
-
-    items.add('actions', <div className="DoorkeyListPage-actions">{this.actionItems().toArray()}</div>, 80);
 
     return items;
   }
