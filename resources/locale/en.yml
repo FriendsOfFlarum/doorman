@@ -60,12 +60,15 @@ fof-doorman:
         success: Emails successfully sent
 
     settings:
+      heading: Settings
       search: Search doorkeys
       total_doorkeys: "Total doorkeys: {count}"
       create_doorkey_button: Create Invite Code
       optional_usage: Make invite code optional when signing up
+      optional_usage_help: When enabled, visitors can register without entering an invite code.
 
     list:
+      heading: Invite codes
       columns:
         id: ID
         key: => fof-doorman.admin.ref.fields.key.label
