@@ -41,11 +41,15 @@ class PostRegisterOperations
         if ($doorkey && $doorkey->group_id !== 3) {
             $oldGroups = $user->groups()->get()->all();
 
-            $user->groups()->attach($doorkey->group_id);
+            // Another extension may already have added this group during registration,
+            // e.g. fof/oauth's per-provider group assignment.
+            $changes = $user->groups()->syncWithoutDetaching([$doorkey->group_id]);
 
-            $this->events->dispatch(
-                new GroupsChanged($user, $oldGroups)
-            );
+            if (!empty($changes['attached'])) {
+                $this->events->dispatch(
+                    new GroupsChanged($user, $oldGroups)
+                );
+            }
         }
 
         $user->save();
